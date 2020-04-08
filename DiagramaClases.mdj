@@ -61,7 +61,7 @@
 											"font": "Arial;13;1",
 											"left": 93,
 											"top": 55,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
 											"text": "Usuario"
 										},
@@ -96,7 +96,7 @@
 									"font": "Arial;13;0",
 									"left": 88,
 									"top": 48,
-									"width": 119.49072265625,
+									"width": 160.6689453125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFxDk8sLRnmHpA="
@@ -133,7 +133,7 @@
 											"font": "Arial;13;0",
 											"left": 93,
 											"top": 78,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
 											"text": "-usuario",
 											"horizontalAlignment": 0
@@ -150,7 +150,7 @@
 											"font": "Arial;13;0",
 											"left": 93,
 											"top": 93,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
 											"text": "-email",
 											"horizontalAlignment": 0
@@ -167,7 +167,7 @@
 											"font": "Arial;13;0",
 											"left": 93,
 											"top": 108,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
 											"text": "-rol",
 											"horizontalAlignment": 0
@@ -184,7 +184,7 @@
 											"font": "Arial;13;0",
 											"left": 93,
 											"top": 123,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
 											"text": "-password",
 											"horizontalAlignment": 0
@@ -201,7 +201,7 @@
 											"font": "Arial;13;0",
 											"left": 93,
 											"top": 138,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
 											"text": "-nombre",
 											"horizontalAlignment": 0
@@ -218,7 +218,7 @@
 											"font": "Arial;13;0",
 											"left": 93,
 											"top": 153,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
 											"text": "-domicilio",
 											"horizontalAlignment": 0
@@ -235,9 +235,9 @@
 											"font": "Arial;13;0",
 											"left": 93,
 											"top": 168,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
-											"text": "-DNI",
+											"text": "-dni",
 											"horizontalAlignment": 0
 										},
 										{
@@ -252,16 +252,16 @@
 											"font": "Arial;13;0",
 											"left": 93,
 											"top": 183,
-											"width": 109.49072265625,
+											"width": 150.6689453125,
 											"height": 13,
-											"text": "+fecha_nacimiento",
+											"text": "-fechaNacimiento",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 88,
 									"top": 73,
-									"width": 119.49072265625,
+									"width": 160.6689453125,
 									"height": 128
 								},
 								{
@@ -276,7 +276,7 @@
 									"font": "Arial;13;0",
 									"left": 88,
 									"top": 201,
-									"width": 119.49072265625,
+									"width": 160.6689453125,
 									"height": 10
 								},
 								{
@@ -291,7 +291,7 @@
 									"font": "Arial;13;0",
 									"left": 88,
 									"top": 211,
-									"width": 119.49072265625,
+									"width": 160.6689453125,
 									"height": 10
 								},
 								{
@@ -305,9 +305,9 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -64,
-									"top": -8,
-									"width": 10,
+									"left": 117,
+									"top": 48,
+									"width": 130.6689453125,
 									"height": 10
 								}
 							],
@@ -315,8 +315,8 @@
 							"containerChangeable": true,
 							"left": 88,
 							"top": 48,
-							"width": 119.49072265625,
-							"height": 173,
+							"width": 160.6689453125,
+							"height": 191,
 							"nameCompartment": {
 								"$ref": "AAAAAAFxDk8sLRnlecY="
 							},
@@ -449,7 +449,7 @@
 											"top": 78,
 											"width": 115.248046875,
 											"height": 13,
-											"text": "-DNI",
+											"text": "-dni",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1291,7 +1291,7 @@
 											"top": 108,
 											"width": 116.6953125,
 											"height": 13,
-											"text": "-FechaCarga",
+											"text": "-fechaCarga",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1308,7 +1308,7 @@
 											"top": 123,
 											"width": 116.6953125,
 											"height": 13,
-											"text": "-PracticaAsociada",
+											"text": "-practicaAsociada",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1450,7 +1450,7 @@
 											"top": 368,
 											"width": 118.8662109375,
 											"height": 13,
-											"text": "Analisis_Practica"
+											"text": "AnalisisPractica"
 										},
 										{
 											"_type": "LabelView",
@@ -1694,7 +1694,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 167,
-									"top": 297,
+									"top": 306,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -1715,7 +1715,7 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"left": 182,
-									"top": 297,
+									"top": 306,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -1736,7 +1736,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 138,
-									"top": 298,
+									"top": 307,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -1757,7 +1757,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 168,
-									"top": 239,
+									"top": 257,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -1778,7 +1778,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 181,
-									"top": 242,
+									"top": 260,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -1798,7 +1798,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 130,
-									"top": 235,
+									"top": 253,
 									"width": 21.68359375,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -1910,7 +1910,7 @@
 							"tail": {
 								"$ref": "AAAAAAFxDk8sLRnk95I="
 							},
-							"points": "153:220;153:389",
+							"points": "153:238;153:389",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFxDnOG7xzVLVI="
@@ -3657,7 +3657,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxDk8sLBniwF4="
 							},
-							"name": "DNI",
+							"name": "dni",
 							"visibility": "private"
 						},
 						{
@@ -3666,7 +3666,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFxDk8sLBniwF4="
 							},
-							"name": "fecha_nacimiento"
+							"name": "fechaNacimiento",
+							"visibility": "private"
 						}
 					]
 				},
@@ -3716,7 +3717,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxDk9MYRoMG4k="
 							},
-							"name": "DNI",
+							"name": "dni",
 							"visibility": "private"
 						},
 						{
@@ -4065,7 +4066,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxDlBPDRqOqBY="
 							},
-							"name": "FechaCarga",
+							"name": "fechaCarga",
 							"visibility": "private"
 						},
 						{
@@ -4074,7 +4075,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxDlBPDRqOqBY="
 							},
-							"name": "PracticaAsociada",
+							"name": "practicaAsociada",
 							"visibility": "private"
 						}
 					],
@@ -4095,7 +4096,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Analisis_Practica",
+					"name": "AnalisisPractica",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
