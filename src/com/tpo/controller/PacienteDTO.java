@@ -1,12 +1,13 @@
-package com.tpo.model;
+/**
+ * 
+ */
+package com.tpo.controller;
 
 /**
- * Pacientes del sistema,Los pacientes pueden ser dados de baja
- *  siempre y cuando no haya peticiones completas
  * @author BUSTAMJM
  *
  */
-public class Paciente {
+public class PacienteDTO {
 	private int idPaciente;
 	private int dni;
 	private String nombre;
