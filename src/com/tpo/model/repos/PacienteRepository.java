@@ -11,11 +11,25 @@ import com.tpo.model.Paciente;
  * @author BUSTAMJM
  *
  */
-public class PacienteRepository {
+public final class PacienteRepository {
+	//se usa el patron singleton para que el repositorio solo tenga una instancia
+	private static PacienteRepository INSTANCE;
 	//auto incremento para los id simula el secuenciador
 	private static int generadorId = 0;
 	//simula la bd
 	private Map<Integer, Paciente> pacientes = new HashMap<>();
+	
+	
+	/**
+	 * verifica si la instancia ya fue creada si tiene una previa devuelve esa
+	 */
+	public static PacienteRepository getInstance() {
+		if(INSTANCE == null) {
+			INSTANCE = new PacienteRepository();
+		}
+		return INSTANCE;
+	}
+	
 	
 	/**
 	 * devuelve la lista de pacientes
@@ -56,17 +70,8 @@ public class PacienteRepository {
 	 * @param paciente
 	 */
 	public void delete(int paciente) {
-		if(tienePeticionesCompletas()) {
-			//TODO ver como explica el profe como manejar los errores para pasar a la vista
-			System.out.println("El paciente posee peticiones completas");
-		} else {
 			pacientes.remove(paciente);
-		}
-		
 	}
 	
-	private boolean tienePeticionesCompletas() {
-		// TODO Aqui es necesiario traer el otro repo de peticiones por eso se creo clases repositorio
-		return false;
-	}
+	
 }

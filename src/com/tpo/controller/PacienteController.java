@@ -1,12 +1,12 @@
 package com.tpo.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.tpo.model.Paciente;
+import com.tpo.model.Peticion;
 import com.tpo.model.repos.PacienteRepository;
+import com.tpo.model.repos.PeticionRepository;
 
 /**
  * Controller de pacientes
@@ -15,8 +15,8 @@ import com.tpo.model.repos.PacienteRepository;
  */
 public class PacienteController {
 	
-	private PacienteRepository pacienteRepository = new PacienteRepository();
-	
+	private PacienteRepository pacienteRepository = PacienteRepository.getInstance();
+	private PeticionRepository peticionesRepository = PeticionRepository.getInstance();
 	
 	/**
 	 * Devolver listado de pacientes del sistema
@@ -53,7 +53,13 @@ public class PacienteController {
 	 * eliminar un paciente por id
 	 */
 	public void remove(int paciente) {
-		pacienteRepository.delete(paciente);
+		if(tienePeticionesCompletas(paciente)) {
+			//TODO ver como explica el profe como manejar los errores para pasar a la vista
+			System.out.println("El paciente posee peticiones completas");
+		} else {
+			pacienteRepository.delete(paciente);
+		}
+		
 	}
 	
 	
@@ -75,5 +81,19 @@ public class PacienteController {
 			aux.setUrl(p.getUrl());
 			pacienteRepository.save(aux);
 		}
+	}
+	/**
+	 * funcion que valida si el paciente tiene funciones completas
+	 * @return
+	 */
+	private boolean tienePeticionesCompletas(int idPaciente) {
+		List<Peticion> aux = peticionesRepository.findAll().stream()
+				.filter(p -> p.getUnPaciente().getIdPaciente() == idPaciente)
+				.collect(Collectors.toList());
+		
+		for(Peticion p : aux) {
+			if(p.peticionCompleta())return true;
+		}
+		return false;
 	}
 }
