@@ -2,6 +2,7 @@ package com.tpo.model.repos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.tpo.model.Paciente;
@@ -35,7 +36,7 @@ public final class PacienteRepository {
 	 * devuelve la lista de pacientes
 	 * @return
 	 */
-	public ArrayList findAll() {
+	public List<Paciente> findAll() {
 		return new ArrayList(pacientes.values());
 	}
 	/**
