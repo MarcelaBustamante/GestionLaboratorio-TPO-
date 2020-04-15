@@ -1,20 +1,14 @@
-package com.tpo.model;
+package com.tpo.controller;
 
-import java.time.LocalDate;
-
-public class Usuario {
-	
+public class UsuarioDTO {
 	public enum UserRol {recepción,laboratorista,administrador};//Defino enum con los roles
-	
 	private UserRol rolusuario;
 	private int    idUsuario;
 	private String usuario;
 	private String email;
-	private String password;
 	private String nombre;
 	private String domicilio;
 	private int    dni;
-	private	LocalDate  fechaNacimiento;
 	
 	public UserRol getRolusuario() {
 		return rolusuario;
@@ -22,7 +16,6 @@ public class Usuario {
 	public void setRolusuario(UserRol rolusuario) {
 		this.rolusuario = rolusuario;
 	}
-	
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -40,12 +33,6 @@ public class Usuario {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getNombre() {
 		return nombre;
@@ -65,15 +52,5 @@ public class Usuario {
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
-	public LocalDate getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}	
-
-
-
-
 
 }
