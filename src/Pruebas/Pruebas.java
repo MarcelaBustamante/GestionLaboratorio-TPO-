@@ -1,6 +1,6 @@
 package Pruebas;
 import model.*;
-import controller.*;
+
 @SuppressWarnings("unused")
 public class Pruebas {
 
