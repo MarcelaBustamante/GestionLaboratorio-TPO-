@@ -1,4 +1,4 @@
-package Pruebas;
+package test;
 import model.*;
 
 @SuppressWarnings("unused")

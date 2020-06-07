@@ -6,10 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.UIManager;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
-public class Menu {
+public class MenuView {
 
 	private JFrame frame;
 
@@ -20,7 +23,7 @@ public class Menu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu window = new Menu();
+					MenuView window = new MenuView();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,7 +35,7 @@ public class Menu {
 	/**
 	 * Create the application.
 	 */
-	public Menu() {
+	public MenuView() {
 		initialize();
 	}
 
@@ -40,9 +43,16 @@ public class Menu {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}			
 		frame = new JFrame();
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuView.class.getResource("/res/hospital4.png")));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -56,7 +66,7 @@ public class Menu {
 		JMenuItem menuPeticiones = new JMenuItem("Peticiones");
 		menuPeticiones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Peticion p = new Peticion();
+				PeticionView p = new PeticionView();
 				p.main(null);
 			}
 		});
