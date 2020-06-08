@@ -50,10 +50,10 @@ public class PeticionTableModel extends AbstractTableModel{
 		{ 
 			case 0: return listaPeticiones.get(rowIndex).getIdPeticion(); 
 			case 1: return listaPeticiones.get(rowIndex).getIdSucursal();
-			case 2: return listaPeticiones.get(rowIndex).getUnPaciente().getNombre();
+			case 2: return listaPeticiones.get(rowIndex).getUnPaciente();
 			case 3: return listaPeticiones.get(rowIndex).getObraSocial();
 			case 4: return listaPeticiones.get(rowIndex).getFechaCarga();
-			case 5: return listaPeticiones.get(rowIndex).getPracticaAsociada().getNombrePractica();
+			case 5: return listaPeticiones.get(rowIndex).getPracticaAsociada();
 			case 6: return listaPeticiones.get(rowIndex).getFechaEntrega();
 			default: return null; 
 		}

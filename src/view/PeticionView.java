@@ -10,11 +10,14 @@ import javax.swing.border.EmptyBorder;
 
 import collections.PeticionCollection;
 import view.tablemodel.PeticionTableModel;
+import view.ModalResult;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTable;
@@ -22,12 +25,18 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.FlowLayout;
 import javax.swing.UIManager;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.java.swing.plaf.windows.resources.windows;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class PeticionView extends JFrame {
 	private PeticionCollection peticiones;
+	private JFrame frame;
 	private JPanel peticionPanel;
 	private JPanel panel_1;
 	private JTable tablePeticiones;
@@ -39,9 +48,8 @@ public class PeticionView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PeticionView frame = new PeticionView();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
+					PeticionView window = new PeticionView();
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,13 +66,25 @@ public class PeticionView extends JFrame {
 		inicializar();
 	}
 
+	private void agregarPeticion() {
+		try {
+			//abre un alta de peticion
+			AltaPeticion dialog = new AltaPeticion(frame);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+			JOptionPane.showMessageDialog(null, "termineeee");
+			if (dialog.getModalResult() == ModalResult.OK)
+				tableModelPeticion.agregar(dialog.getPeticion());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}				
+	}
 	private void inicializar() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}				
-
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionView.class.getResource("/res/hospital4.png")));
 		setTitle("ABM Peticiones");
@@ -105,9 +125,14 @@ public class PeticionView extends JFrame {
 		tablePeticiones = new JTable(tableModelPeticion);
 		tablePeticiones.setAutoCreateRowSorter(true);
 		tablePeticiones.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		scrollPane.setColumnHeaderView(tablePeticiones);
+		scrollPane.setViewportView(tablePeticiones);
 		
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				agregarPeticion();
+			}
+		});
 		
 		JButton btnModificar = new JButton("Modificar");
 		

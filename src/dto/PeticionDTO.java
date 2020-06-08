@@ -3,33 +3,17 @@ package dto;
 import java.util.Date;
 
 import model.EstadoPeticion;
-import model.Paciente;
 import model.Practica;
 
 public class PeticionDTO {
 	private int idPeticion;
 	private int idSucursal;
-	private Paciente unPaciente;
+	private String unPaciente;
 	private String obraSocial;
 	private String fechaCarga;
-	private Practica practicaAsociada;
+	private String practicaAsociada;
 	private String fechaEntrega;
 	private EstadoPeticion estado;
-	
-	public PeticionDTO( int idPeticion,int idSucursal, Paciente unPaciente,
-						String obraSocial, String fechaCarga, Practica practicaAsociada,
-						String fechaEntrega,
-						EstadoPeticion estado){
-		this.idPeticion = idPeticion;
-		this.idSucursal = idSucursal;
-		this.unPaciente = unPaciente;
-		this.obraSocial = obraSocial;
-		this.fechaCarga = fechaCarga;
-		this.practicaAsociada = practicaAsociada;
-		this.fechaEntrega = fechaEntrega;
-		this.estado = estado;
-	};
-	
 	
 	/**
 	 * @return the idPeticion
@@ -58,13 +42,13 @@ public class PeticionDTO {
 	/**
 	 * @return the unPaciente
 	 */
-	public Paciente getUnPaciente() {
+	public String getUnPaciente() {
 		return unPaciente;
 	}
 	/**
 	 * @param unPaciente the unPaciente to set
 	 */
-	public void setUnPaciente(Paciente unPaciente) {
+	public void setUnPaciente(String unPaciente) {
 		this.unPaciente = unPaciente;
 	}
 	/**
@@ -94,13 +78,13 @@ public class PeticionDTO {
 	/**
 	 * @return the practicaAsociada
 	 */
-	public Practica getPracticaAsociada() {
+	public String getPracticaAsociada() {
 		return practicaAsociada;
 	}
 	/**
 	 * @param practicaAsociada the practicaAsociada to set
 	 */
-	public void setPracticaAsociada(Practica practicaAsociada) {
+	public void setPracticaAsociada(String practicaAsociada) {
 		this.practicaAsociada = practicaAsociada;
 	}
 	/**
@@ -127,4 +111,7 @@ public class PeticionDTO {
 	public void setEstado(EstadoPeticion estado) {
 		this.estado = estado;
 	}
+	
+		
+	
 }

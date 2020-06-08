@@ -6,7 +6,7 @@ public class Peticion {
 	
 	private int idPeticion;
 	private int idSucursal;
-	private Paciente unPaciente;
+	private String unPaciente;
 	private String obraSocial;
 	private Date fechaCarga;
 	private Practica practicaAsociada;
@@ -20,10 +20,10 @@ public class Peticion {
 	public void setIdPeticion(int idPeticion) {
 		this.idPeticion = idPeticion;
 	}
-	public Paciente getUnPaciente() {
+	public String getUnPaciente() {
 		return unPaciente;
 	}
-	public void setUnPaciente(Paciente unPaciente) {
+	public void setUnPaciente(String unPaciente) {
 		this.unPaciente = unPaciente;
 	}
 	public String getObraSocial() {

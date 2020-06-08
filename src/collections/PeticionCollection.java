@@ -22,11 +22,12 @@ import model.EstadoPeticion;
 
 
 public class PeticionCollection {
-private List<PeticionDTO> datos;
+private List<PeticionDTO> datos = new ArrayList<>();
 	
 	public PeticionCollection()
 	{
-		datos = leer();
+		addDemoData();
+		// datos = leer();
 		
 	}
 	
@@ -40,10 +41,13 @@ private List<PeticionDTO> datos;
 		return datos.get(index);
 	}
 	
-	public void addDemoData()
-	{
-		for (int i=0; i<2; i++)
-			datos.add(new PeticionDTO(i,i,null,"osde","2001/01/02",null,"2020/03/13",EstadoPeticion.Rechazada));
+	public void addDemoData(){ 
+		PeticionDTO p = new PeticionDTO();
+		p.setIdPeticion(1);
+		p.setIdSucursal(1);
+		p.setUnPaciente("July");
+		p.setObraSocial("OSDE");
+		datos.add(p);
 	}
 	
 	public void grabar() {
