@@ -73,9 +73,21 @@ public class MenuView {
 		mnNewMenu.add(menuPeticiones);
 		
 		JMenuItem menuUsuarios = new JMenuItem("Usuarios");
+		menuUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UsuarioView p = new UsuarioView();
+				p.main(null);
+			}
+		});
 		mnNewMenu.add(menuUsuarios);
 		
 		JMenuItem menuPacientes = new JMenuItem("Pacientes");
+		menuPacientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PacienteView p = new PacienteView();
+				p.main(null);
+			}
+		});
 		mnNewMenu.add(menuPacientes);
 		
 		JMenuItem menuPracticas = new JMenuItem("Practicas");

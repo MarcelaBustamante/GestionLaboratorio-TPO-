@@ -1,0 +1,1 @@
+[{"idPaciente":1,"dni":94472131,"nombre":"July bustamante","domicilio":"terrero12","mail":"juju@redlink.com","sexo":"Femenino","edad":23},{"idPaciente":2,"dni":94438282,"nombre":"Lucas","domicilio":"terrero 12","mail":"jojo@mail","sexo":"Masculino","edad":29},{"idPaciente":4,"dni":9999222,"nombre":"gy","domicilio":"dfghj","mail":"sdfghj","sexo":"Masculino","edad":23}]

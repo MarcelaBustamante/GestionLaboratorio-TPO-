@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 
-import collections.PeticionCollection;
-import view.tablemodel.PeticionTableModel;
+
 import view.ModalResult;
+import view.tablemodel.UsuarioTableModel;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -31,16 +31,19 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.java.swing.plaf.windows.resources.windows;
+
+import collections.UsuarioCollection;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PeticionView extends JFrame {
-	private PeticionCollection peticiones;
+public class UsuarioView extends JFrame {
+	private UsuarioCollection usuarios;
 	private JFrame frame;
-	private JPanel peticionPanel;
+	private JPanel usuarioPanel;
 	private JPanel panel_1;
-	private JTable tablePeticiones;
-	private PeticionTableModel tableModelPeticion;
+	private JTable tableUsuarios;
+	private UsuarioTableModel tableModelUsuario;
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +51,7 @@ public class PeticionView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PeticionView window = new PeticionView();
+					UsuarioView window = new UsuarioView();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,41 +63,24 @@ public class PeticionView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PeticionView() {
-		peticiones = new PeticionCollection();
-		tableModelPeticion = new PeticionTableModel(peticiones);
+	public UsuarioView() {
+		usuarios = new UsuarioCollection();
+		tableModelUsuario = new UsuarioTableModel(usuarios);
 		inicializar();
 	}
 
-	private void agregarPeticion() {
+	private void agregarUsuario() {
 		try {
 			//abre un alta de peticion
-			AltaPeticion dialog = new AltaPeticion(frame);
+			AltaUsuario dialog = new AltaUsuario(frame);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			JOptionPane.showMessageDialog(null,"finalizado");
+			JOptionPane.showMessageDialog(null, "Finalizado");
 			if (dialog.getModalResult() == ModalResult.OK)
-				tableModelPeticion.agregar(dialog.getPeticion());
+				tableModelUsuario.agregar(dialog.getUsuario());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}				
-	}
-	private void modificar() {
-		try {
-			AltaPeticion dialog = new AltaPeticion(frame);
-			dialog.setPeticion(peticiones.getPeticion((tablePeticiones.getSelectedRow())));
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-			if (dialog.getModalResult() == ModalResult.OK)
-				tableModelPeticion.refresh();
-		} catch (Exception e) {
-				e.printStackTrace();
-		}
-	}
-	
-	private void eliminar() {
-		//TO DO: terminar
-		JOptionPane.showConfirmDialog(null, "No se pudo dar de baja", "Eliminar",JOptionPane.CLOSED_OPTION);
 	}
 	private void inicializar() {
 		try {
@@ -103,13 +89,13 @@ public class PeticionView extends JFrame {
 			e.printStackTrace();
 		}				
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionView.class.getResource("/res/hospital4.png")));
-		setTitle("ABM Peticiones");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioView.class.getResource("/res/hospital4.png")));
+		setTitle("ABM Usuarios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 671, 542);
-		peticionPanel = new JPanel();
-		peticionPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(peticionPanel);
+		setBounds(100, 100, 778, 563);
+		usuarioPanel = new JPanel();
+		usuarioPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(usuarioPanel);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.activeCaption);
@@ -118,19 +104,19 @@ public class PeticionView extends JFrame {
 		panel_1 = new JPanel();
 		
 		JScrollPane scrollPane = new JScrollPane();
-		GroupLayout gl_peticionPanel = new GroupLayout(peticionPanel);
-		gl_peticionPanel.setHorizontalGroup(
-			gl_peticionPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_peticionPanel.createSequentialGroup()
+		GroupLayout gl_usuarioPanel = new GroupLayout(usuarioPanel);
+		gl_usuarioPanel.setHorizontalGroup(
+			gl_usuarioPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_usuarioPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
 					.addContainerGap())
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
 		);
-		gl_peticionPanel.setVerticalGroup(
-			gl_peticionPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_peticionPanel.createSequentialGroup()
+		gl_usuarioPanel.setVerticalGroup(
+			gl_usuarioPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_usuarioPanel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -139,37 +125,21 @@ public class PeticionView extends JFrame {
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
 		);
 		
-		tablePeticiones = new JTable(tableModelPeticion);
-		tablePeticiones.setAutoCreateRowSorter(true);
-		tablePeticiones.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		scrollPane.setViewportView(tablePeticiones);
+		tableUsuarios = new JTable(tableModelUsuario);
+		tableUsuarios.setAutoCreateRowSorter(true);
+		tableUsuarios.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		scrollPane.setViewportView(tableUsuarios);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				agregarPeticion();
+				agregarUsuario();
 			}
 		});
 		
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				modificar();
-				
-			}
-		});
 		
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				eliminar();
-				
-			}
-		});
 		
 		JSeparator separator = new JSeparator();
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
@@ -202,11 +172,11 @@ public class PeticionView extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblPeticiones = new JLabel("ABM Peticiones");
-		panel.add(lblPeticiones);
-		lblPeticiones.setFont(new Font("Verdana", Font.PLAIN, 20));
-		lblPeticiones.setBackground(SystemColor.desktop);
-		peticionPanel.setLayout(gl_peticionPanel);
+		JLabel lblUsuarios = new JLabel("ABM Usuarios");
+		panel.add(lblUsuarios);
+		lblUsuarios.setFont(new Font("Verdana", Font.PLAIN, 20));
+		lblUsuarios.setBackground(SystemColor.desktop);
+		usuarioPanel.setLayout(gl_usuarioPanel);
 		
 	}
 	

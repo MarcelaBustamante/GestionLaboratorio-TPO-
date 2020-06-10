@@ -63,8 +63,8 @@ public class AltaPeticion extends JDialog {
 	
 	private void inicializarControles() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionView.class.getResource("/res/hospital4.png")));
-		setTitle("Alta de Peticiones");
 		setBounds(100, 100, 660, 306);
+		setTitle("Alta de Peticiones");
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -226,6 +226,7 @@ public class AltaPeticion extends JDialog {
 	private void asignarDatosEntidad() {
 		peticion.setIdPeticion(Integer.parseInt(txtID.getText()));
 		peticion.setIdSucursal(Integer.parseInt(txtIDSucursal.getText()));
+		peticion.setObraSocial(txtObraSocial.getText());
 		peticion.setDniPaciente(Integer.parseInt(txtDNIPaciente.getText()));
 		peticion.setFechaCarga(txtFCarga.getText());
 		//peticion.setPracticaAsociada(Integer.parseInt(txtpracticaAsociada.getText()));
@@ -237,6 +238,7 @@ public class AltaPeticion extends JDialog {
 	private void asignarDatosForm(){
 		txtID.setText(String.valueOf(peticion.getIdPeticion()));
 		txtIDSucursal.setText(String.valueOf(peticion.getIdSucursal()));
+		txtObraSocial.setText(peticion.getObraSocial());
 		txtDNIPaciente.setText(String.valueOf(peticion.getDniPaciente()));
 		txtFCarga.setText(peticion.getFechaCarga());
 		textFechaEntrega.setText(peticion.getFechaEntrega());
