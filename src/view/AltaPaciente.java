@@ -19,11 +19,11 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.InternationalFormatter;
 import javax.swing.text.MaskFormatter;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
+//import org.omg.CORBA.PRIVATE_MEMBER;
 
 import controller.PacienteController;
 import dto.PacienteDTO;
-import javafx.scene.control.ComboBox;
+//import javafx.scene.control.ComboBox;
 import model.EstadoPeticion;
 import view.ModalResult;
 

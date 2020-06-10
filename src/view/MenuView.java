@@ -91,6 +91,12 @@ public class MenuView {
 		mnNewMenu.add(menuPacientes);
 		
 		JMenuItem menuPracticas = new JMenuItem("Practicas");
+		menuPracticas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PracticaView p = new PracticaView();
+				p.main(null);
+			}
+		});
 		mnNewMenu.add(menuPracticas);
 		
 		JMenuItem menuCerrar = new JMenuItem("Cerrar");
