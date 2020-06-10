@@ -16,8 +16,8 @@ public class PeticionTableModel extends AbstractTableModel{
 
 	private List<PeticionDTO> listaPeticiones;
 	
-	protected String[] columnNames = new String[] { "ID", "Sucursal", "Nombre del paciente", "Obra social", "Fecha inicio", "Practica", "Fecha Entrega"}; 
-	protected Class[] columnClasses = new Class[] { int.class, int.class, String.class, String.class, String.class, String.class,String.class}; 
+	protected String[] columnNames = new String[] { "ID", "Sucursal", "DNI", "Obra social", "Fecha inicio", "Practica", "Fecha Entrega"}; 
+	protected Class[] columnClasses = new Class[] { int.class, int.class, int.class, String.class, String.class, int.class,String.class}; 
 
 
 	public String getColumnName(int col) { return columnNames[col]; } 
@@ -50,7 +50,7 @@ public class PeticionTableModel extends AbstractTableModel{
 		{ 
 			case 0: return listaPeticiones.get(rowIndex).getIdPeticion(); 
 			case 1: return listaPeticiones.get(rowIndex).getIdSucursal();
-			case 2: return listaPeticiones.get(rowIndex).getUnPaciente();
+			case 2: return listaPeticiones.get(rowIndex).getDniPaciente();
 			case 3: return listaPeticiones.get(rowIndex).getObraSocial();
 			case 4: return listaPeticiones.get(rowIndex).getFechaCarga();
 			case 5: return listaPeticiones.get(rowIndex).getPracticaAsociada();

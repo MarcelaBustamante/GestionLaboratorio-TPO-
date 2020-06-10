@@ -17,7 +17,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import dto.PeticionDTO;
-import model.EstadoPeticion;
 
 
 
@@ -26,8 +25,8 @@ private List<PeticionDTO> datos = new ArrayList<>();
 	
 	public PeticionCollection()
 	{
-		addDemoData();
-		// datos = leer();
+		 // addDemoData();
+		 datos = leer();
 		
 	}
 	
@@ -41,31 +40,32 @@ private List<PeticionDTO> datos = new ArrayList<>();
 		return datos.get(index);
 	}
 	
+	public void agregarDatos(PeticionDTO peticion) {
+		datos.add(peticion);
+	}
+	
 	public void addDemoData(){ 
 		PeticionDTO p = new PeticionDTO();
 		p.setIdPeticion(1);
 		p.setIdSucursal(1);
-		p.setUnPaciente("July");
+		p.setDniPaciente(94472131);
 		p.setObraSocial("OSDE");
 		datos.add(p);
 	}
 	
 	public void grabar() {
-		File archivo = new File("./peticiones.txt");
-		FileWriter fileWriter; 
-		BufferedWriter bwEscritor; 
+		File archivo = new File("peticiones.txt");
 		String texto;
 		Gson g = new Gson();
 		texto = g.toJson(datos);
 		//grabo el String
-		try{
+		try (
+			FileWriter fileWriter = new FileWriter(archivo);
+			BufferedWriter writer = new BufferedWriter(fileWriter);
+		) {
 			//Este bloque de codigo obligatoriamente debe ir dentro de un try.
-			fileWriter = new FileWriter(archivo);
-			fileWriter.write(texto);
-			bwEscritor = new BufferedWriter(fileWriter);
-			bwEscritor.close();		
-		}catch(Exception ex)
-		{
+			writer.write(texto);
+		} catch(Exception ex) {
 			JOptionPane.showMessageDialog(null,ex.getMessage());
 		}
 	}
@@ -73,9 +73,9 @@ private List<PeticionDTO> datos = new ArrayList<>();
     private List<PeticionDTO> leer() {
     	ArrayList<PeticionDTO> peticiones = new ArrayList<>();
         String cadena;
-        File archivo = new File("./peticion.txt");
-        if (archivo.exists())
-        {
+        File archivo = new File("peticiones.txt");
+        if(archivo.exists()) {
+        	 System.out.println("lo encontró");
             FileReader f;
     		try {
     			f = new FileReader(archivo);

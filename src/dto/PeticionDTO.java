@@ -1,20 +1,16 @@
 package dto;
 
-import java.util.Date;
-
 import model.EstadoPeticion;
-import model.Practica;
 
 public class PeticionDTO {
 	private int idPeticion;
 	private int idSucursal;
-	private String unPaciente;
+	private int dniPaciente;
 	private String obraSocial;
 	private String fechaCarga;
-	private String practicaAsociada;
+	private int practicaAsociada;
 	private String fechaEntrega;
 	private EstadoPeticion estado;
-	
 	/**
 	 * @return the idPeticion
 	 */
@@ -40,16 +36,16 @@ public class PeticionDTO {
 		this.idSucursal = idSucursal;
 	}
 	/**
-	 * @return the unPaciente
+	 * @return the dniPaciente
 	 */
-	public String getUnPaciente() {
-		return unPaciente;
+	public int getDniPaciente() {
+		return dniPaciente;
 	}
 	/**
-	 * @param unPaciente the unPaciente to set
+	 * @param dniPaciente the dniPaciente to set
 	 */
-	public void setUnPaciente(String unPaciente) {
-		this.unPaciente = unPaciente;
+	public void setDniPaciente(int dniPaciente) {
+		this.dniPaciente = dniPaciente;
 	}
 	/**
 	 * @return the obraSocial
@@ -78,13 +74,13 @@ public class PeticionDTO {
 	/**
 	 * @return the practicaAsociada
 	 */
-	public String getPracticaAsociada() {
+	public int getPracticaAsociada() {
 		return practicaAsociada;
 	}
 	/**
 	 * @param practicaAsociada the practicaAsociada to set
 	 */
-	public void setPracticaAsociada(String practicaAsociada) {
+	public void setPracticaAsociada(int practicaAsociada) {
 		this.practicaAsociada = practicaAsociada;
 	}
 	/**
@@ -113,5 +109,4 @@ public class PeticionDTO {
 	}
 	
 		
-	
 }

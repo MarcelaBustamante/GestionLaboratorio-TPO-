@@ -1,0 +1,1 @@
+[{"idPeticion":1,"idSucursal":1,"dniPaciente":1,"fechaCarga":"11/11/1111","practicaAsociada":0,"fechaEntrega":"11/11/1111","estado":"Activa"},{"idPeticion":2,"idSucursal":1,"dniPaciente":98,"fechaCarga":"11/11/1111","practicaAsociada":0,"fechaEntrega":"11/11/1111","estado":"Activa"}]

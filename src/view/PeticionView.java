@@ -72,7 +72,7 @@ public class PeticionView extends JFrame {
 			AltaPeticion dialog = new AltaPeticion(frame);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			JOptionPane.showMessageDialog(null, "termineeee");
+			JOptionPane.showMessageDialog(null,"finalizado");
 			if (dialog.getModalResult() == ModalResult.OK)
 				tableModelPeticion.agregar(dialog.getPeticion());
 		} catch (Exception e) {
@@ -106,10 +106,10 @@ public class PeticionView extends JFrame {
 			gl_peticionPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_peticionPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
 					.addContainerGap())
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
 		);
 		gl_peticionPanel.setVerticalGroup(
 			gl_peticionPanel.createParallelGroup(Alignment.TRAILING)
