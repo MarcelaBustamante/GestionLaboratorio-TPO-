@@ -17,7 +17,7 @@ public class UsuarioTableModel extends AbstractTableModel{
 
 	private List<UsuarioDTO> listaUsuarios;
 	
-	protected String[] columnNames = new String[] { "Nombre de usuario", "Mail", "Contraseña", "Nombre del paciente","Direccion", "Dni", "Fecha de nacimiento","Rol"}; 
+	protected String[] columnNames = new String[] { "Nombre de usuario", "Fecha de nacimiento", "Contraseña", "Domicilio","Nombre", "Dni", "Mail","RolUsuario"}; 
 	protected Class[] columnClasses = new Class[] { String.class,String.class,String.class,String.class,String.class,int.class, String.class,String.class}; 
 
 
@@ -50,13 +50,13 @@ public class UsuarioTableModel extends AbstractTableModel{
 		switch(columnIndex) 
 		{ 
 			case 0: return listaUsuarios.get(rowIndex).getNombreUsuario(); 
-			case 1: return listaUsuarios.get(rowIndex).getMail();
+			case 1: return listaUsuarios.get(rowIndex).getFechaNacimiento();
 			case 2: return listaUsuarios.get(rowIndex).getPassword();
-			case 3: return listaUsuarios.get(rowIndex).getNombre();
-			case 4: return listaUsuarios.get(rowIndex).getDomicilio();
+			case 3: return listaUsuarios.get(rowIndex).getDomicilio();
+			case 4: return listaUsuarios.get(rowIndex).getNombre();
 			case 5: return listaUsuarios.get(rowIndex).getDni();
-			case 6: return listaUsuarios.get(rowIndex).getFechaNacimiento();
-			case 7: return listaUsuarios.get(rowIndex).getRol();
+			case 6: return listaUsuarios.get(rowIndex).getMail();
+			case 7: return listaUsuarios.get(rowIndex).getRolUsuario();
 			default: return null; 
 		}
 	}

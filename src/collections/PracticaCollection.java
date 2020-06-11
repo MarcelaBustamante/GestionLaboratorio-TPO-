@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -18,22 +16,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-import dto.PeticionDTO;
-import dto.PracticaDTO;;
+import dto.PracticaDTO;
+import dto.UsuarioDTO;
 
 public class PracticaCollection {
-	private List<PracticaDTO> datos;
-	
+	private List<PracticaDTO> datos = new ArrayList<>();
 	public PracticaCollection()
 	{
-		leer();
-		
+		//addDemoData();
+		datos = leer();
 	}
-	
-	public void agregarDatos(PracticaDTO practica) {
-		datos.add(practica);
-	}
-	
 	public List<PracticaDTO> getPracticaList()
 	{
 		return datos;
@@ -44,18 +36,25 @@ public class PracticaCollection {
 		return datos.get(index);
 	}
 	
-	
-
-	public void grabar() {
-		String nombreArchivo = "practicas.txt";
-		try {
-			FileUtils.grabar(nombreArchivo, datos);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
+	public void agregarDatos(PracticaDTO practica) {
+		datos.add(practica);
 	}
-		/*
-		File archivo = new File("./personas.txt");
+	
+	/*public void addDemoData()
+	{
+		UsuarioDTO p = new UsuarioDTO();
+		p.setNombreUsuario("RobertoM");
+        p.setMail("robert@hotmail.com");
+        p.setPassword("Chinchulin");
+        p.setNombre("Roberto Magan");
+        p.setDomicilio("Avenida Independencia 552");
+        p.setDni(4523664);
+        p.setFechaNacimiento("20/02/1993");
+        p.setRolUsuario("Administrador");
+		datos.add(p);
+	}*/
+	public void grabar() {
+		//File archivo = new File("pacientes.txt");
 		FileWriter fileWriter; 
 		BufferedWriter bwEscritor; 
 		String texto;
@@ -64,7 +63,7 @@ public class PracticaCollection {
 		//grabo el String
 		try{
 			//Este bloque de codigo obligatoriamente debe ir dentro de un try.
-			fileWriter = new FileWriter(archivo);
+			fileWriter = new FileWriter("practicas.txt");
 			fileWriter.write(texto);
 			bwEscritor = new BufferedWriter(fileWriter);
 			bwEscritor.close();		
@@ -72,48 +71,29 @@ public class PracticaCollection {
 		{
 			JOptionPane.showMessageDialog(null,ex.getMessage());
 		}
-		*/
-	
-    private List<PracticaDTO> leer() {
-    	String nombreArchivo = "practicas.txt";
-		try {
-			datos = FileUtils.leer(nombreArchivo, PracticaDTO.class);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-		return datos;
-    }
-    	/*
-    	ArrayList<PracticaDTO> personas = new ArrayList<PracticaDTO>();
-        String cadena;
-        File archivo = new File("./personas.txt");
-        if (archivo.exists())
-        {
-            FileReader f;
-    		try {
-    			f = new FileReader(archivo);
-    	        BufferedReader b = new BufferedReader(f);
-    	        cadena = b.readLine();
-    	        System.out.println(cadena);
-    	        JsonParser parser = new JsonParser();
-    	        JsonArray gsonArr = parser.parse(cadena).getAsJsonArray();
-    	        Gson g = new Gson();
-    	        for(JsonElement js : gsonArr) //System.out.println(js.toString());
-    	        	personas.add(g.fromJson(js, PracticaDTO.class));
-    	        
-    	        b.close();
-    	        
-    	        //for(Object o : aux)
-    	        //	scores.add((Score) o);
-    	        return personas;
-    		} catch (IOException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-        }
-		return personas;
-		
-    }
-    */
+	}
+	 private List<PracticaDTO> leer() {
+	    	ArrayList<PracticaDTO> practicas = new ArrayList<>();
+	        String cadena;
+	        
+	            FileReader f;
+	    		try {
+	    			f = new FileReader("practicas.txt");
+	    	        BufferedReader b = new BufferedReader(f);
+	    	        cadena = b.readLine();
+	    	        System.out.println(cadena);
+	    	        JsonParser parser = new JsonParser();
+	    	        JsonArray gsonArr = parser.parse(cadena).getAsJsonArray();
+	    	        Gson g = new Gson();
+	    	        for(JsonElement js : gsonArr)
+	    	        	practicas.add(g.fromJson(js, PracticaDTO.class));
+	    	        	b.close();
+	    	        	return practicas;
+	    		} catch (IOException e) {
 
+	    			e.printStackTrace();
+	    		}
+	        
+			return practicas;	
+	    }
 }

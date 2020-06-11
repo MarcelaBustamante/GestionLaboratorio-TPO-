@@ -1,11 +1,22 @@
 package collections;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import dto.PeticionDTO;
+import dto.UsuarioDTO;
 
 
 
@@ -43,22 +54,46 @@ private List<PeticionDTO> datos;
 	}
 	
 	public void grabar() {
-		String nombreArchivo = "peticiones.txt";
-		try {
-			FileUtils.grabar(nombreArchivo, datos);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+		//File archivo = new File("pacientes.txt");
+		FileWriter fileWriter; 
+		BufferedWriter bwEscritor; 
+		String texto;
+		Gson g = new Gson();
+		texto = g.toJson(datos);
+		//grabo el String
+		try{
+			//Este bloque de codigo obligatoriamente debe ir dentro de un try.
+			fileWriter = new FileWriter("peticiones.txt");
+			fileWriter.write(texto);
+			bwEscritor = new BufferedWriter(fileWriter);
+			bwEscritor.close();		
+		}catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null,ex.getMessage());
 		}
 	}
-	
-    private List<PeticionDTO> leer() {
-    	String nombreArchivo = "peticiones.txt";
-		try {
-			datos = FileUtils.leer(nombreArchivo, PeticionDTO.class);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-		return datos;
-    }
+	 private List<PeticionDTO> leer() {
+	    	ArrayList<PeticionDTO> peticiones = new ArrayList<>();
+	        String cadena;
+	        
+	            FileReader f;
+	    		try {
+	    			f = new FileReader("peticiones.txt");
+	    	        BufferedReader b = new BufferedReader(f);
+	    	        cadena = b.readLine();
+	    	        System.out.println(cadena);
+	    	        JsonParser parser = new JsonParser();
+	    	        JsonArray gsonArr = parser.parse(cadena).getAsJsonArray();
+	    	        Gson g = new Gson();
+	    	        for(JsonElement js : gsonArr)
+	    	        	peticiones.add(g.fromJson(js, PeticionDTO.class));
+	    	        	b.close();
+	    	        	return peticiones;
+	    		} catch (IOException e) {
 
+	    			e.printStackTrace();
+	    		}
+	        
+			return peticiones;	
+	    }
 }

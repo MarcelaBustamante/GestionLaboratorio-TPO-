@@ -31,7 +31,9 @@ import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import controller.PacienteController;
+import com.sun.java.swing.plaf.windows.resources.windows;
+
+import Controller.PacienteController;
 import collections.PacienteCollection;
 
 import java.awt.event.ActionListener;

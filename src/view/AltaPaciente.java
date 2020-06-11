@@ -3,7 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -19,11 +18,11 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.InternationalFormatter;
 import javax.swing.text.MaskFormatter;
 
-//import org.omg.CORBA.PRIVATE_MEMBER;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
-import controller.PacienteController;
+import Controller.PacienteController;
 import dto.PacienteDTO;
-//import javafx.scene.control.ComboBox;
+import javafx.scene.control.ComboBox;
 import model.EstadoPeticion;
 import view.ModalResult;
 
@@ -41,6 +40,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
 
 
 public class AltaPaciente extends JDialog {
@@ -66,9 +66,7 @@ public class AltaPaciente extends JDialog {
 	 */
 	
 	private void inicializarControles() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionView.class.getResource("/res/hospital4.png")));
 		setBounds(100, 100, 660, 306);
-		setTitle("Alta de Pacientes");
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -208,6 +206,7 @@ public class AltaPaciente extends JDialog {
 	}
 	public AltaPaciente(JFrame frame) {
 		super(frame, "Paciente", true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaPaciente.class.getResource("/res/hospital4.png")));
 		setLocationRelativeTo(frame);
 		controladorController = new PacienteController();
 		inicializarControles();

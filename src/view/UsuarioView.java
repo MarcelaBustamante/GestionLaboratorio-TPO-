@@ -30,7 +30,7 @@ import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-//import com.sun.java.swing.plaf.windows.resources.windows;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 import collections.UsuarioCollection;
 
@@ -77,7 +77,7 @@ public class UsuarioView extends JFrame {
 			dialog.setVisible(true);
 			JOptionPane.showMessageDialog(null, "Finalizado");
 			if (dialog.getModalResult() == ModalResult.OK)
-				tableModelUsuario.agregar(dialog.getUsuario());
+				tableModelUsuario.agregar(dialog.getUsuarioDTO());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}				
@@ -92,7 +92,7 @@ public class UsuarioView extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioView.class.getResource("/res/hospital4.png")));
 		setTitle("ABM Usuarios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 778, 563);
+		setBounds(100, 100, 811, 563);
 		usuarioPanel = new JPanel();
 		usuarioPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(usuarioPanel);

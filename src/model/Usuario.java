@@ -7,6 +7,7 @@ public class Usuario {
 	private String domicilio;
 	private int dni;
 	private String fechaNacimiento;
+	private String rolUsuario;
 	
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -49,5 +50,11 @@ public class Usuario {
 	}
 	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento=fechaNacimiento;
+	}
+	public String getRolUsuario() {
+		return rolUsuario;
+	}
+	public void setRolUsuario(String rolUsuario) {
+		this.rolUsuario=rolUsuario;
 	}
 }

@@ -18,13 +18,18 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.InternationalFormatter;
 import javax.swing.text.MaskFormatter;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
+import Controller.PacienteController;
+import Controller.UsuarioController;
+import dto.PacienteDTO;
 import dto.UsuarioDTO;
-import model.RolUsuario;
+import javafx.scene.control.ComboBox;
+import model.EstadoPeticion;
 import view.ModalResult;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -35,25 +40,25 @@ import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
-import javax.swing.JSlider;
-import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
 
 
 public class AltaUsuario extends JDialog {
-
+//"ID", "Dni", "Nombre", "Domicilio", "Mail", "Sexo", "Edad"
 	private final JPanel contentPanel = new JPanel();
+	private UsuarioController controladorController;
 	private JTextField txtNombreUsuario;
-	private JTextField txtMail;
-	private JTextField txtContraseña;
-	private JTextField txtNombre;
-	private JTextField txtDomicilio;
 	private JFormattedTextField txtFechaNacimiento;
+	private JTextField txtContraseña;
+	private JTextField txtDomicilio;
+	private JTextField txtNombre;
 	private JTextField txtDni;
-	private UsuarioDTO usuario = new UsuarioDTO(); 
+	private JTextField txtMail;
+	private JComboBox<String> rolbox;
 	private ModalResult modalResult;
+	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -63,114 +68,117 @@ public class AltaUsuario extends JDialog {
 	 */
 	
 	private void inicializarControles() {
-		setBounds(100, 100, 636, 333);
+		setBounds(100, 100, 764, 372);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		JLabel lblNombreUsuario = new JLabel("Nombre Usuario");
+		JLabel lblNewLabel = new JLabel("Nombre de Usuario");
 		
 		txtNombreUsuario = new JTextField();
 		txtNombreUsuario.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Mail");
+		JLabel lblNewLabel_1 = new JLabel("Fecha de Nacimiento");
 		
-		txtMail = new JTextField();
-		txtMail.setColumns(10);
+		txtFechaNacimiento = new JFormattedTextField();
+		txtFechaNacimiento.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Contraseña");
+		JLabel lblNewLabel_2 = new JLabel("Contraseña");
 		
 		txtContraseña = new JTextField();
 		txtContraseña.setColumns(10);
 		
-		JLabel lblNombre = new JLabel("Nombre");
-		
-		txtNombre = new JTextField();
-		txtNombre.setColumns(10);
-		
-		JLabel lblNewLabel_4 = new JLabel("Domicilio");
+		JLabel lblDomicilio = new JLabel("Domicilio");
 		
 		txtDomicilio = new JTextField();
 		txtDomicilio.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Fecha de Nacimiento");
+		JLabel lblNewLabel_3 = new JLabel("Nombre");
 		
-		txtFechaNacimiento = new JFormattedTextField();
+		txtNombre = new JTextField();
+		txtNombre.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Dni");
+		JLabel lblNewLabel_4 = new JLabel("Dni");
 		
-		txtDni = new JTextField();
+		txtDni= new JTextField();
 		txtDni.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("Rol");
+		JLabel lblNewLabel_5 = new JLabel("Mail");
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Recepcion", "Laboratorista", "Administrador"}));
+		txtMail = new JTextField();
+		txtMail.setColumns(10);
 		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		rolbox= new JComboBox();
+		rolbox.setModel(new DefaultComboBoxModel(new String[] {"Recepcion", "Laboratorista", "Administrador"}));
+		
+		JLabel lblNewLabel_6 = new JLabel("Rol");
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel_1, Alignment.LEADING)
-						.addComponent(lblNewLabel_2, Alignment.LEADING)
-						.addComponent(lblNewLabel_3, Alignment.LEADING)
-						.addComponent(lblNewLabel, Alignment.LEADING)
-						.addComponent(lblNombreUsuario, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNombre, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_4, Alignment.LEADING)
-						.addComponent(lblNewLabel_5, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-							.addComponent(txtContraseña, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-							.addComponent(txtMail, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-							.addComponent(txtDomicilio, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-							.addComponent(txtDni, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-							.addComponent(txtFechaNacimiento, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-							.addComponent(txtNombreUsuario, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(170, Short.MAX_VALUE))
+							.addComponent(lblNewLabel)
+							.addComponent(lblNewLabel_2)
+							.addComponent(lblNewLabel_4)
+							.addComponent(lblNewLabel_3, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+							.addComponent(lblDomicilio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblNewLabel_1))
+						.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_6, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+					.addGap(26)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(rolbox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtDni)
+						.addComponent(txtNombre)
+						.addComponent(txtDomicilio)
+						.addComponent(txtContraseña)
+						.addComponent(txtFechaNacimiento)
+						.addComponent(txtNombreUsuario, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+						.addComponent(txtMail))
+					.addContainerGap(293, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombreUsuario)
+						.addComponent(lblNewLabel)
 						.addComponent(txtNombreUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(4)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(txtContraseña, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombre)
-						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_2)
+						.addComponent(lblNewLabel_1)
 						.addComponent(txtFechaNacimiento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_3)
-						.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNewLabel_2)
+						.addComponent(txtContraseña, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
-						.addComponent(txtMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_4)
+						.addComponent(lblDomicilio)
 						.addComponent(txtDomicilio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_3)
+						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_4)
+						.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_5)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(33, Short.MAX_VALUE))
+						.addComponent(txtMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_6)
+						.addComponent(rolbox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
@@ -204,7 +212,6 @@ public class AltaUsuario extends JDialog {
 		}
 		
 	}
-	
 	private void asignarFormato() {
 		try {
 			try {
@@ -216,36 +223,32 @@ public class AltaUsuario extends JDialog {
 		}
 		catch (Exception e) {e.printStackTrace();}		
 	}
-	
 	public AltaUsuario(JFrame frame) {
 		super(frame, "Usuario", true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaUsuario.class.getResource("/res/hospital4.png")));
 		setLocationRelativeTo(frame);
+		controladorController = new UsuarioController();
 		inicializarControles();
 		asignarFormato();
 	}
 
-	public UsuarioDTO getUsuario() {
-		return usuario;
-	}
+	
 
 	private void asignarDatosEntidad() {
-		usuario.setNombreUsuario(txtNombreUsuario.getText());
-		usuario.setNombre(txtNombre.getText());
-		usuario.setPassword((txtContraseña.getText()));
-		usuario.setFechaNacimiento(txtFechaNacimiento.getText());
-		usuario.setMail(txtMail.getText());
-		usuario.setDni(Integer.parseInt(txtDni.getText()));
-		usuario.setDomicilio(txtDomicilio.getText());
+		
+		String nombreUsuario = txtNombreUsuario.getText();
+		String fechaNacimiento = txtFechaNacimiento.getText();
+		String contraseña = txtContraseña.getText();
+		String domicilio = txtDomicilio.getText();
+		String nombre= txtNombre.getText();
+		int dni= Integer.parseInt(txtDni.getText());
+		String mail = txtMail.getText();
+		String rol = rolbox.getItemAt(rolbox.getSelectedIndex());
+		controladorController.altaUsuario(nombreUsuario, fechaNacimiento, contraseña, domicilio,nombre, dni, mail, rol);
 	}
 	
-	private void asignarDatosForm(){
-		txtNombreUsuario.setText(usuario.getNombreUsuario());
-		txtMail.setText(usuario.getMail());
-		txtContraseña.setText(usuario.getPassword());
-	}
-	public void setUsuario(UsuarioDTO usuario) {
-		this.usuario = usuario;
-		asignarDatosForm();
+	public UsuarioDTO getUsuarioDTO() {
+		return controladorController.getUsuarioDTO();
 	}
 
 	public ModalResult getModalResult() {

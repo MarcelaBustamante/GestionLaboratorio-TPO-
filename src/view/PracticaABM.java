@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.PracticaController;
+import Controller.PracticaController;
 import dto.PracticaDTO;
 
 import javax.swing.JLabel;
@@ -20,6 +20,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class PracticaABM extends JDialog {
 
@@ -170,6 +171,7 @@ public class PracticaABM extends JDialog {
 	
 	public PracticaABM(JFrame frame) {
 		super(frame, "Persona", true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PracticaABM.class.getResource("/res/hospital4.png")));
 		setLocationRelativeTo(frame);
 		practicaController = new PracticaController();
 		inicializarControles();

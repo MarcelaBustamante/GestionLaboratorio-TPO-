@@ -15,10 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-
-import dto.PeticionDTO;
 import dto.UsuarioDTO;
-import model.RolUsuario;
 
 public class UsuarioCollection {
 	private List<UsuarioDTO> datos = new ArrayList<>();
@@ -36,35 +33,65 @@ public class UsuarioCollection {
 	{
 		return datos.get(index);
 	}
-	public void addDemoData()
-	{
-		UsuarioDTO u = new UsuarioDTO();
-		u.setNombreUsuario("Carl523");
-		u.setMail("carl@hotmail.com");
-		u.setPassword("Maracan983");
-		u.setNombre("Carlos Rodriguez");
-		u.setDomicilio("Avenida Independencia 883");
-		u.setDni(4862335);
-		u.setFechaNacimiento("25/07/1995");
-		u.setRolUsuario(RolUsuario.laboratorista);
-		datos.add(u);
-	}
-	public void grabar() {
-		String nombreArchivo = "peticiones.txt";
-		try {
-			FileUtils.grabar(nombreArchivo, datos);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
+	
+	public void agregarDatos(UsuarioDTO usuario) {
+		datos.add(usuario);
 	}
 	
-    private List<UsuarioDTO> leer() {
-    	String nombreArchivo = "peticiones.txt";
-		try {
-			datos = FileUtils.leer(nombreArchivo, UsuarioDTO.class);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+	public void addDemoData()
+	{
+		UsuarioDTO p = new UsuarioDTO();
+		p.setNombreUsuario("RobertoM");
+        p.setMail("robert@hotmail.com");
+        p.setPassword("Chinchulin");
+        p.setNombre("Roberto Magan");
+        p.setDomicilio("Avenida Independencia 552");
+        p.setDni(4523664);
+        p.setFechaNacimiento("20/02/1993");
+        p.setRolUsuario("Administrador");
+		datos.add(p);
+	}
+	public void grabar() {
+		//File archivo = new File("pacientes.txt");
+		FileWriter fileWriter; 
+		BufferedWriter bwEscritor; 
+		String texto;
+		Gson g = new Gson();
+		texto = g.toJson(datos);
+		//grabo el String
+		try{
+			//Este bloque de codigo obligatoriamente debe ir dentro de un try.
+			fileWriter = new FileWriter("usuarios.txt");
+			fileWriter.write(texto);
+			bwEscritor = new BufferedWriter(fileWriter);
+			bwEscritor.close();		
+		}catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null,ex.getMessage());
 		}
-		return datos;
-    }
+	}
+	 private List<UsuarioDTO> leer() {
+	    	ArrayList<UsuarioDTO> usuarios = new ArrayList<>();
+	        String cadena;
+	        
+	            FileReader f;
+	    		try {
+	    			f = new FileReader("usuarios.txt");
+	    	        BufferedReader b = new BufferedReader(f);
+	    	        cadena = b.readLine();
+	    	        System.out.println(cadena);
+	    	        JsonParser parser = new JsonParser();
+	    	        JsonArray gsonArr = parser.parse(cadena).getAsJsonArray();
+	    	        Gson g = new Gson();
+	    	        for(JsonElement js : gsonArr)
+	    	        	usuarios.add(g.fromJson(js, UsuarioDTO.class));
+	    	        	b.close();
+	    	        	return usuarios;
+	    		} catch (IOException e) {
+
+	    			e.printStackTrace();
+	    		}
+	        
+			return usuarios;	
+	    }
 }

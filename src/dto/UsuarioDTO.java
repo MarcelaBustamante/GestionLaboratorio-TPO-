@@ -1,5 +1,4 @@
 package dto;
-import model.RolUsuario;
 public class UsuarioDTO {
 	private String nombreUsuario;
 	private String mail;
@@ -8,7 +7,7 @@ public class UsuarioDTO {
 	private String domicilio;
 	private int dni;
 	private String fechaNacimiento;
-	private RolUsuario rol;
+	private String rolUsuario;
 	
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -52,10 +51,10 @@ public class UsuarioDTO {
 	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento=fechaNacimiento;
 		}
-	public RolUsuario getRol() {
-		return rol;
+	public String getRolUsuario() {
+		return rolUsuario;
 	}
-	public void setRolUsuario(RolUsuario rol) {
-		this.rol=rol;
+	public void setRolUsuario(String rolUsuario) {
+		this.rolUsuario=rolUsuario;
 	}
 }
