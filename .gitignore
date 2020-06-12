@@ -3,5 +3,3 @@
 /back/src/main/resources/test/*
 /bin
 .settings
-.claspath
-.project
