@@ -19,7 +19,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.InternationalFormatter;
 import javax.swing.text.MaskFormatter;
 
-import Controller.PeticionesController;
+import controller.PeticionesController;
 import dto.PeticionDTO;
 import model.EstadoPeticion;
 import view.ModalResult;

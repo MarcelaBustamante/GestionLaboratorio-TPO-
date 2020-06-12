@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import Controller.PacienteController;
+import controller.PacienteController;
 import collections.PacienteCollection;
 import dto.PacienteDTO;
 

@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import collections.PeticionCollection;
 import dto.PeticionDTO;

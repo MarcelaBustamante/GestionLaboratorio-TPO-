@@ -1,1 +1,0 @@
-[{"idPaciente":1,"dni":452658,"nombre":"Julia","domicilio":"Avenida Independencia 523","mail":"july@hotmail.com","sexo":"Femenino","edad":29},{"idPaciente":23423,"dni":234234,"nombre":"asd","domicilio":"asd","mail":"asd","sexo":"Masculino","edad":23}]

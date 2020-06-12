@@ -55,7 +55,8 @@ public class PacienteCollection {
 		try {
 			FileUtils.grabar("pacientes.txt", datos);
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			datos = new ArrayList<>();
+			System.out.println( e.getMessage());
 		}
 	}
 	 private List<PacienteDTO> leer() {
@@ -63,7 +64,8 @@ public class PacienteCollection {
 		 try {
 				datos = FileUtils.leer("pacientes.txt", PacienteDTO.class);
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage());
+				datos = new ArrayList<>();
+				System.out.println( e.getMessage());
 			}
 			return datos;
 	    }

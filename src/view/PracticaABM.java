@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controller.PracticaController;
+import controller.PracticaController;
 import dto.PracticaDTO;
 
 import javax.swing.JLabel;

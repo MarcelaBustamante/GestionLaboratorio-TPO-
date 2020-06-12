@@ -20,8 +20,8 @@ import javax.swing.text.MaskFormatter;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
 
-import Controller.PacienteController;
-import Controller.UsuarioController;
+import controller.PacienteController;
+import controller.UsuarioController;
 import dto.PacienteDTO;
 import dto.UsuarioDTO;
 import javafx.scene.control.ComboBox;

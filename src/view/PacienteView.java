@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sun.java.swing.plaf.windows.resources.windows;
 
-import Controller.PacienteController;
+import controller.PacienteController;
 import collections.PacienteCollection;
 
 import java.awt.event.ActionListener;

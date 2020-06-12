@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import collections.UsuarioCollection;
 import dto.UsuarioDTO;
