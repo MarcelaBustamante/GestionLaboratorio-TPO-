@@ -50,6 +50,7 @@ public class PeticionCollection {
 		try {
 			datos = FileUtils.leer("peticiones.txt", PeticionDTO.class);
 		}catch (Exception e) {
+			//si no existe el archivo lo crea 
 			datos = new ArrayList<>();
 			System.out.println(e.getMessage());
 		}
