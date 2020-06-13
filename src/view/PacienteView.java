@@ -2,23 +2,16 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-
-
-
 import view.ModalResult;
 import view.tablemodel.PacienteTableModel;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTable;

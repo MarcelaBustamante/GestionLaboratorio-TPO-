@@ -44,7 +44,6 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
 
-
 public class AltaUsuario extends JDialog {
 //"ID", "Dni", "Nombre", "Domicilio", "Mail", "Sexo", "Edad"
 	private final JPanel contentPanel = new JPanel();

@@ -1,0 +1,1 @@
+[{"nombreUsuario":"Lucas","mail":"lubolle@gmail.com","password":"12345","nombre":"Lucas","domicilio":"Sullivan 2981","dni":34889000,"fechaNacimiento":"05/09/1990","rolUsuario":"Administrador"}]
