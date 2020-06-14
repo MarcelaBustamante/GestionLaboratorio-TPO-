@@ -1,59 +1,75 @@
 package controller;
-import java.util.ArrayList;
-import java.util.List;
 
+import collections.SucursalCollection;
+import dto.SucursalDTO;
 import model.EstadoSucursal;
-import model.Sucursal;
 
 public class SucursalController {
-	private List<Sucursal> listaSucursales;
-	private static SucursalController instance;
+	SucursalDTO suc;
+	SucursalCollection sucCollection;
 	
-	private SucursalController()
-	{
-		listaSucursales = new ArrayList<Sucursal>();//listado de sucursales
+	public SucursalController() {
+	suc = new SucursalDTO();
+	sucCollection = new SucursalCollection();
 	}
-	
-	public static SucursalController getInstance()
-	{
-		if (instance==null)
-			instance = new SucursalController();
-		return instance;
-	}
-	//Definicion de controller singleton
-	
-	
-	
-	public void addSucursal(String direccion, String responsableTecnico, int idSucursal) {
+
+	public void darDeBaja() {
 		
-		Sucursal nuevaSuc = new Sucursal();
-		nuevaSuc.setDireccion(direccion);
-		nuevaSuc.setIdSucursal(idSucursal);
-		nuevaSuc.setResponsableTecnico(responsableTecnico);
-		listaSucursales.add(nuevaSuc);
 	}
+//public SucursalCollection
+////	private static SucursalController instance;
+//	
+////	private SucursalController()
+////	{
+////		listaSucursales = new ArrayList<Sucursal>();//listado de sucursales
+////	}
+////	
+//	public static SucursalController getInstance()
+//	{
+//		if (instance==null)
+//			instance = new SucursalController();
+//		return instance;
+//	}
+//	//Definicion de controller singleton
+//	
 	
 	
-	public Sucursal internalBusucarSucursal(int idSucursal)
-	{
+	public SucursalDTO addSucursal(String direccion, String responsableTecnico, int idSucursal, EstadoSucursal estado) {
 		
-		for(int i=0; i<listaSucursales.size(); i++){
-			if(listaSucursales.get(i).getIdSucursal()==idSucursal) {
-				return listaSucursales.get(i);
-			}
-		}
-		return null;
+		suc.setDireccion(direccion);
+		suc.setEstado(estado);
+		suc.setIdSucursal(idSucursal);
+		suc.setResponsableTecnico(responsableTecnico);
+		sucCollection.agregarSucursal(suc);
+		sucCollection.grabar();
+		return suc;
 	}
 	
-	private void cambiarEstado(int idSucursal) {
-		for(int i=0; i<listaSucursales.size(); i++){
-			if(listaSucursales.get(i).getIdSucursal()==idSucursal) {
-				listaSucursales.get(i).setEstado(EstadoSucursal.Inactiva);
-				break;
-			}
-		}
+	public SucursalDTO getSucursalDTO()
+	{
+		return suc;
 	}
-	
+//	
+//	public Sucursal internalBusucarSucursal(int idSucursal)
+//	{
+//		
+//		for(int i=0; i<listaSucursales.size(); i++){
+//			if(listaSucursales.get(i).getIdSucursal()==idSucursal) {
+//				return listaSucursales.get(i);
+//			}
+//		}
+//		return null;
+//	}
+//	
+//	private void cambiarEstado(int idSucursal) {
+//		for(int i=0; i<listaSucursales.size(); i++){
+//			if(listaSucursales.get(i).getIdSucursal()==idSucursal) {
+//				listaSucursales.get(i).setEstado(EstadoSucursal.Inactiva);
+//				break;
+//			}
+//		}
+//	}
+//	
 //	public boolean bajaSucursal(int idSucursal) {
 //		
 //		Sucursal unaSucursal = internalBusucarSucursal(idSucursal); //me fijo si existe la sucursal
