@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 
 import collections.PeticionCollection;
+import controller.PeticionesController;
 import view.tablemodel.PeticionTableModel;
 import view.ModalResult;
 
@@ -35,7 +36,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class PeticionView extends JFrame {
-	private PeticionCollection peticiones;
+	//private PeticionCollection peticiones;
+	private PeticionesController peticiones;
 	private JFrame frame;
 	private JPanel peticionPanel;
 	private JPanel panel_1;
@@ -61,7 +63,7 @@ public class PeticionView extends JFrame {
 	 * Create the frame.
 	 */
 	public PeticionView() {
-		peticiones = new PeticionCollection();
+		peticiones = new PeticionesController();
 		tableModelPeticion = new PeticionTableModel(peticiones);
 		inicializar();
 	}
@@ -82,7 +84,7 @@ public class PeticionView extends JFrame {
 	private void modificar() {
 		try {
 			AltaPeticion dialog = new AltaPeticion(frame);
-			dialog.setPeticion(peticiones.getPeticion((tablePeticiones.getSelectedRow())));
+			dialog.setPeticion(peticiones.obtenerPeticion((tablePeticiones.getSelectedRow())));
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 			if (dialog.getModalResult() == ModalResult.OK)

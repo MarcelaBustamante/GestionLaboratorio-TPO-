@@ -47,7 +47,6 @@ public class AltaPeticion extends JDialog {
 	private JTextField txtDNIPaciente;
 	private JTextField txtObraSocial;
 	private JFormattedTextField txtFCarga;
-	private JTextField txtpracticaAsociada;
 	private EstadoPeticion estado = EstadoPeticion.Activa;
 	private PeticionDTO peticion = new PeticionDTO(); 
 	private ModalResult modalResult;
@@ -72,6 +71,7 @@ public class AltaPeticion extends JDialog {
 		JLabel lblID = new JLabel("ID");
 		txtID = new JTextField();
 		txtID.setColumns(10);
+		txtID.setText(String.valueOf(controladorPeticion.listaPeticiones().size()));
 		
 		JLabel lblsucursalID = new JLabel("Sucursal ID");
 		txtIDSucursal = new JTextField();
@@ -89,14 +89,9 @@ public class AltaPeticion extends JDialog {
 		txtFCarga = new JFormattedTextField();
 		
 		JLabel lblPractica = new JLabel("Practica ID");
-		txtpracticaAsociada = new JTextField();
-		txtpracticaAsociada.setColumns(10);
-		
-		
-		JLabel lblobraSocial = new JLabel("Obra social");
-		
 		textPracticaID = new JTextField();
 		textPracticaID.setColumns(10);
+		
 		
 		JLabel lblFechaEntrega = new JLabel("Fecha de entrega");
 		
@@ -115,7 +110,7 @@ public class AltaPeticion extends JDialog {
 							.addComponent(textFechaEntrega, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblobraSocial)
+								.addComponent(lblObraSocial)
 								.addComponent(lblFechaInicio)
 								.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
 									.addComponent(lblsucursalID)
@@ -153,7 +148,7 @@ public class AltaPeticion extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtObraSocial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblobraSocial))
+						.addComponent(lblObraSocial))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFechaInicio)
@@ -229,7 +224,7 @@ public class AltaPeticion extends JDialog {
 		peticion.setObraSocial(txtObraSocial.getText());
 		peticion.setDniPaciente(Integer.parseInt(txtDNIPaciente.getText()));
 		peticion.setFechaCarga(txtFCarga.getText());
-		//peticion.setPracticaAsociada(Integer.parseInt(txtpracticaAsociada.getText()));
+		peticion.setPracticaAsociada(Integer.parseInt(textPracticaID.getText()));
 		peticion.setFechaEntrega(textFechaEntrega.getText());
 		peticion.setEstado(estado);
 		controladorPeticion.agregarPeticion(peticion);

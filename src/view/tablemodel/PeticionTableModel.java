@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import collections.PeticionCollection;
+import controller.PeticionesController;
 import dto.PeticionDTO;
 
 public class PeticionTableModel extends AbstractTableModel{
@@ -23,9 +24,9 @@ public class PeticionTableModel extends AbstractTableModel{
 	public String getColumnName(int col) { return columnNames[col]; } 
 	public Class getColumnClass(int col) { return columnClasses[col]; } 
 	
-	public PeticionTableModel(PeticionCollection listpeticion)
+	public PeticionTableModel(PeticionesController listpeticion)
 	{
-		listaPeticiones = listpeticion.getPeticionesList();
+		listaPeticiones = listpeticion.listaPeticiones();
 	}
 	
 	@Override

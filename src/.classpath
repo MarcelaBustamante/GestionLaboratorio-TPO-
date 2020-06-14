@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="C:/Users/Lucas Bollella/Google Drive/UADE/IOO/TPO Sistemas operativos/GestionLaboratorio-TPO-/src/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bustamjm/eclipse-workspace/GestionLaboratorio-TPO-/src/ext/gson-2.8.5.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
