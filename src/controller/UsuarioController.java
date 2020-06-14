@@ -6,6 +6,7 @@ import dto.UsuarioDTO;
 public class UsuarioController {
 	UsuarioDTO usuario;
 	UsuarioCollection usuarioCollection;
+	
 	public UsuarioController() {
 		usuario = new UsuarioDTO();
 		usuarioCollection = new UsuarioCollection();

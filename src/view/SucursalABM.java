@@ -7,22 +7,36 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import collections.SucursalCollection;
+
 import javax.swing.UIManager;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
-
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.JScrollPane;
+import view.tablemodel.SucursalTableModel;
+import view.tablemodel.UsuarioTableModel;
 public class SucursalABM {
 
 	private JFrame frmAbmDeSucursales;
-	private JTable table;
 	//Declaro los botones aca ya que cambie la estructura original del archivo como hizo el profe
+	private SucursalCollection sucursales;
 	private JButton btnAgregar, btnModificar, btnEliminar;
+	private JScrollPane scrollPane;
+	private JTable tableSucursales;
+	private SucursalTableModel tableModelSucursal;
 	
 	/**
 	 * Launch the application.
@@ -44,15 +58,42 @@ public class SucursalABM {
 	 * Create the application.
 	 */
 	public SucursalABM() {
+		
+		sucursales = new SucursalCollection();
+		tableModelSucursal = new SucursalTableModel(sucursales);
+		
 		inicializarPantalla();
 		inicializarEventos();
 	}
 
+	private void agregarSucursal() {
+		try {
+			//abre un alta de peticion
+			AltaSucursal dialog = new AltaSucursal(frmAbmDeSucursales);
+			//AltaSucursal dialog = new AltaSucursal();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+			JOptionPane.showMessageDialog(null, "Finalizado");
+			if (dialog.getModalResult() == ModalResult.OK)
+				tableModelSucursal.agregar(dialog.getSucursalDTO());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}				
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	//Aca inicializo los eventos
 	private void inicializarEventos() {
+		
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				agregarSucursal();
+			}
+		});
+		
+		
 	}
 	//Aca inicializo la pantalla
 	private void inicializarPantalla() {
@@ -67,60 +108,40 @@ public class SucursalABM {
 		frmAbmDeSucursales.setTitle("ABM de Sucursales");
 		frmAbmDeSucursales.setBounds(100, 100, 526, 398);
 		frmAbmDeSucursales.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//centro la pantalla
-		frmAbmDeSucursales.setLocationRelativeTo(null);
-		table = new JTable();
+		frmAbmDeSucursales.setLocationRelativeTo(null);		//centro la pantalla
 		
+		JPanel panelBotones = new JPanel();
+		
+		JPanel panelTitulo = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panelTitulo.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		panelTitulo.setBackground(new Color(192, 192, 192));
+		
+		JLabel lblNewLabel = new JLabel("Gesti\u00F3n de sucursales");
+		panelTitulo.add(lblNewLabel);
+		lblNewLabel.setForeground(Color.DARK_GRAY);
+		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+		panelBotones.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		
+		//Boton Agregar
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
+		panelBotones.add(btnAgregar);
+
 		//Boton modificar
 		btnModificar = new JButton("Modificar");
+		panelBotones.add(btnModificar);
 		
 		//Boton eliminar
 		btnEliminar = new JButton("Eliminar");
+		panelBotones.add(btnEliminar);
+		frmAbmDeSucursales.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmAbmDeSucursales.getContentPane().add(panelTitulo, BorderLayout.NORTH);
+		frmAbmDeSucursales.getContentPane().add(panelBotones, BorderLayout.SOUTH);
 		
-		JSeparator separator = new JSeparator();
+		scrollPane = new JScrollPane();
+		frmAbmDeSucursales.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel = new JLabel("Gesti\u00F3n de sucursales");
-		lblNewLabel.setForeground(Color.DARK_GRAY);
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
-		GroupLayout groupLayout = new GroupLayout(frmAbmDeSucursales.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(separator, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-						.addComponent(lblNewLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-						.addComponent(table, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(btnAgregar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnModificar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEliminar)))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(7)
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAgregar)
-						.addComponent(btnModificar)
-						.addComponent(btnEliminar))
-					.addContainerGap())
-		);
-		frmAbmDeSucursales.getContentPane().setLayout(groupLayout);
+		tableSucursales = new JTable(tableModelSucursal);//indico las columnas que debe tener
+		scrollPane.setViewportView(tableSucursales);
 	}
 }

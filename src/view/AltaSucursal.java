@@ -6,10 +6,16 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JFrame;
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.SucursalController;
+import controller.UsuarioController;
+import dto.SucursalDTO;
+import dto.UsuarioDTO;
+import model.EstadoSucursal;
 
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -17,6 +23,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -25,59 +32,73 @@ import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import model.EstadoSucursal;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+@SuppressWarnings("unused")
 public class AltaSucursal extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtidSucursal;
 	private JTextField txtDireccion;
 	private JTextField textResponsableTecnico;
-	//String estadoSuc[]={"Activa","Inactiva"};
+	private SucursalController controladorDeSucursal;
+	private ModalResult modalResult;
 	JButton guardarButton;
 	JButton cancelButton;
+	@SuppressWarnings("rawtypes")
 	JComboBox comboEstado;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			AltaSucursal dialog = new AltaSucursal();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		//Elimino el look and feel de java  y pongo el nativo del sistema
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-		catch (Exception e) {e.printStackTrace();}
-		
-	}
 
-	
-	public AltaSucursal() {
-		
-		inicializarPantalla();
-		inicializarEventos();
-	}
-	
 //Aca manejo todos los eventos
 	public void inicializarEventos() {
 		
-		guardarButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		//Manejo para que solo ingresen numeros como id de sucursal
+		txtidSucursal.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char validar = arg0.getKeyChar();
+				if(Character.isLetter(validar)) {
+					getToolkit().beep();
+					JOptionPane.showMessageDialog(rootPane, "ingrese unicamente números");
+				}
 			}
 		});
-
+		
+	
+		guardarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				asignarDatosEntidad();
+				modalResult = ModalResult.OK;
+				dispose();//Cierro la pantalla
+			}
+		});
+		
+		
 	}
+	
+	
+	
 /*----------------------------------------------------------------------------------------------*/
 	/**
 	 * Create the dialog.
 	 */
 	//Encapsulo todo lo que pasa en el form
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void inicializarPantalla() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (Exception e) {e.printStackTrace();}
+		
+		
 		setTitle("Nueva sucursal");
 		setBounds(100, 100, 504, 247);
 		getContentPane().setLayout(new BorderLayout());
@@ -109,8 +130,10 @@ public class AltaSucursal extends JDialog {
 		
 		//Combo de sucursales
 		JLabel lblEstadoSucursal = new JLabel("Estado sucursal");
+		
 		comboEstado = new JComboBox();
-		comboEstado.setModel(new DefaultComboBoxModel(new String[] {"Activa", "Inactiva"}));
+		comboEstado.setModel(new DefaultComboBoxModel(EstadoSucursal.values()));
+		//comboEstado.setModel(new DefaultComboBoxModel(new String[] {"Activa", "Inactiva"}));
 		
 		
 		
@@ -179,16 +202,33 @@ public class AltaSucursal extends JDialog {
 		}
 		
 	}
+		
+	public AltaSucursal(JFrame frame) {
+		super(frame, "Usuario", true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaUsuario.class.getResource("/res/hospital4.png")));
+		setLocationRelativeTo(frame);
+		controladorDeSucursal = new SucursalController();
+		inicializarPantalla();
+		inicializarEventos();
+	}
 	
 	//Guardo los datos que se cargaron en el FORM
 	private void asignarDatosEntidad() {
-		String nombreUsuario = txtidSucursal.getText();
-		String fechaNacimiento = txtDireccion.getText();
-		String contraseña = textResponsableTecnico.getText();
-		String estado = comboEstado.getSelectedItem().toString();
-		//controladorController.altaUsuario(nombreUsuario, fechaNacimiento, contraseña, domicilio,nombre, dni, mail, rol);
+		int i = Integer.parseInt(txtidSucursal.getText());//transformo el string del campo de texto a un entero
+		int idSucursal = i;
+		String direccion = txtDireccion.getText();
+		String responsableTecnico = textResponsableTecnico.getText();
+		EstadoSucursal estado =  (EstadoSucursal)comboEstado.getSelectedItem();//casteo el item seleccionado para que sea un tipo enum
+		controladorDeSucursal.addSucursal(direccion, responsableTecnico, idSucursal, estado);
+		
 	}
-	
+	public SucursalDTO getSucursalDTO() {
+		return controladorDeSucursal.getSucursalDTO();
+	}
+
+	public ModalResult getModalResult() {
+		return modalResult;
+	}
 
 
 }
