@@ -1,23 +1,15 @@
 package controller;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
-import com.google.gson.Gson;
+import java.util.stream.Collectors;
 
 import collections.PacienteCollection;
 import dto.PacienteDTO;
-import view.tablemodel.PacienteTableModel;
+import model.Paciente;
 
 public class PacienteController {
-	//private List<PacienteDTO> pacientes;
 	PacienteDTO paciente;
 	PacienteCollection pacienteCollection;
+	
 	public PacienteController() {
 		paciente = new PacienteDTO();
 		pacienteCollection = new PacienteCollection();
@@ -61,5 +53,10 @@ public class PacienteController {
 		pacienteCollection.getPacientesList();
 		return (List<PacienteDTO>) paciente;
 	}*/
+	
+	public boolean existePaciente(int dni) {
+		return pacienteCollection.getPacientesList().stream()
+				.anyMatch((pac-> pac.getDni() == dni));
+	}
 }
 

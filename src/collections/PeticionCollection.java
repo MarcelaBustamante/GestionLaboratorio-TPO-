@@ -55,5 +55,11 @@ public class PeticionCollection {
 			System.out.println(e.getMessage());
 		}
 		return datos;
-	}	
+	}
+
+	public void eliminar(int id) {
+		datos.remove(id);
+		grabar();
+	}
+	
 }

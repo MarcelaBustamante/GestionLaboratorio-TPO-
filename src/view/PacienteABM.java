@@ -32,7 +32,7 @@ import collections.PacienteCollection;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PacienteView extends JFrame {
+public class PacienteABM extends JFrame {
 	private PacienteCollection pacientes;
 	private JFrame frame;
 	private JPanel pacientePanel;
@@ -46,7 +46,7 @@ public class PacienteView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PacienteView window = new PacienteView();
+					PacienteABM window = new PacienteABM();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +58,7 @@ public class PacienteView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PacienteView() {
+	public PacienteABM() {
 		pacientes = new PacienteCollection();
 		tableModelPaciente = new PacienteTableModel(pacientes);
 		inicializar();
@@ -85,7 +85,7 @@ public class PacienteView extends JFrame {
 			e.printStackTrace();
 		}				
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionView.class.getResource("/res/hospital4.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionABM.class.getResource("/res/hospital4.png")));
 		setTitle("ABM Pacientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1101, 570);

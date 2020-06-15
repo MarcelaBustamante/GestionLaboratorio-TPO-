@@ -73,12 +73,18 @@ public class MenuView {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem menuSucursales = new JMenuItem("Sucursales");
+		menuSucursales.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SucursalABM s = new SucursalABM();
+				s.main(null);		
+			}
+		});
 		mnNewMenu.add(menuSucursales);
 		
 		JMenuItem menuPeticiones = new JMenuItem("Peticiones");
 		menuPeticiones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PeticionView p = new PeticionView();
+				PeticionABM p = new PeticionABM();
 				p.main(null);
 			}
 		});
@@ -96,7 +102,7 @@ public class MenuView {
 		JMenuItem menuPacientes = new JMenuItem("Pacientes");
 		menuPacientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PacienteView p = new PacienteView();
+				PacienteABM p = new PacienteABM();
 				p.main(null);
 			}
 		});
@@ -123,6 +129,12 @@ public class MenuView {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnNewButton_2 = new JButton("Sucursales");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SucursalABM s = new SucursalABM();
+				s.main(null);
+			}
+		});
 		btnNewButton_2.setBounds(240, 2, 240, 43);
 		btnNewButton_2.setForeground(new Color(0, 0, 0));
 		frame.getContentPane().add(btnNewButton_2);
@@ -132,7 +144,7 @@ public class MenuView {
 		frame.getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PeticionView p = new PeticionView();
+				PeticionABM p = new PeticionABM();
 				p.main(null);
 			}
 		});
@@ -152,7 +164,7 @@ public class MenuView {
 		frame.getContentPane().add(btnNewButton_3);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PacienteView p = new PacienteView();
+				PacienteABM p = new PacienteABM();
 				p.main(null);
 			}
 		});

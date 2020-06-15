@@ -1,67 +1,130 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.InternationalFormatter;
-import javax.swing.text.MaskFormatter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.stream.Collectors;
 
-import controller.PeticionesController;
-import dto.PeticionDTO;
-import model.EstadoPeticion;
-import view.ModalResult;
-
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFormattedTextField.AbstractFormatter;
-import javax.swing.JFormattedTextField.AbstractFormatterFactory;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+
+import collections.FileUtils;
+import controller.PacienteController;
+import controller.PeticionesController;
+import controller.PracticaController;
+import controller.SucursalController;
+import dto.PeticionDTO;
+import model.EstadoPeticion;
 
 
 public class AltaPeticion extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private String[] listSucursales;
+	private String[] listPracticas;
 	private PeticionesController controladorPeticion;
+	private SucursalController controladorSucursal;
+	private PracticaController controladorPractica;
+	private PacienteController controladorPaciente;
 	private JTextField txtID;
-	private JTextField txtIDSucursal;
+	private JComboBox<String> txtIDSucursal;
 	private JTextField txtDNIPaciente;
 	private JTextField txtObraSocial;
 	private JFormattedTextField txtFCarga;
 	private EstadoPeticion estado = EstadoPeticion.Activa;
 	private PeticionDTO peticion = new PeticionDTO(); 
 	private ModalResult modalResult;
-	private JTextField textPracticaID;
+	private JComboBox<String> textPracticaID;
 	private JFormattedTextField textFechaEntrega;
-	/**
-	 * Launch the application.
-	 */
+	
+	
+	
+	public AltaPeticion(JFrame frame) {
+		super(frame, "Peticion", true);
+		setLocationRelativeTo(frame);
+		controladorPeticion = new PeticionesController();
+		controladorSucursal = new SucursalController();
+		controladorPractica = new PracticaController();
+		controladorPaciente = new PacienteController();
+		listSucursales = controladorSucursal.listarSucursales().stream()
+				.map(suc->String.valueOf(suc.getIdSucursal()))
+				.collect(Collectors.toList()).toArray(new String[0]);
+		listPracticas = controladorPractica.listaPracticas().stream()
+				.map(pra -> String.valueOf(pra.getCodigoPractica()))
+				.collect(Collectors.toList()).toArray(new String[0]);
+		inicializarControles();
+		asignarFormato();
+		
+	}
 
+	private void asignarDatosEntidad() {
+		peticion.setIdPeticion(Integer.parseInt(txtID.getText()));
+		peticion.setIdSucursal(Integer.parseInt(txtIDSucursal.getItemAt(txtIDSucursal.getSelectedIndex())));
+		peticion.setObraSocial(txtObraSocial.getText());
+		peticion.setDniPaciente(Integer.parseInt(txtDNIPaciente.getText()));
+		peticion.setFechaCarga(txtFCarga.getText());
+		peticion.setPracticaAsociada(Integer.parseInt(textPracticaID.getItemAt(textPracticaID.getSelectedIndex())));
+		peticion.setFechaEntrega(textFechaEntrega.getText());
+		peticion.setEstado(estado);
+		if(validarForm(peticion))controladorPeticion.agregarPeticion(peticion);
+	}
+	
+	private void asignarDatosForm(){
+		txtID.setText(String.valueOf(peticion.getIdPeticion()));
+		txtIDSucursal.setModel(new DefaultComboBoxModel<String>(listSucursales));
+		txtObraSocial.setText(peticion.getObraSocial());
+		txtDNIPaciente.setText(String.valueOf(peticion.getDniPaciente()));
+		txtFCarga.setText(peticion.getFechaCarga());
+		textFechaEntrega.setText(peticion.getFechaEntrega());
+	}
+	public void setPeticion(PeticionDTO peticion) {
+		this.peticion = peticion;
+		asignarDatosForm();
+	}
+	public PeticionDTO getPeticion() {
+		return peticion;
+	}
+
+	public ModalResult getModalResult() {
+		return modalResult;
+	}
 	/**
-	 * Create the dialog.
+	 * Valida si los datos de fecha y paciente son los deseados
+	 * @param p
+	 * @return boolean
 	 */
+	public boolean validarForm(PeticionDTO p) {
+		if(FileUtils.validarFecha(p.getFechaCarga()) && FileUtils.validarFecha(p.getFechaEntrega())) {
+			if(controladorPaciente.existePaciente(p.getDniPaciente())){
+				return true;	
+			}else {
+				JOptionPane.showMessageDialog(null,"El paciente no existe");
+				return false;
+			}
+		}else {
+			JOptionPane.showMessageDialog(null,"Formato de fecha invalido");
+			return false;
+		}
+	}
 	
 	private void inicializarControles() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionView.class.getResource("/res/hospital4.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionABM.class.getResource("/res/hospital4.png")));
 		setBounds(100, 100, 660, 306);
 		setTitle("Alta de Peticiones");
 		getContentPane().setLayout(new BorderLayout());
@@ -71,11 +134,12 @@ public class AltaPeticion extends JDialog {
 		JLabel lblID = new JLabel("ID");
 		txtID = new JTextField();
 		txtID.setColumns(10);
-		txtID.setText(String.valueOf(controladorPeticion.listaPeticiones().size()));
+		txtID.setText(String.valueOf(controladorPeticion.listaPeticiones().size() + 1));
+		txtID.setEditable(false);
 		
-		JLabel lblsucursalID = new JLabel("Sucursal ID");
-		txtIDSucursal = new JTextField();
-		txtIDSucursal.setColumns(10);
+		JLabel lblsucursalID = new JLabel("Seleccionar Sucursal");
+		txtIDSucursal = new JComboBox<String>();
+		txtIDSucursal.setModel(new DefaultComboBoxModel<String>(listSucursales));
 		
 		JLabel lblDNI = new JLabel("DNI");
 		txtDNIPaciente = new JTextField();
@@ -88,15 +152,18 @@ public class AltaPeticion extends JDialog {
 		JLabel lblFechaInicio = new JLabel("Fecha de inicio");
 		txtFCarga = new JFormattedTextField();
 		
-		JLabel lblPractica = new JLabel("Practica ID");
-		textPracticaID = new JTextField();
-		textPracticaID.setColumns(10);
-		
+		JLabel lblPractica = new JLabel("Seleccionar Practica");
+		textPracticaID =  new JComboBox<String>();
+		textPracticaID.setModel(new DefaultComboBoxModel<String>(listPracticas));
 		
 		JLabel lblFechaEntrega = new JLabel("Fecha de entrega");
 		
 		textFechaEntrega = new JFormattedTextField();
 		textFechaEntrega.setColumns(10);
+		
+		JLabel lblFormatoFecha = new JLabel("DD/MM/AAAA");
+		
+		JLabel label = new JLabel("DD/MM/AAAA");
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
@@ -104,31 +171,32 @@ public class AltaPeticion extends JDialog {
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addGap(76)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblObraSocial)
+						.addComponent(lblFechaInicio)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+							.addComponent(lblsucursalID)
+							.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(lblFechaEntrega)
-							.addGap(18)
-							.addComponent(textFechaEntrega, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(4)
+							.addComponent(lblID))
+						.addComponent(lblPractica)
+						.addComponent(lblFechaEntrega))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(textPracticaID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtObraSocial)
+						.addComponent(txtIDSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtDNIPaciente)
+						.addComponent(txtID, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
 						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(textFechaEntrega, 0, 0, Short.MAX_VALUE)
+								.addComponent(txtFCarga, GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblObraSocial)
-								.addComponent(lblFechaInicio)
-								.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-									.addComponent(lblsucursalID)
-									.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPanel.createSequentialGroup()
-									.addGap(4)
-									.addComponent(lblID))
-								.addComponent(lblPractica))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtFCarga, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(textPracticaID)
-									.addComponent(txtObraSocial)
-									.addComponent(txtIDSucursal)
-									.addComponent(txtDNIPaciente)
-									.addComponent(txtID, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)))))
-					.addContainerGap(275, Short.MAX_VALUE))
+								.addComponent(lblFormatoFecha, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE))))
+					.addGap(248))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -152,7 +220,8 @@ public class AltaPeticion extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFechaInicio)
-						.addComponent(txtFCarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtFCarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblFormatoFecha))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPractica)
@@ -160,8 +229,9 @@ public class AltaPeticion extends JDialog {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFechaEntrega)
+						.addComponent(label)
 						.addComponent(textFechaEntrega, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(35, Short.MAX_VALUE))
+					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
@@ -209,44 +279,4 @@ public class AltaPeticion extends JDialog {
 		catch (Exception e) {e.printStackTrace();}		
 	}
 	
-	public AltaPeticion(JFrame frame) {
-		super(frame, "Peticion", true);
-		setLocationRelativeTo(frame);
-		controladorPeticion = new PeticionesController();
-		inicializarControles();
-		asignarFormato();
-		
-	}
-
-	private void asignarDatosEntidad() {
-		peticion.setIdPeticion(Integer.parseInt(txtID.getText()));
-		peticion.setIdSucursal(Integer.parseInt(txtIDSucursal.getText()));
-		peticion.setObraSocial(txtObraSocial.getText());
-		peticion.setDniPaciente(Integer.parseInt(txtDNIPaciente.getText()));
-		peticion.setFechaCarga(txtFCarga.getText());
-		peticion.setPracticaAsociada(Integer.parseInt(textPracticaID.getText()));
-		peticion.setFechaEntrega(textFechaEntrega.getText());
-		peticion.setEstado(estado);
-		controladorPeticion.agregarPeticion(peticion);
-	}
-	
-	private void asignarDatosForm(){
-		txtID.setText(String.valueOf(peticion.getIdPeticion()));
-		txtIDSucursal.setText(String.valueOf(peticion.getIdSucursal()));
-		txtObraSocial.setText(peticion.getObraSocial());
-		txtDNIPaciente.setText(String.valueOf(peticion.getDniPaciente()));
-		txtFCarga.setText(peticion.getFechaCarga());
-		textFechaEntrega.setText(peticion.getFechaEntrega());
-	}
-	public void setPeticion(PeticionDTO peticion) {
-		this.peticion = peticion;
-		asignarDatosForm();
-	}
-	public PeticionDTO getPeticion() {
-		return peticion;
-	}
-
-	public ModalResult getModalResult() {
-		return modalResult;
-	}
 }

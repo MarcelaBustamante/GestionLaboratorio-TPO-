@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,4 +62,28 @@ public class FileUtils {
 			throw e;
 		}
 	}
+	
+	/**
+	 * Metodo para validar si una fecha en string es válida
+	 * @param fecha
+	 * @return boolean
+	 */
+	public static boolean validarFecha(String fecha) {
+	    boolean correcto = false;
+
+	    try {
+	        //Formato de fecha (día/mes/año)
+	        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+	        formatoFecha.setLenient(false);
+	        //Comprobación de la fecha
+	        formatoFecha.parse(fecha);
+	        correcto = true;
+	    } catch (ParseException e) {
+	       System.out.println(e.getMessage());
+	        correcto = false;
+	    }
+
+	    return correcto;
+	}
+	
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import collections.SucursalCollection;
 import dto.SucursalDTO;
 import model.EstadoSucursal;
@@ -15,6 +17,10 @@ public class SucursalController {
 
 	public void darDeBaja() {
 		
+	}
+	
+	public List<SucursalDTO> listarSucursales(){
+		return sucCollection.getSucursalesList();
 	}
 //public SucursalCollection
 ////	private static SucursalController instance;

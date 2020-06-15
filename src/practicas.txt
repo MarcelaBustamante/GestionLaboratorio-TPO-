@@ -1,0 +1,1 @@
+[{"codigoPractica":"1","nombrePractica":"Prueba de Orina","grupo":"1","valoresCriticos":"Con sangre","valoresReservados":"N/A","date":"3"}]

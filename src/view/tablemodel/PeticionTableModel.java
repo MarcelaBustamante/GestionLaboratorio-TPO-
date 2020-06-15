@@ -1,12 +1,8 @@
 package view.tablemodel;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import collections.PeticionCollection;
-import controller.PeticionesController;
 import dto.PeticionDTO;
 
 public class PeticionTableModel extends AbstractTableModel{
@@ -24,9 +20,9 @@ public class PeticionTableModel extends AbstractTableModel{
 	public String getColumnName(int col) { return columnNames[col]; } 
 	public Class getColumnClass(int col) { return columnClasses[col]; } 
 	
-	public PeticionTableModel(PeticionesController listpeticion)
+	public PeticionTableModel(List<PeticionDTO> listpeticion)
 	{
-		listaPeticiones = listpeticion.listaPeticiones();
+		listaPeticiones = listpeticion;
 	}
 	
 	@Override
@@ -79,6 +75,20 @@ public class PeticionTableModel extends AbstractTableModel{
 	public void eliminar(PeticionDTO peticion)
 	{
 		eliminar(listaPeticiones.indexOf(peticion));
+	}
+	/**
+	 * @return the listaPeticiones
+	 */
+	public List<PeticionDTO> getListaPeticiones() {
+		return listaPeticiones;
+	}
+	/**
+	 * @param listaPeticiones the listaPeticiones to set
+	 */
+	public void setListaPeticiones(List<PeticionDTO> listaPeticiones) {
+		this.listaPeticiones = listaPeticiones;
+		this.refresh();
 	}	
 
+	
 }
