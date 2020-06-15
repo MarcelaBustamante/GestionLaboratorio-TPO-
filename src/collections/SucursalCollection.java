@@ -39,6 +39,10 @@ public class SucursalCollection {
 		
 	}
 
+	public void eliminar(int id) {
+		sucursales.remove(id);
+		grabar();
+	}
 	public List<SucursalDTO> getSucursalesList(){
 		return sucursales;
 	}
@@ -50,7 +54,18 @@ public class SucursalCollection {
 	public void agregarSucursal(SucursalDTO sucursal) {
 		sucursales.add(sucursal);
 	}
+	
+	public boolean internalBusucarSucursal(int idSucursal)
+	{
 		
+		for(int i=0;i<sucursales.size(); i++){
+			if(sucursales.get(i).getIdSucursal()==idSucursal) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void grabar() {
 		//File archivo = new File("sucursales.txt"); //creo el archivo
 		FileWriter fileWriter; 

@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.SucursalController;
 import controller.UsuarioController;
+import dto.PeticionDTO;
 import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import model.EstadoSucursal;
@@ -45,11 +46,13 @@ public class AltaSucursal extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtidSucursal;
 	private JTextField txtDireccion;
-	private JTextField textResponsableTecnico;
+	private JTextField txtResponsableTecnico;
 	private SucursalController controladorDeSucursal;
 	private ModalResult modalResult;
+	private SucursalDTO sucursal = new SucursalDTO();
 	JButton guardarButton;
 	JButton cancelButton;
+	
 	@SuppressWarnings("rawtypes")
 	JComboBox comboEstado;
 	
@@ -125,8 +128,8 @@ public class AltaSucursal extends JDialog {
 		
 		//Responsable tecnico
 		JLabel lblResponsableTcnico = new JLabel("Responsable t\u00E9cnico");
-		textResponsableTecnico = new JTextField();
-		textResponsableTecnico.setColumns(10);
+		txtResponsableTecnico = new JTextField();
+		txtResponsableTecnico.setColumns(10);
 		
 		//Combo de sucursales
 		JLabel lblEstadoSucursal = new JLabel("Estado sucursal");
@@ -153,7 +156,7 @@ public class AltaSucursal extends JDialog {
 							.addGap(18)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblEstadoSucursal)
-								.addComponent(textResponsableTecnico, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtResponsableTecnico, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblResponsableTcnico)
 								.addComponent(comboEstado, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(lblNuevaSucursal)
@@ -179,7 +182,7 @@ public class AltaSucursal extends JDialog {
 					.addGap(6)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
@@ -214,16 +217,36 @@ public class AltaSucursal extends JDialog {
 	
 	//Guardo los datos que se cargaron en el FORM
 	private void asignarDatosEntidad() {
-		int i = Integer.parseInt(txtidSucursal.getText());//transformo el string del campo de texto a un entero
-		int idSucursal = i;
-		String direccion = txtDireccion.getText();
-		String responsableTecnico = textResponsableTecnico.getText();
-		EstadoSucursal estado =  (EstadoSucursal)comboEstado.getSelectedItem();//casteo el item seleccionado para que sea un tipo enum
-		controladorDeSucursal.addSucursal(direccion, responsableTecnico, idSucursal, estado);
+		sucursal.setIdSucursal(Integer.parseInt(txtidSucursal.getText()));
+		sucursal.setDireccion(txtDireccion.getText());
+		sucursal.setResponsableTecnico(txtResponsableTecnico.getText());
+		sucursal.setEstado((EstadoSucursal)comboEstado.getSelectedItem());
+		controladorDeSucursal.agregarSucursal(sucursal);
+		//controladorDeSucursal
+		//int i = Integer.parseInt(txtidSucursal.getText());//transformo el string del campo de texto a un entero
+		//int idSucursal = i;
+		//String direccion =txtDireccion.getText() ;
+		//String responsableTecnico = txtResponsableTecnico.getText();
+		//EstadoSucursal estado =  (EstadoSucursal)comboEstado.getSelectedItem();//casteo el item seleccionado para que sea un tipo enum
+		//controladorDeSucursal.addSucursal(direccion, responsableTecnico, idSucursal, estado);
 		
 	}
+	
+	//Cargo el form con toda la info de la sucursal
+	private void asignarDatosForm(){
+		txtidSucursal.setText(String.valueOf(sucursal.getIdSucursal()));
+		txtDireccion.setText(String.valueOf(sucursal.getDireccion()));
+		txtResponsableTecnico.setText(String.valueOf(sucursal.getResponsableTecnico()));
+		comboEstado.getModel().setSelectedItem(sucursal.getEstado());
+	}
+	
+	public void setSucursal(SucursalDTO sucursal) {
+		this.sucursal = sucursal;
+		asignarDatosForm();
+	}
+	
 	public SucursalDTO getSucursalDTO() {
-		return controladorDeSucursal.getSucursalDTO();
+		return sucursal;
 	}
 
 	public ModalResult getModalResult() {
