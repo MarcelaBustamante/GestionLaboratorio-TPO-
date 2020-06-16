@@ -15,8 +15,16 @@ public class SucursalController {
 	sucCollection = new SucursalCollection();
 	}
 
-	public void darDeBaja() {
-		
+
+	
+
+	
+	public void eliminarSucursal(int idSuc) {
+		//if(sucCollection.internalBusucarSucursal(idSuc)){
+			sucCollection.eliminar(idSuc);
+			//return true;
+		//}
+		//return false;
 	}
 	
 	public List<SucursalDTO> listarSucursales(){
@@ -38,6 +46,10 @@ public class SucursalController {
 //	}
 //	//Definicion de controller singleton
 //	
+	public void agregarSucursal(SucursalDTO s) {
+		sucCollection.agregarSucursal(s);
+		sucCollection.grabar();
+	}
 	
 	
 	public SucursalDTO addSucursal(String direccion, String responsableTecnico, int idSucursal, EstadoSucursal estado) {
@@ -51,21 +63,13 @@ public class SucursalController {
 		return suc;
 	}
 	
-	public SucursalDTO getSucursalDTO()
+	
+	public SucursalDTO getSucursal(int id)
 	{
-		return suc;
+		return sucCollection.getSucursal(id);
 	}
 //	
-//	public Sucursal internalBusucarSucursal(int idSucursal)
-//	{
-//		
-//		for(int i=0; i<listaSucursales.size(); i++){
-//			if(listaSucursales.get(i).getIdSucursal()==idSucursal) {
-//				return listaSucursales.get(i);
-//			}
-//		}
-//		return null;
-//	}
+
 //	
 //	private void cambiarEstado(int idSucursal) {
 //		for(int i=0; i<listaSucursales.size(); i++){

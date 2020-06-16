@@ -11,6 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import collections.SucursalCollection;
+import controller.SucursalController;
 
 import javax.swing.UIManager;
 
@@ -28,16 +29,17 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import view.tablemodel.SucursalTableModel;
 import view.tablemodel.UsuarioTableModel;
+@SuppressWarnings("unused")
 public class SucursalABM {
 
 	private JFrame frmAbmDeSucursales;
 	//Declaro los botones aca ya que cambie la estructura original del archivo como hizo el profe
-	private SucursalCollection sucursales;
+	private SucursalController sucursales;
 	private JButton btnAgregar, btnModificar, btnEliminar;
 	private JScrollPane scrollPane;
 	private JTable tableSucursales;
 	private SucursalTableModel tableModelSucursal;
-	
+	//private SucursalController controladorDeSucursal;	
 	/**
 	 * Launch the application.
 	 */
@@ -59,8 +61,8 @@ public class SucursalABM {
 	 */
 	public SucursalABM() {
 		
-		sucursales = new SucursalCollection();
-		tableModelSucursal = new SucursalTableModel(sucursales);
+		sucursales = new SucursalController();
+		tableModelSucursal = new SucursalTableModel(sucursales.listarSucursales());
 		
 		inicializarPantalla();
 		inicializarEventos();
@@ -81,21 +83,55 @@ public class SucursalABM {
 		}				
 	}
 	
+	private void modificarSucursal() {
+		try {
+		AltaSucursal dialog = new AltaSucursal(frmAbmDeSucursales);
+		dialog.setSucursal(sucursales.getSucursal(tableSucursales.getSelectedRow()));
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
+		if(dialog.getModalResult()==ModalResult.OK)
+			tableModelSucursal.refresh();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	private void eliminarSucursal() {
+		sucursales.eliminarSucursal(tableSucursales.getSelectedRow());
+		tableModelSucursal.refresh();
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
+	 * Aca inicializo los eventos
 	 */
-	//Aca inicializo los eventos
 	private void inicializarEventos() {
 		
+		//Accion al presionar Agregar
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				agregarSucursal();
 			}
 		});
-		
-		
+		//Accion al presionar editar
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modificarSucursal();
+			}
+		});
+		//Accion al presionar eliminar
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				eliminarSucursal();
+			}
+		});
 	}
-	//Aca inicializo la pantalla
+	
+	
+	/**
+	 * Aca inicializo la pantalla
+	 */
 	private void inicializarPantalla() {
 		
 		//Elimino el look and feel de java  y pongo el nativo del sistema
@@ -134,6 +170,7 @@ public class SucursalABM {
 		//Boton eliminar
 		btnEliminar = new JButton("Eliminar");
 		panelBotones.add(btnEliminar);
+		
 		frmAbmDeSucursales.getContentPane().setLayout(new BorderLayout(0, 0));
 		frmAbmDeSucursales.getContentPane().add(panelTitulo, BorderLayout.NORTH);
 		frmAbmDeSucursales.getContentPane().add(panelBotones, BorderLayout.SOUTH);
