@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import collections.PeticionCollection;
 import dto.PeticionDTO;
 import model.EstadoPeticion;
+import model.TipoValorCritico;
 
 public class PeticionesController {
 
@@ -51,9 +52,14 @@ public class PeticionesController {
 	}
 
 	public List<PeticionDTO> listaPeticionesResCriticos() {
-		return listaPeticiones().stream()
-				.filter(pet -> controladorPractica.hayValoresCriticos(pet.getDniPaciente()))
-				.collect(Collectors.toList());
-
+		List<PeticionDTO> peticiones = peticionColeccion.getPeticionesList();
+		List<PeticionDTO> aux = new ArrayList<PeticionDTO>();
+		for (PeticionDTO peticionDTO : peticiones) {
+			if(peticionDTO.getResultados().stream()
+			.anyMatch(res -> res.getTipoValCri() == TipoValorCritico.Critico)) {
+				aux.add(peticionDTO);
+			};
+		}
+		return aux;
 	}
 }

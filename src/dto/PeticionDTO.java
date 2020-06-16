@@ -1,5 +1,8 @@
 package dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.EstadoPeticion;
 
 public class PeticionDTO {
@@ -11,6 +14,19 @@ public class PeticionDTO {
 	private int practicaAsociada;
 	private String fechaEntrega;
 	private EstadoPeticion estado;
+	private List<ResultadoPeticionDTO> resultados = new ArrayList<ResultadoPeticionDTO>();
+	/**
+	 * @return the resultados
+	 */
+	public List<ResultadoPeticionDTO> getResultados() {
+		return resultados;
+	}
+	/**
+	 * @param resultados the resultados to set
+	 */
+	public void setResultados(List<ResultadoPeticionDTO> resultados) {
+		this.resultados = resultados;
+	}
 	/**
 	 * @return the idPeticion
 	 */
@@ -106,6 +122,12 @@ public class PeticionDTO {
 	 */
 	public void setEstado(EstadoPeticion estado) {
 		this.estado = estado;
+	}
+	public void agregarResultado(ResultadoPeticionDTO result) {
+		resultados.add(result);
+	}
+	public void eliminarValor(int selectedRow) {
+		resultados.remove(selectedRow);
 	}
 	
 		

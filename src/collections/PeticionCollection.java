@@ -32,9 +32,30 @@ public class PeticionCollection {
 	public PeticionDTO getPeticion(int index) {
 		return datos.get(index);
 	}
+	public PeticionDTO getPeticionId(int id) {
+		for (PeticionDTO peticionDTO : datos) {
+			if(id == peticionDTO.getIdPeticion()) {
+				return peticionDTO;
+			}
+		}
+		return null;
+	}
 
 	public void agregarDatos(PeticionDTO peticion) {
-		datos.add(peticion);
+		PeticionDTO p = getPeticionId(peticion.getIdPeticion());
+		if(p != null) {
+			p.setDniPaciente(peticion.getDniPaciente());
+			p.setEstado(peticion.getEstado());
+			p.setFechaCarga(peticion.getFechaCarga());
+			p.setFechaEntrega(peticion.getFechaEntrega());
+			p.setIdSucursal(peticion.getIdSucursal());
+			p.setObraSocial(peticion.getObraSocial());
+			p.setPracticaAsociada(peticion.getPracticaAsociada());
+			p.setResultados(peticion.getResultados());
+		
+		}else {
+			datos.add(peticion);
+		}
 	}
 
 	public void grabar() {
