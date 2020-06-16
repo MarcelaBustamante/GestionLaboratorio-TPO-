@@ -34,12 +34,12 @@ public class SucursalABM {
 
 	private JFrame frmAbmDeSucursales;
 	//Declaro los botones aca ya que cambie la estructura original del archivo como hizo el profe
-	private SucursalCollection sucursales;
+	private SucursalController sucursales;
 	private JButton btnAgregar, btnModificar, btnEliminar;
 	private JScrollPane scrollPane;
 	private JTable tableSucursales;
 	private SucursalTableModel tableModelSucursal;
-	private SucursalController controladorDeSucursal;	
+	//private SucursalController controladorDeSucursal;	
 	/**
 	 * Launch the application.
 	 */
@@ -61,8 +61,8 @@ public class SucursalABM {
 	 */
 	public SucursalABM() {
 		
-		sucursales = new SucursalCollection();
-		tableModelSucursal = new SucursalTableModel(sucursales);
+		sucursales = new SucursalController();
+		tableModelSucursal = new SucursalTableModel(sucursales.listarSucursales());
 		
 		inicializarPantalla();
 		inicializarEventos();
@@ -98,15 +98,8 @@ public class SucursalABM {
 	}
 	
 	private void eliminarSucursal() {
-		try {
-			int idSuc = sucursales.getSucursal(tableSucursales.getSelectedRow()).getIdSucursal();//Sucursal que voy a elimina
-			//sucursales.getSucursal(tableSucursales.getSelectedRow()).getIdSucursal();
-			controladorDeSucursal.eliminarSucursal(idSuc);
-			//JOptionPane.showConfirmDialog(null, controladorDeSucursal.eliminarSucursal(sucursales.getSucursal(tableSucursales.getSelectedRow()).getIdSucursal()), "Eliminar",JOptionPane.CLOSED_OPTION);
-
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		sucursales.eliminarSucursal(tableSucursales.getSelectedRow());
+		tableModelSucursal.refresh();
 	}
 	
 	/**

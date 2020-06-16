@@ -23,9 +23,9 @@ public class SucursalTableModel extends AbstractTableModel{
 	public String getColumnName(int col) { return columnNames[col]; } 
 	public Class getColumnClass(int col) { return columnClasses[col]; } 
 	
-	public SucursalTableModel(SucursalCollection listsucursales)
+	public SucursalTableModel(List<SucursalDTO> listsucursales)
 	{
-		listaSucursales = listsucursales.getSucursalesList();
+		listaSucursales = listsucursales;
 	}
 	
 	@Override

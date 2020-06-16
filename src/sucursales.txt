@@ -1,1 +1,1 @@
-[{"idSucursal":1,"direccion":"terrero 14","responsableTecnico":"Armando Bareto","estado":"Activa"},{"idSucursal":44432754,"direccion":"Sullivan 2981","responsableTecnico":"Lucas Bollella","estado":"Activa"}]
+[{"idSucursal":1,"direccion":"terrero 14","responsableTecnico":"Armando Bareto","estado":"Activa"},{"idSucursal":44432754,"direccion":"Sullivan 2981","responsableTecnico":"Lucas Bollella","estado":"Activa"},{"idSucursal":3223,"direccion":"Corresella 862","responsableTecnico":"Estefania viriginillo","estado":"Activa"}]

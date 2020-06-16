@@ -19,12 +19,12 @@ public class SucursalController {
 	
 
 	
-	public Boolean eliminarSucursal(int idSuc) {
-		if(sucCollection.internalBusucarSucursal(idSuc)){
+	public void eliminarSucursal(int idSuc) {
+		//if(sucCollection.internalBusucarSucursal(idSuc)){
 			sucCollection.eliminar(idSuc);
-			return true;
-		}
-		return false;
+			//return true;
+		//}
+		//return false;
 	}
 	
 	public List<SucursalDTO> listarSucursales(){
@@ -64,9 +64,9 @@ public class SucursalController {
 	}
 	
 	
-	public SucursalDTO getSucursalDTO()
+	public SucursalDTO getSucursal(int id)
 	{
-		return suc;
+		return sucCollection.getSucursal(id);
 	}
 //	
 
