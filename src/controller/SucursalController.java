@@ -9,22 +9,34 @@ import model.EstadoSucursal;
 public class SucursalController {
 	SucursalDTO suc;
 	SucursalCollection sucCollection;
+	PeticionesController controladorPeticion;
 	
 	public SucursalController() {
 	suc = new SucursalDTO();
 	sucCollection = new SucursalCollection();
+	controladorPeticion = new PeticionesController();
 	}
 
 
 	
 
+	public void eliminarSucursal(int indice) {
+		sucCollection.eliminar(indice);
+	}
 	
-	public void eliminarSucursal(int idSuc) {
-		//if(sucCollection.internalBusucarSucursal(idSuc)){
-			sucCollection.eliminar(idSuc);
-			//return true;
-		//}
-		//return false;
+	public boolean existePetiFinalizada(int indice) {
+		
+		if(controladorPeticion.existePeticionFinalizadaSuc(sucCollection.getSucursalesList().get(indice).getIdSucursal()))	
+		{ 
+			System.out.print("No se puede borrar");
+			return true;
+		}
+		else
+		{
+			eliminarSucursal(indice);
+			
+			return false;
+		}
 	}
 	
 	public List<SucursalDTO> listarSucursales(){

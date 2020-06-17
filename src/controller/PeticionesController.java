@@ -50,6 +50,15 @@ public class PeticionesController {
 		return peticionColeccion.getPeticionesList().stream()
 				.anyMatch((pet -> (pet.getDniPaciente() == dni) && (pet.getEstado() != EstadoPeticion.Finalizada)));
 	}
+	
+	/// esto creo que es lo mismo que esta arriba
+	public boolean existePeticionFinalizadaSuc(int idSuc) {
+		for(int i=0;i<peticionColeccion.getPeticionesList().size();i++) {
+			if(peticionColeccion.getPeticion(i).getIdSucursal()==idSuc&&peticionColeccion.getPeticion(i).getEstado()==EstadoPeticion.Finalizada)
+			return true;
+		}
+		return false;
+	}
 
 	public List<PeticionDTO> listaPeticionesResCriticos() {
 		List<PeticionDTO> peticiones = peticionColeccion.getPeticionesList();

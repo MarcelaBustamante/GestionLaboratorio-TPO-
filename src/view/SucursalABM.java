@@ -29,6 +29,7 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import view.tablemodel.SucursalTableModel;
 import view.tablemodel.UsuarioTableModel;
+import javax.swing.SwingConstants;
 @SuppressWarnings("unused")
 public class SucursalABM {
 
@@ -98,7 +99,13 @@ public class SucursalABM {
 	}
 	
 	private void eliminarSucursal() {
-		sucursales.eliminarSucursal(tableSucursales.getSelectedRow());
+		//f(sucursales.existePetiFinalizada(tableSucursales.getValueAt(tableSucursales.getSelectedRow(),tableSucursales)))
+		
+		if(sucursales.existePetiFinalizada(tableSucursales.getSelectedRow())) {
+			JOptionPane.showMessageDialog(frmAbmDeSucursales, "No se puede eliminar la sucursal, existen peticiones finalizadas");
+		}
+		else
+			JOptionPane.showMessageDialog(frmAbmDeSucursales, "");
 		tableModelSucursal.refresh();
 	}
 	

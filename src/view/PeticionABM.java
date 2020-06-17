@@ -39,6 +39,7 @@ import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class PeticionABM extends JFrame {
 	private PeticionesController peticiones;
@@ -134,41 +135,14 @@ public class PeticionABM extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionABM.class.getResource("/res/hospital4.png")));
 		setTitle("ABM Peticiones");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 671, 542);
+		setBounds(100, 100, 863, 542);
 		peticionPanel = new JPanel();
 		peticionPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(peticionPanel);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.activeCaption);
-		panel.setBorder(new EmptyBorder(10, 0, 0, 0));
-
 		panel_1 = new JPanel();
 
 		JScrollPane scrollPane = new JScrollPane();
-		GroupLayout gl_peticionPanel = new GroupLayout(peticionPanel);
-		gl_peticionPanel.setHorizontalGroup(
-			gl_peticionPanel.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
-				.addGroup(gl_peticionPanel.createSequentialGroup()
-					.addGap(28)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(gl_peticionPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_peticionPanel.setVerticalGroup(
-			gl_peticionPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_peticionPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 347, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
-		);
 
 		tablePeticiones = new JTable(tableModelPeticion);
 		tablePeticiones.addMouseListener(new MouseAdapter() {
@@ -183,7 +157,6 @@ public class PeticionABM extends JFrame {
 		scrollPane.setViewportView(tablePeticiones);
 
 		chbxResultadosCriticos = new JCheckBox("Ver peticiones con resultados criticos");
-		chbxResultadosCriticos.setBounds(243, 44, 201, 23);
 		chbxResultadosCriticos.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -192,7 +165,7 @@ public class PeticionABM extends JFrame {
 		});
 		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(10, 44, 71, 23);
+		btnAgregar.setHorizontalAlignment(SwingConstants.LEFT);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				agregarPeticion();
@@ -200,7 +173,6 @@ public class PeticionABM extends JFrame {
 		});
 
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(87, 44, 75, 23);
 		btnModificar.addActionListener(new ActionListener() {
 
 			@Override
@@ -211,7 +183,6 @@ public class PeticionABM extends JFrame {
 		});
 
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(168, 44, 69, 23);
 		btnEliminar.addActionListener(new ActionListener() {
 
 			@Override
@@ -220,28 +191,87 @@ public class PeticionABM extends JFrame {
 
 			}
 		});
-
-		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 28, 605, 2);
+		peticionPanel.setLayout(new BorderLayout(0, 0));
+		
+				JPanel panel = new JPanel();
+				peticionPanel.add(panel, BorderLayout.NORTH);
+				panel.setBackground(Color.LIGHT_GRAY);
+				panel.setBorder(new EmptyBorder(10, 0, 0, 0));
+				
+						JLabel lblPeticiones = new JLabel("ABM Peticiones");
+						lblPeticiones.setVerticalAlignment(SwingConstants.TOP);
+						lblPeticiones.setForeground(Color.DARK_GRAY);
+						lblPeticiones.setFont(new Font("Verdana", Font.PLAIN, 20));
+						lblPeticiones.setBackground(Color.DARK_GRAY);
+						GroupLayout gl_panel = new GroupLayout(panel);
+						gl_panel.setHorizontalGroup(
+							gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(lblPeticiones)
+									.addContainerGap(674, Short.MAX_VALUE))
+						);
+						gl_panel.setVerticalGroup(
+							gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblPeticiones)
+									.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						);
+						panel.setLayout(gl_panel);
+		peticionPanel.add(scrollPane, BorderLayout.CENTER);
+		peticionPanel.add(panel_1, BorderLayout.SOUTH);
+		
+		JPanel panel_2 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+		flowLayout.setAlignOnBaseline(true);
+		flowLayout.setAlignment(FlowLayout.RIGHT);
 		
 		JLabel lblNota = new JLabel("Para ver los resultados dobleclick en la peticion");
+		lblNota.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNota.setForeground(Color.RED);
 		lblNota.setFont(new Font("Verdana", Font.ITALIC, 11));
-		lblNota.setBounds(292, 3, 288, 14);
-		panel_1.setLayout(null);
-		panel_1.add(btnAgregar);
-		panel_1.add(btnModificar);
-		panel_1.add(btnEliminar);
-		panel_1.add(chbxResultadosCriticos);
-		panel_1.add(separator);
-		panel_1.add(lblNota);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		JLabel lblPeticiones = new JLabel("ABM Peticiones");
-		panel.add(lblPeticiones);
-		lblPeticiones.setFont(new Font("Verdana", Font.PLAIN, 20));
-		lblPeticiones.setBackground(SystemColor.desktop);
-		peticionPanel.setLayout(gl_peticionPanel);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(5)
+					.addComponent(btnAgregar)
+					.addGap(5)
+					.addComponent(btnModificar)
+					.addGap(5)
+					.addComponent(btnEliminar)
+					.addGap(5)
+					.addComponent(chbxResultadosCriticos)
+					.addGap(5)
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+					.addComponent(lblNota)
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(6)
+							.addComponent(btnAgregar))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(6)
+							.addComponent(btnModificar))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(6)
+							.addComponent(btnEliminar))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(6)
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(chbxResultadosCriticos)
+								.addComponent(lblNota)))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(5)
+							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(2))
+		);
+		panel_1.setLayout(gl_panel_1);
 
 	}
 }
