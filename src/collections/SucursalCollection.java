@@ -3,7 +3,6 @@ package collections;
 import model.EstadoSucursal;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,15 +15,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
 import dto.SucursalDTO;
 
 public class SucursalCollection {
-	private List<SucursalDTO> sucursales = new ArrayList<>();
+	private List<SucursalDTO> datos = new ArrayList<>();
 	
 	public SucursalCollection() 
 	{
 		addDemoData();
-		sucursales = leer();
+		datos = leer();
 	}
 	
 	//Data dummy para mostrar algo
@@ -35,31 +35,47 @@ public class SucursalCollection {
 		s.setDireccion("Estado de Israel 4744");
 		s.setResponsableTecnico("Robert Pan");
 		s.setEstado(EstadoSucursal.Activa);
-		sucursales.add(s);//Guardo la suc dummy
+		datos.add(s);//Guardo la suc dummy
 		
 	}
 
 	public void eliminar(int id) {
-		sucursales.remove(id);
+		datos.remove(id);
 		grabar();
 	}
 	public List<SucursalDTO> getSucursalesList(){
-		return sucursales;
+		return datos;
 	}
 	
 	public SucursalDTO getSucursal(int idSuc) {
-		return sucursales.get(idSuc);
+		return datos.get(idSuc);
 	}
 	
+	public SucursalDTO getPeticionId(int id) {
+		for (SucursalDTO sucursalDTO : datos) {
+			if(id == sucursalDTO.getIdSucursal()) {
+				return sucursalDTO;
+			}
+		}
+		return null;
+	}
 	public void agregarSucursal(SucursalDTO sucursal) {
-		sucursales.add(sucursal);
+		SucursalDTO s =getPeticionId(sucursal.getIdSucursal());
+		if(s != null) {
+			s.setIdSucursal(sucursal.getIdSucursal());
+			s.setDireccion(sucursal.getDireccion());
+			s.setResponsableTecnico(sucursal.getResponsableTecnico());
+			s.setEstado(sucursal.getEstado());
+		}else {
+			datos.add(sucursal);
+		}
 	}
 	
 	public boolean internalBusucarSucursal(int idSucursal)
 	{
 		
-		for(int i=0;i<sucursales.size(); i++){
-			if(sucursales.get(i).getIdSucursal()==idSucursal) {
+		for(int i=0;i<datos.size(); i++){
+			if(datos.get(i).getIdSucursal()==idSucursal) {
 				return true;
 			}
 		}
@@ -72,7 +88,7 @@ public class SucursalCollection {
 		BufferedWriter bwEscritor; 
 		String texto;
 		Gson g = new Gson();
-		texto = g.toJson(sucursales);
+		texto = g.toJson(datos);
 		//grabo el String
 		try{
 			//Este bloque de codigo obligatoriamente debe ir dentro de un try.
@@ -87,7 +103,7 @@ public class SucursalCollection {
 	}
 	
 	private List<SucursalDTO> leer() {
-    	ArrayList<SucursalDTO> sucursales = new ArrayList<>();
+    	ArrayList<SucursalDTO> datos = new ArrayList<>();
         String cadena;
         
             FileReader f;
@@ -100,13 +116,13 @@ public class SucursalCollection {
     	        JsonArray gsonArr = parser.parse(cadena).getAsJsonArray();
     	        Gson g = new Gson();
     	        for(JsonElement js : gsonArr)
-    	        	sucursales.add(g.fromJson(js, SucursalDTO.class));
+    	        	datos.add(g.fromJson(js, SucursalDTO.class));
     	        	b.close();
-    	        	return sucursales;
+    	        	return datos;
     		} catch (IOException e) {
     			e.printStackTrace();
     		}
-		return sucursales;	
+		return datos;	
     }
 
 }

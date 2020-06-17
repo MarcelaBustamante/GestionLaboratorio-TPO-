@@ -222,14 +222,6 @@ public class AltaSucursal extends JDialog {
 		sucursal.setResponsableTecnico(txtResponsableTecnico.getText());
 		sucursal.setEstado((EstadoSucursal)comboEstado.getSelectedItem());
 		controladorDeSucursal.agregarSucursal(sucursal);
-		//controladorDeSucursal
-		//int i = Integer.parseInt(txtidSucursal.getText());//transformo el string del campo de texto a un entero
-		//int idSucursal = i;
-		//String direccion =txtDireccion.getText() ;
-		//String responsableTecnico = txtResponsableTecnico.getText();
-		//EstadoSucursal estado =  (EstadoSucursal)comboEstado.getSelectedItem();//casteo el item seleccionado para que sea un tipo enum
-		//controladorDeSucursal.addSucursal(direccion, responsableTecnico, idSucursal, estado);
-		
 	}
 	
 	//Cargo el form con toda la info de la sucursal
