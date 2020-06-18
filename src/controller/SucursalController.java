@@ -58,9 +58,16 @@ public class SucursalController {
 //	}
 //	//Definicion de controller singleton
 //	
+	public boolean existeSucursal(int idSuc)
+	{
+		if(sucCollection.internalBusucarSucursal(idSuc))
+			return true;
+		else
+			return false;
+	}
 	public void agregarSucursal(SucursalDTO s) {
-		sucCollection.agregarSucursal(s);
-		sucCollection.grabar();
+			sucCollection.agregarSucursal(s);
+			sucCollection.grabar();
 	}
 	
 	

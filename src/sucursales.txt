@@ -1,1 +1,1 @@
-[{"idSucursal":44432754,"direccion":"Sullivan 2981","responsableTecnico":"Lucas Bollella","estado":"Activa"},{"idSucursal":1,"direccion":"Lola lala","responsableTecnico":"July","estado":"Activa"}]
+[{"idSucursal":44432754,"direccion":"Sullivan 2981","responsableTecnico":"Lucas Bollella","estado":"Activa"},{"idSucursal":1,"direccion":"sdsd","responsableTecnico":"sd","estado":"Activa"},{"idSucursal":2,"direccion":"Carosella 862","responsableTecnico":"asda","estado":"Activa"}]

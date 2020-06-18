@@ -105,7 +105,7 @@ public class SucursalABM {
 			JOptionPane.showMessageDialog(frmAbmDeSucursales, "No se puede eliminar la sucursal, existen peticiones finalizadas");
 		}
 		else
-			JOptionPane.showMessageDialog(frmAbmDeSucursales, "");
+			JOptionPane.showMessageDialog(frmAbmDeSucursales, "Sucursal eliminada");
 		tableModelSucursal.refresh();
 	}
 	
