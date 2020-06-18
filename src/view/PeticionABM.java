@@ -107,7 +107,7 @@ public class PeticionABM extends JFrame {
 		ResultadoPeticionABM dialog = new ResultadoPeticionABM(frame,peticiones.obtenerPeticion(tablePeticiones.getSelectedRow()),peticiones);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
-		
+		if (dialog.getModalResult() == ModalResult.OK)tableModelPeticion.refresh();
 	}
 
 	private void eliminar() {

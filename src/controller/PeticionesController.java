@@ -51,10 +51,14 @@ public class PeticionesController {
 				.anyMatch((pet -> (pet.getDniPaciente() == dni) && (pet.getEstado() != EstadoPeticion.Finalizada)));
 	}
 	
-	/// esto creo que es lo mismo que esta arriba
+	/**
+	 * funcion que indica si la peticion ha sido finalizada, buscandola por sucursal
+	 * @param idSuc
+	 * @return
+	 */
 	public boolean existePeticionFinalizadaSuc(int idSuc) {
 		for(int i=0;i<peticionColeccion.getPeticionesList().size();i++) {
-			if(peticionColeccion.getPeticion(i).getIdSucursal()==idSuc&&peticionColeccion.getPeticion(i).getEstado()==EstadoPeticion.Finalizada)
+			if(peticionColeccion.getPeticion(i).getIdSucursal()==idSuc && peticionColeccion.getPeticion(i).getEstado()==EstadoPeticion.Finalizada)
 			return true;
 		}
 		return false;
@@ -70,5 +74,25 @@ public class PeticionesController {
 			};
 		}
 		return aux;
+	}
+	
+	/**
+	 * Este método permite cerrar el flujo de la peticion en finalizado luego 
+	 * de cargar los resultados correspondientes
+	 * @param p
+	 */
+	public void cerrarPeticion(PeticionDTO p) {
+		p.setEstado(EstadoPeticion.Finalizada);
+		agregarPeticion(p);
+	}
+	
+	/**
+	 * Este método permite cerrar el flujo de la peticon con estado rechazado
+	 * si hay que repetir analisis
+	 * @param p
+	 */
+	public void rechazarPeticion(PeticionDTO p) {
+		p.setEstado(EstadoPeticion.Rechazada);
+		agregarPeticion(p);
 	}
 }
