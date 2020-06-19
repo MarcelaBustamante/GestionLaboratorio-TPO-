@@ -36,6 +36,8 @@ import java.awt.event.ActionEvent;
 import model.EstadoSucursal;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 @SuppressWarnings("unused")
 public class AltaSucursal extends JDialog {
 
@@ -75,6 +77,14 @@ public class AltaSucursal extends JDialog {
 			}
 		});
 		
+		//Pongo un evento focus lost para ver si el id que ingreso el usuario corresponde a una sucursal activa
+		txtidSucursal.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if(controladorDeSucursal.existeSucursal(Integer.parseInt(txtidSucursal.getText())))
+					JOptionPane.showMessageDialog(rootPane, "Ya existe una sucursal con este id, ingrese uno nuevo");
+			}
+		});
 	
 		guardarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

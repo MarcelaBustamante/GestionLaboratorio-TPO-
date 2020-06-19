@@ -30,7 +30,6 @@ import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 import collections.UsuarioCollection;
 

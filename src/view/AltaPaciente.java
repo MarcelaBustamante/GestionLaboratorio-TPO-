@@ -22,7 +22,6 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 
 import controller.PacienteController;
 import dto.PacienteDTO;
-import javafx.scene.control.ComboBox;
 import model.EstadoPeticion;
 import view.ModalResult;
 

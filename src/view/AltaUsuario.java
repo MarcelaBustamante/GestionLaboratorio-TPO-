@@ -24,7 +24,6 @@ import controller.PacienteController;
 import controller.UsuarioController;
 import dto.PacienteDTO;
 import dto.UsuarioDTO;
-import javafx.scene.control.ComboBox;
 import model.EstadoPeticion;
 import view.ModalResult;
 

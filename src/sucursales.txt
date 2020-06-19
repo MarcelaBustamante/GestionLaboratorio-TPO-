@@ -1,1 +1,0 @@
-[{"idSucursal":44432754,"direccion":"Sullivan 2981","responsableTecnico":"Lucas Bollella","estado":"Activa"},{"idSucursal":1,"direccion":"Lola lala","responsableTecnico":"July","estado":"Activa"}]
