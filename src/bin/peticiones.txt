@@ -1,0 +1,1 @@
+[{"idPeticion":2,"idSucursal":1,"dniPaciente":94472131,"obraSocial":"osde 210","fechaCarga":"12/03/2020","practicaAsociada":1,"fechaEntrega":"12/06/2020","estado":"Finalizada","resultados":[{"id":1,"valorCriticos":"prueba de sangre completa ","tipoValCri":"Normal"},{"id":2,"valorCriticos":"prueba de orina","tipoValCri":"Normal"}]}]

@@ -31,9 +31,10 @@ import view.tablemodel.SucursalTableModel;
 import view.tablemodel.UsuarioTableModel;
 import javax.swing.SwingConstants;
 @SuppressWarnings("unused")
+
 public class SucursalABM {
 
-	private JFrame frmAbmDeSucursales;
+	private JFrame frmAbmDeSucursales, derivPeticiones;
 	//Declaro los botones aca ya que cambie la estructura original del archivo como hizo el profe
 	private SucursalController sucursales;
 	private JButton btnAgregar, btnModificar, btnEliminar;
@@ -101,11 +102,29 @@ public class SucursalABM {
 	private void eliminarSucursal() {
 		//f(sucursales.existePetiFinalizada(tableSucursales.getValueAt(tableSucursales.getSelectedRow(),tableSucursales)))
 		
-		if(sucursales.existePetiFinalizada(tableSucursales.getSelectedRow())) {
+		if(sucursales.contienPetiFinalizada(tableSucursales.getSelectedRow())) {
 			JOptionPane.showMessageDialog(frmAbmDeSucursales, "No se puede eliminar la sucursal, existen peticiones finalizadas");
 		}
-		else
-			JOptionPane.showMessageDialog(frmAbmDeSucursales, "Sucursal eliminada");
+		else {
+			if(sucursales.contienActivas(tableSucursales.getSelectedRow())) {
+				
+			}
+			else {
+				try {
+					DerviarPeticiones dialog = new DerviarPeticiones(derivPeticiones);
+					//ACA ESTOY INTENTANDO HACER LA DERIVACION
+					dialog.setSucursalOringenDestino(sucursales.getSucursal(tableSucursales.getSelectedRow()),sucursales.listarSucursales());
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				//	if(dialog.getModalResult()==ModalResult.OK)
+						tableModelSucursal.refresh();
+					}
+					catch(Exception e){
+						e.printStackTrace();
+					}
+			}
+				//JOptionPane.showMessageDialog(frmAbmDeSucursales, "Sucursal eliminada");
+		}
 		tableModelSucursal.refresh();
 	}
 	

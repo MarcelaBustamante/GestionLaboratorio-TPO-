@@ -72,7 +72,7 @@ public class AltaSucursal extends JDialog {
 				char validar = arg0.getKeyChar();
 				if(Character.isLetter(validar)) {
 					getToolkit().beep();
-					JOptionPane.showMessageDialog(rootPane, "ingrese unicamente números");
+					JOptionPane.showMessageDialog(rootPane, "ingrese unicamente nï¿½meros");
 				}
 			}
 		});

@@ -56,6 +56,14 @@ public class PeticionesController {
 	 * @param idSuc
 	 * @return
 	 */
+	
+	/**Esta funcion verifica si la sucursal indicada tiene algun tipo peticion activa*/
+	public boolean existePeticionActEnSuc(int idSuc)
+	{
+		return peticionColeccion.getPeticionesList().stream()
+				.anyMatch((pet -> (pet.getIdSucursal() == idSuc) && (pet.getEstado() == EstadoPeticion.Activa)));
+	}
+	
 	public boolean existePeticionFinalizadaSuc(int idSuc) {
 		for(int i=0;i<peticionColeccion.getPeticionesList().size();i++) {
 			if(peticionColeccion.getPeticion(i).getIdSucursal()==idSuc && peticionColeccion.getPeticion(i).getEstado()==EstadoPeticion.Finalizada)
@@ -77,7 +85,7 @@ public class PeticionesController {
 	}
 	
 	/**
-	 * Este método permite cerrar el flujo de la peticion en finalizado luego 
+	 * Este mï¿½todo permite cerrar el flujo de la peticion en finalizado luego 
 	 * de cargar los resultados correspondientes
 	 * @param p
 	 */
@@ -87,7 +95,7 @@ public class PeticionesController {
 	}
 	
 	/**
-	 * Este método permite cerrar el flujo de la peticon con estado rechazado
+	 * Este mï¿½todo permite cerrar el flujo de la peticon con estado rechazado
 	 * si hay que repetir analisis
 	 * @param p
 	 */

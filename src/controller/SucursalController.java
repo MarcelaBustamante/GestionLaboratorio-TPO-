@@ -24,20 +24,20 @@ public class SucursalController {
 		sucCollection.eliminar(indice);
 	}
 	
-	public boolean existePetiFinalizada(int indice) {
-		
-		if(controladorPeticion.existePeticionFinalizadaSuc(sucCollection.getSucursalesList().get(indice).getIdSucursal()))	
-		{ 
-			System.out.print("No se puede borrar");
+	public boolean contienPetiFinalizada(int sucSeleccionada) {
+		//Me fijo si existen peticiones finalizadas
+		if(controladorPeticion.existePeticionFinalizadaSuc(sucCollection.getSucursalesList().get(sucSeleccionada).getIdSucursal()))	
+			return true; //System.out.print("No se puede borrar");
+
+		return false;
+		}
+	
+	public boolean contienActivas(int sucSeleccionada) {
+		if(controladorPeticion.existePeticionActEnSuc(sucSeleccionada))
 			return true;
-		}
-		else
-		{
-			eliminarSucursal(indice);
-			
-			return false;
-		}
+		return false;
 	}
+	
 	
 	public List<SucursalDTO> listarSucursales(){
 		return sucCollection.getSucursalesList();
