@@ -31,7 +31,30 @@ public class PeticionesController {
 		
 		return peticionColeccion.getPeticionesList() ;
 	}
-
+	
+	//Metodo que devuelve las peticiones de una sucursal en especifico
+	public List<PeticionDTO> listaPeticionesSuc(int idSuc)
+	{
+		List<PeticionDTO> listaPetiSuc = new ArrayList<PeticionDTO>();
+		 for(int i=0;i<peticionColeccion.getPeticionesList().size();i++) {
+			 if(peticionColeccion.getPeticion(i).getIdSucursal()==idSuc) {
+				 listaPetiSuc.add(peticionColeccion.getPeticion(i));
+			 }
+				 
+		 }
+		 return listaPetiSuc;
+	}
+	
+	public void DerivarPeticiones(int sucOrigen,int sucDestino)
+	{
+		 for(int i=0;i<peticionColeccion.getPeticionesList().size();i++) {
+			 if(peticionColeccion.getPeticion(i).getIdSucursal()==sucOrigen) {
+				 peticionColeccion.getPeticion(i).setIdSucursal(sucDestino);
+			 }
+		 }
+	
+	}
+	
 	public PeticionDTO obtenerPeticion(int id) {
 		return peticionColeccion.getPeticion(id);
 	}

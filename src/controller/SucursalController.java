@@ -89,6 +89,16 @@ public class SucursalController {
 	}
 //	
 
+
+
+
+	public void derivarPeticiones(String origen, String destino) {
+		// TODO Auto-generated method stub
+		int sucOrigen = Integer.parseInt(origen);
+		int sucDestino = Integer.parseInt(destino);
+		controladorPeticion.DerivarPeticiones(sucOrigen,sucDestino);		
+	}
+
 //	
 //	private void cambiarEstado(int idSucursal) {
 //		for(int i=0; i<listaSucursales.size(); i++){

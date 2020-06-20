@@ -116,7 +116,8 @@ public class SucursalABM {
 					dialog.setSucursalOringenDestino(sucursales.getSucursal(tableSucursales.getSelectedRow()),sucursales.listarSucursales());
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-				//	if(dialog.getModalResult()==ModalResult.OK)
+					dialog.setLocationRelativeTo(frmAbmDeSucursales);
+				    //if(dialog.getModalResult()==ModalResult.OK)
 						tableModelSucursal.refresh();
 					}
 					catch(Exception e){
