@@ -52,7 +52,6 @@ public class AltaPaciente extends JDialog {
 	private JTextField txtDomicilio;
 	private JTextField txtMail;
 	private JTextField txtEdad;
-	//private JTextField txtSexo;
 	private JComboBox<String> sexobox;
 	private ModalResult modalResult;
 	private JTextField textField;
@@ -95,11 +94,6 @@ public class AltaPaciente extends JDialog {
 		txtMail = new JTextField();
 		txtMail.setColumns(10);
 		
-		/*JLabel lblNewLabel_3 = new JLabel("Sexo");
-		
-		txtSexo = new JTextField();
-		txtSexo.setColumns(10);
-		*/
 		JLabel lblNewLabel_4 = new JLabel("Edad");
 		
 		txtEdad= new JTextField();
@@ -224,17 +218,6 @@ public class AltaPaciente extends JDialog {
 		int edad = Integer.parseInt(txtEdad.getText());
 		controladorController.altaPaciente(id, dni, nombre, domicilio, mail, sexo, edad);
 		
-		/*
-		paciente.setIdPaciente(Integer.parseInt(txtID.getText()));
-		paciente.setDni(Integer.parseInt(txtDni.getText()));
-		paciente.setNombre((txtNombre.getText()));
-		paciente.setDomicilio(txtDomicilio.getText());
-		paciente.setMail(txtMail.getText());
-		//paciente.setSexo(txtSexo.getText());
-		String sexo = sexobox.getItemAt(sexobox.getSelectedIndex());
-		paciente.setSexo(sexo);
-		paciente.setEdad(Integer.parseInt(txtEdad.getText()));
-	*/
 	}
 	
 	public PacienteDTO getPacienteDTO() {

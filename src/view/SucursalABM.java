@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -168,9 +169,10 @@ public class SucursalABM {
 		catch (Exception e) {e.printStackTrace();}
 		
 		frmAbmDeSucursales = new JFrame();
+		frmAbmDeSucursales.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuView.class.getResource("/res/hospital4.png")));
 		frmAbmDeSucursales.setTitle("ABM de Sucursales");
 		frmAbmDeSucursales.setBounds(100, 100, 526, 398);
-		frmAbmDeSucursales.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAbmDeSucursales.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAbmDeSucursales.setLocationRelativeTo(null);		//centro la pantalla
 		
 		JPanel panelBotones = new JPanel();

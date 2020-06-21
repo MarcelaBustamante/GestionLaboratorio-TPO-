@@ -84,8 +84,8 @@ public class LogUsuario {
 		frmIngreso.getContentPane().add(passwordField);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Se ha logueado");
 				MenuView p = new MenuView();
+				frmIngreso.setVisible(false);
 				p.main(null);
 			}
 		});

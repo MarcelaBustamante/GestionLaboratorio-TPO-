@@ -134,7 +134,7 @@ public class AltaPeticion extends JDialog {
 		JLabel lblID = new JLabel("ID");
 		txtID = new JTextField();
 		txtID.setColumns(10);
-		txtID.setText(String.valueOf(controladorPeticion.listaPeticiones().size() + 1));
+		txtID.setText(String.valueOf(controladorPeticion.obtenerUltimoId() + 1));
 		txtID.setEditable(false);
 		
 		JLabel lblsucursalID = new JLabel("Seleccionar Sucursal");

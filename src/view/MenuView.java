@@ -19,6 +19,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
+import java.awt.Canvas;
+import java.awt.TextField;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.Dimension;
 
 public class MenuView {
 
@@ -180,13 +188,25 @@ public class MenuView {
 		});
 		
 		JButton btnNewButton_5 = new JButton("Cerrar");
-		btnNewButton_5.setBounds(0, 217, 149, 43);
+		btnNewButton_5.setBounds(395, 237, 77, 23);
 		btnNewButton_5.setBackground(new Color(255, 255, 255));
 		frame.getContentPane().add(btnNewButton_5);
 		
 		JLabel label_5 = new JLabel("");
 		label_5.setBounds(240, 217, 240, 43);
 		frame.getContentPane().add(label_5);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.RED, null, null, null));
+		panel.setBounds(10, 11, 220, 230);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(0, 0, 220, 230);
+		lblNewLabel.setPreferredSize(new Dimension(40, 14));
+		lblNewLabel.setIcon(new ImageIcon(MenuView.class.getResource("/res/hospital4.png")));
+		panel.add(lblNewLabel);
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

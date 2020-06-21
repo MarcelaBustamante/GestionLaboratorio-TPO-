@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FlowLayout;
@@ -79,8 +81,10 @@ public class PracticaView {
 	private void modificarPractica() {
 		try {
 			PracticaABM dialog = new PracticaABM(frame);
+			
 			dialog.setPractica(coleccionPracticas.getPractica(table.getSelectedRow()));
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setLocationRelativeTo(null);	
 			dialog.setVisible(true);
 			if (dialog.getModalResult() == ModalResult.OK)
 				practicaTableModel.refresh();
@@ -90,6 +94,11 @@ public class PracticaView {
 	}
 	
 	private void initialize() {
+		//Elimino el look and feel de java  y pongo el nativo del sistema
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				}
+				catch (Exception e) {e.printStackTrace();}
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(PracticaView.class.getResource("/res/hospital4.png")));
 		frame.setBounds(100, 100, 450, 300);

@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 
 import collections.PeticionCollection;
 import controller.PeticionesController;
+import dto.PeticionDTO;
+import model.EstadoPeticion;
+import model.TipoValorCritico;
 import view.tablemodel.PeticionTableModel;
 import view.ModalResult;
 
@@ -82,9 +85,10 @@ public class PeticionABM extends JFrame {
 			AltaPeticion dialog = new AltaPeticion(frame);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
+			if (dialog.getModalResult() == ModalResult.OK) {
+				tableModelPeticion.agregar(dialog.getPeticion());	
+			}	
 			JOptionPane.showMessageDialog(null, "finalizado");
-			if (dialog.getModalResult() == ModalResult.OK)
-				tableModelPeticion.agregar(dialog.getPeticion());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -104,10 +108,15 @@ public class PeticionABM extends JFrame {
 	}
 	
 	private void mostrarResultados() {
-		ResultadoPeticionABM dialog = new ResultadoPeticionABM(frame,peticiones.obtenerPeticion(tablePeticiones.getSelectedRow()),peticiones);
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setVisible(true);
-		if (dialog.getModalResult() == ModalResult.OK)tableModelPeticion.refresh();
+		PeticionDTO p = peticiones.obtenerPeticion(tablePeticiones.getSelectedRow());
+		if(p.getResultados().stream().anyMatch(r -> r.getTipoValCri() == TipoValorCritico.Reservado)) {
+			JOptionPane.showMessageDialog(null,"RETIRAR POR SUCURSAL");
+		}else {
+			ResultadoPeticionABM dialog = new ResultadoPeticionABM(frame,p,peticiones);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+			if (dialog.getModalResult() == ModalResult.OK)tableModelPeticion.refresh();
+		}
 	}
 
 	private void eliminar() {

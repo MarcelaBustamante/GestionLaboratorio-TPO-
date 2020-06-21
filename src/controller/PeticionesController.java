@@ -126,4 +126,10 @@ public class PeticionesController {
 		p.setEstado(EstadoPeticion.Rechazada);
 		agregarPeticion(p);
 	}
+	public int obtenerUltimoId() {
+		
+		List<PeticionDTO> aux = listaPeticiones(); 
+		aux.sort((a, b) -> a.getIdPeticion() - b.getIdPeticion());
+		return aux.get(aux.size() - 1).getIdPeticion();
+	}
 }

@@ -1,1 +1,1 @@
-[{"nombreUsuario":"Lucas","mail":"lubolle@gmail.com","password":"12345","nombre":"Lucas","domicilio":"Sullivan 2981","dni":34889000,"fechaNacimiento":"05/09/1990","rolUsuario":"Administrador"}]
+[{"nombreUsuario":"Lucas","mail":"lubolle@gmail.com","password":"12345","nombre":"Lucas","domicilio":"Sullivan 2981","dni":34889000,"fechaNacimiento":"05/09/1990","rolUsuario":"Administrador"},{"nombreUsuario":"July","mail":"jojo@jojo","password":"123","nombre":"july Bustamante","domicilio":"arcadiaquest","dni":484848,"fechaNacimiento":"07/12/2010","rolUsuario":"Administrador"}]
