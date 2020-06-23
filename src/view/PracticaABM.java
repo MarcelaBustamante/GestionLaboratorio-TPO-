@@ -33,16 +33,50 @@ public class PracticaABM extends JDialog {
 	private JTextField textFieldCantHoras;
 	private ModalResult modalResult;
 	private PracticaDTO practica = new PracticaDTO();
-	private PracticaController practicaController = new PracticaController();
-
-	/**
-	 * Launch the application.
-	 */
+	private PracticaController practicaController;
 	
-
-	/**
-	 * Create the dialog.
-	 */
+	public PracticaABM(JFrame frame) {
+		super(frame, "Persona", true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PracticaABM.class.getResource("/res/hospital4.png")));
+		setLocationRelativeTo(frame);
+		practicaController = new PracticaController();
+		inicializarControles();
+		
+	}
+	
+	public ModalResult getModalResult() {
+		return modalResult;
+	}
+	
+	public PracticaDTO getPractica() {
+		return practica;
+	}
+	
+	private void asignarDatosEntidad() {
+		practica.setCodigoPractica(Integer.valueOf(textFieldCodigo.getText()));
+		practica.setNombrePractica(textFieldNombre.getText());
+		practica.setGrupo(textFieldGrupo.getText());
+		practica.setValoresCriticos(textFieldValCriticos.getText());
+		practica.setValoresReservados(textFieldValReservados.getText());
+		practica.setDate(textFieldCantHoras.getText());
+		practicaController.agregarPractica(practica);
+		
+	}
+	
+	private void asignarDatosForm(){
+		textFieldCodigo.setText(String.valueOf(practica.getCodigoPractica()));
+		textFieldNombre.setText(practica.getNombrePractica());
+		textFieldGrupo.setText(practica.getGrupo());
+		textFieldValCriticos.setText(practica.getValoresCriticos());
+		textFieldCantHoras.setText(practica.getDate());
+		textFieldValReservados.setText(practica.getValoresReservados());
+	}
+	
+	public void setPractica(PracticaDTO practica) {
+		this.practica = practica;
+		asignarDatosForm();
+	}
+	
 	private void inicializarControles() {
 		setTitle("Practica");
 		setBounds(100, 100, 450, 300);
@@ -54,6 +88,8 @@ public class PracticaABM extends JDialog {
 		
 		textFieldCodigo = new JTextField();
 		textFieldCodigo.setColumns(10);
+		textFieldCodigo.setText(String.valueOf(practicaController.obtenerUltimoId() + 1));
+		textFieldCodigo.setEditable(false);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
 		
@@ -169,44 +205,5 @@ public class PracticaABM extends JDialog {
 		}
 	}
 	
-	public PracticaABM(JFrame frame) {
-		super(frame, "Persona", true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PracticaABM.class.getResource("/res/hospital4.png")));
-		setLocationRelativeTo(frame);
-		practicaController = new PracticaController();
-		inicializarControles();
-	}
 	
-	public ModalResult getModalResult() {
-		return modalResult;
-	}
-	
-	public PracticaDTO getPractica() {
-		return practica;
-	}
-	
-	private void asignarDatosEntidad() {
-		practica.setCodigoPractica(textFieldCodigo.getText());
-		practica.setNombrePractica(textFieldNombre.getText());
-		practica.setGrupo(textFieldGrupo.getText());
-		practica.setValoresCriticos(textFieldValCriticos.getText());
-		practica.setValoresReservados(textFieldValReservados.getText());
-		practica.setDate(textFieldCantHoras.getText());
-		practicaController.agregarPractica(practica);
-		
-	}
-	
-	private void asignarDatosForm(){
-		textFieldCodigo.setText(practica.getCodigoPractica());
-		textFieldNombre.setText(practica.getNombrePractica());
-		textFieldGrupo.setText(practica.getGrupo());
-		textFieldValCriticos.setText(practica.getValoresCriticos());
-		textFieldCantHoras.setText(practica.getValoresReservados());
-		textFieldValReservados.setText(practica.getDate());
-	}
-	
-	public void setPractica(PracticaDTO practica) {
-		this.practica = practica;
-		asignarDatosForm();
-	}
 }

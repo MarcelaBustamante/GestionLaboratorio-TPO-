@@ -16,25 +16,25 @@ public class PracticaTableModel extends AbstractTableModel{
 
 	private List<PracticaDTO> lista;
 	
-	protected String[] columnNames = new String[] { "Codigo", "Nombre", "Grupo", "Val. Criticos", "Val. Reservados", "Cant. Horas"}; 
-	protected Class[] columnClasses = new Class[] { String.class, String.class, String.class, String.class, String.class, String.class}; 
+	protected String[] columnNames = new String[] { "Codigo", "Nombre", "Grupo", "Val. Criticos", "Val. Reservados", "Cant. Horas","Estado"}; 
+	protected Class[] columnClasses = new Class[] { String.class, String.class, String.class, String.class, String.class, String.class,boolean.class}; 
 
 
 	public String getColumnName(int col) { return columnNames[col]; } 
 	public Class getColumnClass(int col) { return columnClasses[col]; } 
 	
-	public PracticaTableModel(PracticaCollection coleccionPractica)
+	public PracticaTableModel(List<PracticaDTO> list)
 	{
-		lista = coleccionPractica.getPracticaList();
+		lista = list;
 	}
 	
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
+		
 		return columnNames.length;
 	}
 
 	public int getRowCount() {
-		// TODO Auto-generated method stub
+		
 		return lista.size();
 	}
 	
@@ -52,6 +52,7 @@ public class PracticaTableModel extends AbstractTableModel{
 			case 3: return lista.get(rowIndex).getValoresCriticos();
 			case 4: return lista.get(rowIndex).getValoresReservados();
 			case 5: return lista.get(rowIndex).getDate();
+			case 6: return lista.get(rowIndex).isActivo();
 			default: return null; 
 		}
 	}

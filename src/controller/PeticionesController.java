@@ -129,7 +129,13 @@ public class PeticionesController {
 	public int obtenerUltimoId() {
 		
 		List<PeticionDTO> aux = listaPeticiones(); 
-		aux.sort((a, b) -> a.getIdPeticion() - b.getIdPeticion());
-		return aux.get(aux.size() - 1).getIdPeticion();
+		int tam = aux.size();
+		if(tam > 0) {
+			aux.sort((a, b) -> a.getIdPeticion() - b.getIdPeticion());
+			return aux.get(tam).getIdPeticion();	
+		}else {
+			return 0;
+		}
+		
 	}
 }

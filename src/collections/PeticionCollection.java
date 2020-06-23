@@ -32,6 +32,7 @@ public class PeticionCollection {
 	public PeticionDTO getPeticion(int index) {
 		return datos.get(index);
 	}
+	
 	public PeticionDTO getPeticionId(int id) {
 		for (PeticionDTO peticionDTO : datos) {
 			if(id == peticionDTO.getIdPeticion()) {

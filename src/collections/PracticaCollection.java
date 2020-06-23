@@ -16,19 +16,29 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import dto.PeticionDTO;
 import dto.PracticaDTO;
 import dto.UsuarioDTO;
 
 public class PracticaCollection {
-	private List<PracticaDTO> datos = new ArrayList<>();
+	private List<PracticaDTO> datos;
 	public PracticaCollection()
 	{
-		//addDemoData();
+		
 		datos = leer();
 	}
 	public List<PracticaDTO> getPracticaList()
 	{
 		return datos;
+	}
+	
+	public PracticaDTO getPracticaId(int id) {
+		for (PracticaDTO practicaDTO : datos) {
+			if(id == practicaDTO.getCodigoPractica()) {
+				return practicaDTO;
+			}
+		}
+		return null;
 	}
 	
 	public PracticaDTO getPractica(int index)
@@ -37,63 +47,45 @@ public class PracticaCollection {
 	}
 	
 	public void agregarDatos(PracticaDTO practica) {
-		datos.add(practica);
+		PracticaDTO p = getPracticaId(practica.getCodigoPractica());
+		if(p != null) {
+			p.setActivo(practica.isActivo());
+			p.setDate(practica.getDate());
+			p.setGrupo(practica.getGrupo());
+			p.setNombrePractica(practica.getNombrePractica());
+			p.setValoresCriticos(practica.getValoresCriticos());
+			p.setValoresReservados(practica.getValoresReservados());
+		
+		}else {
+			datos.add(practica);
+		}
 	}
 	
-	/*public void addDemoData()
-	{
-		UsuarioDTO p = new UsuarioDTO();
-		p.setNombreUsuario("RobertoM");
-        p.setMail("robert@hotmail.com");
-        p.setPassword("Chinchulin");
-        p.setNombre("Roberto Magan");
-        p.setDomicilio("Avenida Independencia 552");
-        p.setDni(4523664);
-        p.setFechaNacimiento("20/02/1993");
-        p.setRolUsuario("Administrador");
-		datos.add(p);
-	}*/
 	public void grabar() {
-		//File archivo = new File("pacientes.txt");
-		FileWriter fileWriter; 
-		BufferedWriter bwEscritor; 
-		String texto;
-		Gson g = new Gson();
-		texto = g.toJson(datos);
-		//grabo el String
-		try{
-			//Este bloque de codigo obligatoriamente debe ir dentro de un try.
-			fileWriter = new FileWriter("practicas.txt");
-			fileWriter.write(texto);
-			bwEscritor = new BufferedWriter(fileWriter);
-			bwEscritor.close();		
-		}catch(Exception ex)
-		{
-			JOptionPane.showMessageDialog(null,ex.getMessage());
+		try {
+			FileUtils.grabar("practicas.txt", datos);
+		} catch (Exception ex) {
+			datos = new ArrayList<>();
+			System.out.println(ex.getMessage());
 		}
 	}
 	 private List<PracticaDTO> leer() {
-	    	ArrayList<PracticaDTO> practicas = new ArrayList<>();
-	        String cadena;
-	        
-	            FileReader f;
-	    		try {
-	    			f = new FileReader("practicas.txt");
-	    	        BufferedReader b = new BufferedReader(f);
-	    	        cadena = b.readLine();
-	    	        System.out.println(cadena);
-	    	        JsonParser parser = new JsonParser();
-	    	        JsonArray gsonArr = parser.parse(cadena).getAsJsonArray();
-	    	        Gson g = new Gson();
-	    	        for(JsonElement js : gsonArr)
-	    	        	practicas.add(g.fromJson(js, PracticaDTO.class));
-	    	        	b.close();
-	    	        	return practicas;
-	    		} catch (IOException e) {
-
-	    			e.printStackTrace();
-	    		}
-	        
-			return practicas;	
-	    }
+		 try {
+				datos = FileUtils.leer("practicas.txt", PracticaDTO.class);
+			}catch (Exception e) {
+				//si no existe el archivo lo crea 
+				datos = new ArrayList<>();
+				System.out.println(e.getMessage());
+			}
+			return datos;
+	 }
+	 
+	 public void eliminar(int pos) {
+		 PracticaDTO p = getPractica(pos);
+		 	p.setActivo(false);
+		 	this.agregarDatos(p);
+			this.grabar();
+		}
+	 
+	 
 }

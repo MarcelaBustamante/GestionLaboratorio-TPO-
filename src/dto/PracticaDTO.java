@@ -4,14 +4,15 @@ import java.util.Date;
 
 public class PracticaDTO {
 	
-	private String codigoPractica;
+	private int codigoPractica;
 	private String nombrePractica;
 	private String grupo;
 	private String valoresCriticos;
 	private String valoresReservados;
 	private String date;
+	private boolean activo = true;
 	
-	public PracticaDTO(String codigoPractica, String nombrePractica, String grupo, String d,
+	public PracticaDTO(int codigoPractica, String nombrePractica, String grupo, String d,
 			String e, String date) {
 		super();
 		this.codigoPractica = codigoPractica;
@@ -20,17 +21,33 @@ public class PracticaDTO {
 		this.valoresCriticos = d;
 		this.valoresReservados = e;
 		this.date = date;
+		this.setActivo(true);
 	}
 	
 	public PracticaDTO() {
 		
 	}
 
-	public String getCodigoPractica() {
+	public int getCodigoPractica() {
 		return codigoPractica;
 	}
 
-	public void setCodigoPractica(String codigoPractica) {
+	
+	/**
+	 * @return the activo
+	 */
+	public boolean isActivo() {
+		return activo;
+	}
+
+	/**
+	 * @param activo the activo to set
+	 */
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	public void setCodigoPractica(int codigoPractica) {
 		System.out.print(codigoPractica);
 		this.codigoPractica = codigoPractica;
 	}
