@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import collections.UsuarioCollection;
+import dto.PacienteDTO;
 import dto.UsuarioDTO;
 
 
@@ -24,9 +25,9 @@ public class UsuarioTableModel extends AbstractTableModel{
 	public String getColumnName(int col) { return columnNames[col]; } 
 	public Class getColumnClass(int col) { return columnClasses[col]; } 
 	
-	public UsuarioTableModel(UsuarioCollection listusuario)
+	public UsuarioTableModel(List<UsuarioDTO>listusuario)
 	{
-		listaUsuarios = listusuario.getUsuariosList();
+		listaUsuarios = listusuario;
 	}
 	
 	@Override
@@ -81,5 +82,11 @@ public class UsuarioTableModel extends AbstractTableModel{
 	{
 		eliminar(listaUsuarios.indexOf(usuario));
 	}	
-
+	public List<UsuarioDTO> getListaUsuarios() {
+		return listaUsuarios;
+	}
+	public void setListaUsuarios(List<UsuarioDTO> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
+		this.refresh();
+	}	
 }

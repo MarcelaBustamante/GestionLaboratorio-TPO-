@@ -1,1 +1,2 @@
 [{"idPeticion":1,"idSucursal":44432754,"dniPaciente":123,"obraSocial":"osde210","fechaCarga":"12/12/1212","practicaAsociada":1,"fechaEntrega":"12/12/1212","estado":"Activa","resultados":[]}]
+

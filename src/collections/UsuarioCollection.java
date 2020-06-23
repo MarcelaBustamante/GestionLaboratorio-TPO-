@@ -2,7 +2,6 @@ package collections;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,83 +14,90 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
 import dto.UsuarioDTO;
 
 public class UsuarioCollection {
-	private List<UsuarioDTO> datos = new ArrayList<>();
-	public UsuarioCollection()
-	{
-		addDemoData();
+	private List<UsuarioDTO> datos;
+
+	public UsuarioCollection() {
 		datos = leer();
+
 	}
-	public List<UsuarioDTO> getUsuariosList()
-	{
+
+	public List<UsuarioDTO> getUsuariosList() {
 		return datos;
 	}
-	
-	public UsuarioDTO getUsuario(int index)
-	{
+
+	public UsuarioDTO getUsuario(int index) {
 		return datos.get(index);
 	}
-	
+	public UsuarioDTO getUsuarioDni(int dni){
+		for (UsuarioDTO usuarioDTO : datos) {
+			if(dni == usuarioDTO.getDni()) {
+				return usuarioDTO;
+			}
+		}
+		return null;
+	}
 	public void agregarDatos(UsuarioDTO usuario) {
-		datos.add(usuario);
-	}
-	
-	public void addDemoData()
-	{
-		UsuarioDTO p = new UsuarioDTO();
-		p.setNombreUsuario("RobertoM");
-        p.setMail("robert@hotmail.com");
-        p.setPassword("Chinchulin");
-        p.setNombre("Roberto Magan");
-        p.setDomicilio("Avenida Independencia 552");
-        p.setDni(4523664);
-        p.setFechaNacimiento("20/02/1993");
-        p.setRolUsuario("Administrador");
-		datos.add(p);
-	}
-	public void grabar() {
-		//File archivo = new File("pacientes.txt");
-		FileWriter fileWriter; 
-		BufferedWriter bwEscritor; 
-		String texto;
-		Gson g = new Gson();
-		texto = g.toJson(datos);
-		//grabo el String
-		try{
-			//Este bloque de codigo obligatoriamente debe ir dentro de un try.
-			fileWriter = new FileWriter("usuarios.txt");
-			fileWriter.write(texto);
-			bwEscritor = new BufferedWriter(fileWriter);
-			bwEscritor.close();		
-		}catch(Exception ex)
-		{
-			JOptionPane.showMessageDialog(null,ex.getMessage());
+		UsuarioDTO p = getUsuarioDni(usuario.getDni());
+		if(p != null) {
+			p.setNombreUsuario(usuario.getNombreUsuario());
+			p.setMail(usuario.getMail());
+			p.setPassword(usuario.getPassword());
+			p.setNombre(usuario.getNombre());
+			p.setDomicilio(usuario.getDomicilio());
+			p.setDni(usuario.getDni());
+			p.setFechaNacimiento(usuario.getFechaNacimiento());
+			p.setRolUsuario(usuario.getRolUsuario());
+		}else {
+			datos.add(usuario);
 		}
 	}
-	 private List<UsuarioDTO> leer() {
-	    	ArrayList<UsuarioDTO> usuarios = new ArrayList<>();
-	        String cadena;
-	        
-	            FileReader f;
-	    		try {
-	    			f = new FileReader("usuarios.txt");
-	    	        BufferedReader b = new BufferedReader(f);
-	    	        cadena = b.readLine();
-	    	        System.out.println(cadena);
-	    	        JsonParser parser = new JsonParser();
-	    	        JsonArray gsonArr = parser.parse(cadena).getAsJsonArray();
-	    	        Gson g = new Gson();
-	    	        for(JsonElement js : gsonArr)
-	    	        	usuarios.add(g.fromJson(js, UsuarioDTO.class));
-	    	        	b.close();
-	    	        	return usuarios;
-	    		} catch (IOException e) {
+	public boolean internalBuscarUsuario(String nombreUsuario)
+	{
+		for(int i=0;i<datos.size(); i++){
+			if(datos.get(i).getNombreUsuario().equals(nombreUsuario)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	/*public boolean internalBuscar(String nombreUsuario, String contra)
+	{
+		for(int i=0;i<datos.size(); i++){
+			if(datos.get(i).getNombreUsuario().equals(nombreUsuario) && datos.get(i).getPassword().equals(contra)) {
+				return true;
+			}
+		}
+		return false;
+	}*/
+	
 
-	    			e.printStackTrace();
-	    		}
-	        
-			return usuarios;	
-	    }
+
+	public void grabar() {
+		try {
+			FileUtils.grabar("usuarios.txt", datos);
+		} catch (Exception ex) {
+			datos = new ArrayList<>();
+			System.out.println(ex.getMessage());
+		}
+	}
+
+	private List<UsuarioDTO> leer() {
+		try {
+			datos = FileUtils.leer("usuarios.txt", UsuarioDTO.class);
+		}catch (Exception e) {
+			//si no existe el archivo lo crea 
+			datos = new ArrayList<>();
+			System.out.println(e.getMessage());
+		}
+		return datos;
+	}
+
+	public void eliminar(int dni) {
+		datos.remove(dni);
+		grabar();
+	}
 }

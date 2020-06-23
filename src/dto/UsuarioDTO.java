@@ -8,7 +8,6 @@ public class UsuarioDTO {
 	private int dni;
 	private String fechaNacimiento;
 	private String rolUsuario;
-	
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}

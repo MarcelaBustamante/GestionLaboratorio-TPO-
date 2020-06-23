@@ -8,6 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import controller.PacienteController;
 import collections.PacienteCollection;
 import dto.PacienteDTO;
+import dto.PeticionDTO;
 
 public class PacienteTableModel extends AbstractTableModel{
 	/**
@@ -23,9 +24,9 @@ public class PacienteTableModel extends AbstractTableModel{
 	public String getColumnName(int col) { return columnNames[col]; } 
 	public Class getColumnClass(int col) { return columnClasses[col]; } 
 	
-	public PacienteTableModel(PacienteCollection listpaciente)
+	public PacienteTableModel(List<PacienteDTO> listpaciente)
 	{
-		listaPacientes = listpaciente.getPacientesList();
+		listaPacientes = listpaciente;
 	}
 	
 	@Override
@@ -78,6 +79,13 @@ public class PacienteTableModel extends AbstractTableModel{
 	public void eliminar(PacienteDTO paciente)
 	{
 		eliminar(listaPacientes.indexOf(paciente));
+	}	
+	public List<PacienteDTO> getListaPacientes() {
+		return listaPacientes;
+	}
+	public void setListaPacientes(List<PacienteDTO> listaPacientes) {
+		this.listaPacientes = listaPacientes;
+		this.refresh();
 	}	
 
 }

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Dimension;
 
-public class MenuView {
+public class Menuview2 {
 
 	private JFrame frame;
 
@@ -39,7 +40,7 @@ public class MenuView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenuView window = new MenuView();
+					Menuview2 window = new Menuview2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +52,7 @@ public class MenuView {
 	/**
 	 * Create the application.
 	 */
-	public MenuView() {
+	public Menuview2() {
 		initialize();
 	}
 
@@ -83,9 +84,7 @@ public class MenuView {
 		JMenuItem menuSucursales = new JMenuItem("Sucursales");
 		menuSucursales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SucursalABM s = new SucursalABM();
-				s.main(null);
-				
+				JOptionPane.showMessageDialog(frame, "Usted no tiene permiso para acceder");		
 			}
 		});
 		mnNewMenu.add(menuSucursales);
@@ -93,7 +92,7 @@ public class MenuView {
 		JMenuItem menuPeticiones = new JMenuItem("Peticiones");
 		menuPeticiones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PeticionABM p = new PeticionABM();
+				Peticionview1 p = new Peticionview1();
 				p.main(null);
 			}
 		});
@@ -102,8 +101,7 @@ public class MenuView {
 		JMenuItem menuUsuarios = new JMenuItem("Usuarios");
 		menuUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioABM p = new UsuarioABM();
-				p.main(null);
+				JOptionPane.showMessageDialog(frame, "Usted no tiene permiso para acceder");
 			}
 		});
 		mnNewMenu.add(menuUsuarios);
@@ -111,8 +109,7 @@ public class MenuView {
 		JMenuItem menuPacientes = new JMenuItem("Pacientes");
 		menuPacientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PacienteABM p = new PacienteABM();
-				p.main(null);
+				JOptionPane.showMessageDialog(frame, "Usted no tiene permiso para acceder");
 			}
 		});
 		mnNewMenu.add(menuPacientes);
@@ -121,8 +118,7 @@ public class MenuView {
 		JMenuItem menuPracticas = new JMenuItem("Practicas");
 		menuPracticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PracticaView p = new PracticaView();
-				p.main(null);
+				JOptionPane.showMessageDialog(frame, "Usted no tiene permiso para acceder");
 			}
 		});
 		mnNewMenu.add(menuPracticas);
@@ -140,8 +136,7 @@ public class MenuView {
 		JButton btnNewButton_2 = new JButton("Sucursales");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SucursalABM s = new SucursalABM();
-				s.main(null);
+				JOptionPane.showMessageDialog(frame, "Usted no tiene permiso para acceder");
 			}
 		});
 		btnNewButton_2.setBounds(240, 2, 240, 43);
@@ -163,8 +158,7 @@ public class MenuView {
 		frame.getContentPane().add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioABM p = new UsuarioABM();
-				p.main(null);
+				JOptionPane.showMessageDialog(frame, "Usted no tiene permiso para acceder");
 			}
 		});
 		
@@ -173,8 +167,7 @@ public class MenuView {
 		frame.getContentPane().add(btnNewButton_3);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PacienteABM p = new PacienteABM();
-				p.main(null);
+				JOptionPane.showMessageDialog(frame, "Usted no tiene permiso para acceder");
 			}
 		});
 		
@@ -183,8 +176,7 @@ public class MenuView {
 		frame.getContentPane().add(btnNewButton_4);
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PracticaView p = new PracticaView();
-				p.main(null);
+				JOptionPane.showMessageDialog(frame, "Usted no tiene permiso para acceder");
 			}
 		});
 		
