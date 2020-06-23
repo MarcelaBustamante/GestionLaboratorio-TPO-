@@ -65,7 +65,7 @@ public class AltaUsuario extends JDialog {
 	private UsuarioDTO usuario = new UsuarioDTO(); 
 	private JTextField txtNombreUsuario;
 	private JFormattedTextField txtFechaNacimiento;
-	private JTextField txtContraseña;
+	private JTextField txtContraseÃ±a;
 	private JTextField txtDomicilio;
 	private JTextField txtNombre;
 	private JTextField txtDni;
@@ -124,10 +124,10 @@ public class AltaUsuario extends JDialog {
 			}
 		});
 		
-		JLabel lblNewLabel_2 = new JLabel("Contraseña");
+		JLabel lblNewLabel_2 = new JLabel("Contraseï¿½a");
 		
-		txtContraseña = new JTextField();
-		txtContraseña.setColumns(10);
+		txtContraseÃ±a = new JTextField();
+		txtContraseÃ±a.setColumns(10);
 		
 		JLabel lblDomicilio = new JLabel("Domicilio");
 		
@@ -198,7 +198,7 @@ public class AltaUsuario extends JDialog {
 						.addComponent(txtDni)
 						.addComponent(txtNombre)
 						.addComponent(txtDomicilio)
-						.addComponent(txtContraseña)
+						.addComponent(txtContraseÃ±a)
 						.addComponent(txtFechaNacimiento)
 						.addComponent(txtNombreUsuario, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
 						.addComponent(txtMail))
@@ -218,7 +218,7 @@ public class AltaUsuario extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2)
-						.addComponent(txtContraseña, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtContraseÃ±a, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDomicilio)
@@ -297,7 +297,7 @@ public class AltaUsuario extends JDialog {
 	private void asignarDatosEntidad() {
 		usuario.setNombreUsuario(txtNombreUsuario.getText());
 		usuario.setFechaNacimiento(txtFechaNacimiento.getText());
-		usuario.setPassword(txtContraseña.getText());
+		usuario.setPassword(txtContraseÃ±a.getText());
 		usuario.setDomicilio(txtDomicilio.getText());
 		usuario.setNombre(txtNombre.getText());
 		usuario.setDni(Integer.parseInt(txtDni.getText()));
@@ -317,7 +317,7 @@ public class AltaUsuario extends JDialog {
 	private void asignarDatosForm(){
 		txtNombreUsuario.setText(usuario.getNombreUsuario());
 		txtFechaNacimiento.setText(usuario.getFechaNacimiento());
-		txtContraseña.setText(usuario.getPassword());
+		txtContraseÃ±a.setText(usuario.getPassword());
 		txtDomicilio.setText(usuario.getDomicilio());
 		txtNombre.setText(usuario.getNombre());
 		txtDni.setText(String.valueOf(usuario.getDni()));
