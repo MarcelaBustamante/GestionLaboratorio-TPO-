@@ -1,4 +1,7 @@
 package dto;
+
+import java.util.List;
+
 public class PacienteDTO {
 	private int idPaciente;
 	private int dni;
@@ -7,6 +10,7 @@ public class PacienteDTO {
 	private String mail;
 	private String sexo;
 	private int edad;
+	
 	public int getIdPaciente() {
 		return idPaciente;
 	}

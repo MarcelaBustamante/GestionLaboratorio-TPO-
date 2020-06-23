@@ -22,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -117,8 +116,7 @@ public class SucursalABM {
 					dialog.setSucursalOringenDestino(sucursales.getSucursal(tableSucursales.getSelectedRow()),sucursales.listarSucursales());
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					dialog.setLocationRelativeTo(frmAbmDeSucursales);
-				    //if(dialog.getModalResult()==ModalResult.OK)
+				//	if(dialog.getModalResult()==ModalResult.OK)
 						tableModelSucursal.refresh();
 					}
 					catch(Exception e){
@@ -169,7 +167,6 @@ public class SucursalABM {
 		catch (Exception e) {e.printStackTrace();}
 		
 		frmAbmDeSucursales = new JFrame();
-		frmAbmDeSucursales.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuView.class.getResource("/res/hospital4.png")));
 		frmAbmDeSucursales.setTitle("ABM de Sucursales");
 		frmAbmDeSucursales.setBounds(100, 100, 526, 398);
 		frmAbmDeSucursales.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

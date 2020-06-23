@@ -2,7 +2,6 @@ package collections;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,58 +14,73 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import dto.PacienteDTO;
 import dto.PeticionDTO;
 
 public class PacienteCollection {
-	private List<PacienteDTO> datos = new ArrayList<>();
-	public PacienteCollection()
-	{
-		addDemoData();
+	private List<PacienteDTO> datos;
+
+	public PacienteCollection() {
 		datos = leer();
+
 	}
-	public List<PacienteDTO> getPacientesList()
-	{
+
+	public List<PacienteDTO> getPacientesList() {
 		return datos;
 	}
-	
-	public PacienteDTO getPaciente(int index)
-	{
+
+	public PacienteDTO getPaciente(int index) {
 		return datos.get(index);
 	}
-	
-	public void agregarDatos(PacienteDTO paciente) {
-		datos.add(paciente);
+	public PacienteDTO getPacienteId(int id) {
+		for (PacienteDTO pacienteDTO : datos) {
+			if(id == pacienteDTO.getIdPaciente()) {
+				return pacienteDTO;
+			}
+		}
+		return null;
 	}
-	
-	public void addDemoData()
-	{
-		PacienteDTO p = new PacienteDTO();
-		p.setIdPaciente(1);
-		p.setDni(452658);
-		p.setNombre("Julia");
-		p.setDomicilio("Avenida Independencia 523");
-		p.setMail("july@hotmail.com");
-		p.setSexo("Femenino");
-		p.setEdad(29);
-		datos.add(p);
+
+	public void agregarDatos(PacienteDTO paciente) {
+		PacienteDTO p = getPacienteId(paciente.getIdPaciente());
+		if(p != null) {
+			p.setIdPaciente(paciente.getIdPaciente());
+			p.setDni(paciente.getDni());
+			p.setNombre(paciente.getNombre());
+			p.setDomicilio(paciente.getDomicilio());
+			p.setMail(paciente.getMail());
+			p.setSexo(paciente.getSexo());
+			p.setEdad(paciente.getEdad());
+		
+		}else {
+			datos.add(paciente);
+		}
 	}
 	public void grabar() {
 		try {
 			FileUtils.grabar("pacientes.txt", datos);
-		} catch (IOException e) {
+		} catch (Exception ex) {
 			datos = new ArrayList<>();
-			System.out.println( e.getMessage());
+			System.out.println(ex.getMessage());
 		}
 	}
-	 private List<PacienteDTO> leer() {
 
-		 try {
-				datos = FileUtils.leer("pacientes.txt", PacienteDTO.class);
-			} catch (IOException e) {
-				datos = new ArrayList<>();
-				System.out.println( e.getMessage());
-			}
-			return datos;
-	    }
+	private List<PacienteDTO> leer() {
+		try {
+			datos = FileUtils.leer("pacientes.txt", PacienteDTO.class);
+		}catch (Exception e) {
+			//si no existe el archivo lo crea 
+			datos = new ArrayList<>();
+			System.out.println(e.getMessage());
+		}
+		return datos;
+	}
+
+	public void eliminar(int id) {
+		datos.remove(id);
+		grabar();
+	}
+	
 }

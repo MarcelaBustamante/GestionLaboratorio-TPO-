@@ -7,6 +7,8 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.stream.Collectors;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,13 +23,20 @@ import javax.swing.text.MaskFormatter;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
 import controller.PacienteController;
+import controller.PeticionesController;
+import controller.PracticaController;
+import controller.SucursalController;
 import dto.PacienteDTO;
+import dto.PeticionDTO;
+import javafx.scene.control.ComboBox;
 import model.EstadoPeticion;
+import model.Paciente;
 import view.ModalResult;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JRadioButton;
@@ -36,6 +45,10 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -45,13 +58,15 @@ import java.awt.Toolkit;
 public class AltaPaciente extends JDialog {
 //"ID", "Dni", "Nombre", "Domicilio", "Mail", "Sexo", "Edad"
 	private final JPanel contentPanel = new JPanel();
-	private PacienteController controladorController;
+	private PacienteController controladorPaciente;
+	private PacienteDTO paciente = new PacienteDTO(); 
 	private JTextField txtID;
 	private JTextField txtDni;
 	private JTextField txtNombre;
 	private JTextField txtDomicilio;
 	private JTextField txtMail;
 	private JTextField txtEdad;
+	//private JTextField txtSexo;
 	private JComboBox<String> sexobox;
 	private ModalResult modalResult;
 	private JTextField textField;
@@ -62,7 +77,6 @@ public class AltaPaciente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	
 	private void inicializarControles() {
 		setBounds(100, 100, 660, 306);
 		getContentPane().setLayout(new BorderLayout());
@@ -73,16 +87,52 @@ public class AltaPaciente extends JDialog {
 		
 		txtID = new JTextField();
 		txtID.setColumns(10);
+		txtID.setText(String.valueOf(controladorPaciente.obtenerUltimoId() + 1));
+		txtID.setEditable(false);
+		txtID.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char validar = arg0.getKeyChar();
+				if(Character.isLetter(validar)) {
+					getToolkit().beep();
+					arg0.consume();
+					JOptionPane.showMessageDialog(rootPane, "ingrese unicamente numeros");
+				}
+			}
+		});
+		
+		
 		
 		JLabel lblNewLabel_1 = new JLabel("Dni");
 		
 		txtDni = new JTextField();
 		txtDni.setColumns(10);
+		txtDni.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char validar = arg0.getKeyChar();
+				if(Character.isLetter(validar)) {
+					getToolkit().beep();
+					arg0.consume();
+					JOptionPane.showMessageDialog(rootPane, "ingrese unicamente numeros");
+				}
+			}
+		});
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
+		txtNombre.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent arg0) {
+				char validar = arg0.getKeyChar();
+				if(Character.isDigit(validar)) {
+					getToolkit().beep();
+					arg0.consume();
+					JOptionPane.showMessageDialog(rootPane, "ingrese unicamente letras");
+				}
+			}
+		});
 		
 		JLabel lblDomicilio = new JLabel("Domicilio");
 		
@@ -94,10 +144,26 @@ public class AltaPaciente extends JDialog {
 		txtMail = new JTextField();
 		txtMail.setColumns(10);
 		
+		/*JLabel lblNewLabel_3 = new JLabel("Sexo");
+		
+		txtSexo = new JTextField();
+		txtSexo.setColumns(10);
+		*/
 		JLabel lblNewLabel_4 = new JLabel("Edad");
 		
 		txtEdad= new JTextField();
 		txtEdad.setColumns(10);
+		txtEdad.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char validar = arg0.getKeyChar();
+				if(Character.isLetter(validar)) {
+					getToolkit().beep();
+					arg0.consume();
+					JOptionPane.showMessageDialog(rootPane, "ingrese unicamente numeros");
+				}
+			}
+		});
 		
 		textField = new JTextField();
 		textField.setColumns(10);
@@ -170,27 +236,26 @@ public class AltaPaciente extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			JButton okButton = new JButton("OK");
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					asignarDatosEntidad();
+					modalResult = ModalResult.OK;
+					dispose();
+				}
+			});
 			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						asignarDatosEntidad();
-						modalResult = ModalResult.OK;
-						dispose();
-					}
-				});
-				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					modalResult = ModalResult.CANCELL;
+					dispose();
+				}
+			});
 			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						modalResult = ModalResult.CANCELL;
-						dispose();
-					}
-				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -201,27 +266,37 @@ public class AltaPaciente extends JDialog {
 		super(frame, "Paciente", true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaPaciente.class.getResource("/res/hospital4.png")));
 		setLocationRelativeTo(frame);
-		controladorController = new PacienteController();
+		controladorPaciente = new PacienteController();
 		inicializarControles();
 	}
 
 	
 
 	private void asignarDatosEntidad() {
-		
-		int id = Integer.parseInt(txtID.getText());
-		int dni = Integer.parseInt(txtDni.getText());
-		String nombre = txtNombre.getText();
-		String domicilio = txtDomicilio.getText();
-		String mail = txtMail.getText();
-		String sexo = sexobox.getItemAt(sexobox.getSelectedIndex());
-		int edad = Integer.parseInt(txtEdad.getText());
-		controladorController.altaPaciente(id, dni, nombre, domicilio, mail, sexo, edad);
-		
+        paciente.setIdPaciente(Integer.parseInt(txtID.getText()));
+        paciente.setDni(Integer.parseInt(txtDni.getText()));
+        paciente.setNombre(txtNombre.getText());
+        paciente.setDomicilio(txtDomicilio.getText());
+        paciente.setMail(txtMail.getText());
+        paciente.setSexo(sexobox.getItemAt(sexobox.getSelectedIndex()));
+        paciente.setEdad(Integer.parseInt(txtEdad.getText()));
+		controladorPaciente.agregarPaciente(paciente);
 	}
-	
-	public PacienteDTO getPacienteDTO() {
-		return controladorController.getPacienteDTO();
+	private void asignarDatosForm(){
+		txtID.setText(String.valueOf(paciente.getIdPaciente()));
+		txtDni.setText(String.valueOf(paciente.getDni()));
+		txtNombre.setText(paciente.getNombre());
+		txtDomicilio.setText(paciente.getDomicilio());
+		txtMail.setText(paciente.getMail());
+		sexobox.setActionCommand(paciente.getSexo());
+		txtEdad.setText(String.valueOf(paciente.getEdad()));
+	}
+	public void setPaciente(PacienteDTO paciente) {
+		this.paciente = paciente;
+		asignarDatosForm();
+	}
+	public PacienteDTO getPaciente() {
+		return paciente;
 	}
 
 	public ModalResult getModalResult() {

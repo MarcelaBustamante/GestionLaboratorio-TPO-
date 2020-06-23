@@ -9,9 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 
 
-
 import view.ModalResult;
-import view.tablemodel.PacienteTableModel;
+import view.tablemodel.UsuarioTableModel;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -31,21 +30,23 @@ import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import controller.PacienteController;
-import collections.PacienteCollection;
+import com.sun.java.swing.plaf.windows.resources.windows;
+
+import collections.UsuarioCollection;
+import controller.UsuarioController;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 
-public class PacienteABM extends JFrame {
-	private PacienteController pacientes;
+public class UsuarioABM extends JFrame {
+	private UsuarioController usuarios;
 	private JFrame frame;
-	private JPanel pacientePanel;
+	private JPanel usuarioPanel;
 	private JPanel panel_1;
-	private JTable tablePacientes;
-	private PacienteTableModel tableModelPaciente;
+	private JTable tableUsuarios;
+	private UsuarioTableModel tableModelUsuario;
 	/**
 	 * Launch the application.
 	 */
@@ -53,7 +54,7 @@ public class PacienteABM extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PacienteABM window = new PacienteABM();
+					UsuarioABM window = new UsuarioABM();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,47 +66,42 @@ public class PacienteABM extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PacienteABM() {
-		pacientes = new PacienteController();
-		tableModelPaciente = new PacienteTableModel(pacientes.listaPacientes());
+	public UsuarioABM() {
+		usuarios = new UsuarioController();
+		tableModelUsuario = new UsuarioTableModel(usuarios.listaUsuarios());
 		inicializar();
 	}
 
-	private void agregarPaciente() {
+	private void agregarUsuario() {
 		try {
-			//abre un alta de Paciente
-			AltaPaciente dialog = new AltaPaciente(frame);
+			//abre un alta de peticion
+			AltaUsuario dialog = new AltaUsuario(frame);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			JOptionPane.showMessageDialog(null, "finalizado");
-			if (dialog.getModalResult() == ModalResult.OK) {
-				tableModelPaciente.agregar(dialog.getPaciente());
-			}
+			JOptionPane.showMessageDialog(null, "Finalizado");
+			if (dialog.getModalResult() == ModalResult.OK)
+				tableModelUsuario.agregar(dialog.getUsuario());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}				
 	}
 	private void modificar() {
 		try {
-			AltaPaciente dialog = new AltaPaciente(frame);
-			dialog.setPaciente(pacientes.obtenerPaciente((tablePacientes.getSelectedRow())));
+			AltaUsuario dialog = new AltaUsuario(frame);
+			dialog.setUsuario(usuarios.obtenerUsuario((tableUsuarios.getSelectedRow())));
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			JOptionPane.showMessageDialog(null, "El paciente ha sido modificado");
+			JOptionPane.showMessageDialog(null, "El usuario ha sido modificado");
 			if (dialog.getModalResult() == ModalResult.OK)
-				tableModelPaciente.refresh();
+				tableModelUsuario.refresh();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	private void eliminar() {
-		if(pacientes.existePetiFinalizada(tablePacientes.getSelectedRow())) {
-			JOptionPane.showMessageDialog(frame, "No se puede eliminar el paciente, existen peticiones finalizadas");
-		}
-		else
-
-			JOptionPane.showMessageDialog(frame, "El paciente ha sido eliminado");
-		tableModelPaciente.refresh();
+		usuarios.eliminarUsuario(tableUsuarios.getSelectedRow());
+		JOptionPane.showMessageDialog(frame, "El usuario ha sido eliminado");
+		tableModelUsuario.refresh();
 	}
 	private void inicializar() {
 		try {
@@ -114,13 +110,13 @@ public class PacienteABM extends JFrame {
 			e.printStackTrace();
 		}				
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PeticionABM.class.getResource("/res/hospital4.png")));
-		setTitle("ABM Pacientes");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioABM.class.getResource("/res/hospital4.png")));
+		setTitle("ABM Usuarios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1101, 570);
-		pacientePanel = new JPanel();
-		pacientePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(pacientePanel);
+		setBounds(100, 100, 811, 563);
+		usuarioPanel = new JPanel();
+		usuarioPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(usuarioPanel);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
@@ -129,54 +125,50 @@ public class PacienteABM extends JFrame {
 		panel_1 = new JPanel();
 		
 		JScrollPane scrollPane = new JScrollPane();
-		GroupLayout gl_pacientePanel = new GroupLayout(pacientePanel);
-		gl_pacientePanel.setHorizontalGroup(
-			gl_pacientePanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_pacientePanel.createSequentialGroup()
+		GroupLayout gl_usuarioPanel = new GroupLayout(usuarioPanel);
+		gl_usuarioPanel.setHorizontalGroup(
+			gl_usuarioPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_usuarioPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
 					.addContainerGap())
-				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1073, Short.MAX_VALUE)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
 		);
-		gl_pacientePanel.setVerticalGroup(
-			gl_pacientePanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_pacientePanel.createSequentialGroup()
+		gl_usuarioPanel.setVerticalGroup(
+			gl_usuarioPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_usuarioPanel.createSequentialGroup()
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-					.addGap(2)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 354, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
 		);
-		tablePacientes = new JTable(tableModelPaciente);
-		tablePacientes.setAutoCreateRowSorter(true);
-		tablePacientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		scrollPane.setViewportView(tablePacientes);
+		
+		tableUsuarios = new JTable(tableModelUsuario);
+		tableUsuarios.setAutoCreateRowSorter(true);
+		tableUsuarios.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		scrollPane.setViewportView(tableUsuarios);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				agregarPaciente();
+				agregarUsuario();
 			}
 		});
 		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				modificar();
 			}
 		});
-		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				eliminar();
 			}
 		});
-		
-		
-		
-		
 		JSeparator separator = new JSeparator();
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -208,11 +200,11 @@ public class PacienteABM extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblPacientes = new JLabel("ABM Pacientes");
-		panel.add(lblPacientes);
-		lblPacientes.setFont(new Font("Verdana", Font.PLAIN, 20));
-		lblPacientes.setBackground(Color.DARK_GRAY);
-		pacientePanel.setLayout(gl_pacientePanel);
+		JLabel lblUsuarios = new JLabel("ABM Usuarios");
+		panel.add(lblUsuarios);
+		lblUsuarios.setFont(new Font("Verdana", Font.PLAIN, 20));
+		lblUsuarios.setBackground(Color.DARK_GRAY);
+		usuarioPanel.setLayout(gl_usuarioPanel);
 		
 	}
 	

@@ -21,6 +21,32 @@ public class PeticionesController {
 	public PeticionesController(boolean selected) {
 		valoresCriticosFiltro = selected;
 	}
+	/*public List<PeticionDTO> listaPeticionesPaciente(int paciente){
+		
+		List<PeticionDTO> listaPetPacientes = new ArrayList<PeticionDTO>();
+		List<PeticionDTO> lista = peticionColeccion.getPeticionesList();
+		
+		for(PeticionDTO pet : lista ) {
+			if(paciente == pet.getDniPaciente()) {
+				listaPetPacientes.add(pet);
+			}
+		}
+		
+
+		return listaPetPacientes;
+	}*/
+	public List<PeticionDTO> listaPeticionesPaciente(int dni)
+	{
+		List<PeticionDTO> listaPetPacientes = new ArrayList<PeticionDTO>();
+		 for(int i=0;i<peticionColeccion.getPeticionesList().size();i++) {
+			 if(peticionColeccion.getPeticion(i).getDniPaciente()==dni) {
+				 listaPetPacientes.add(peticionColeccion.getPeticion(i));
+			 }
+				 
+		 }
+		 return listaPetPacientes;
+	}
+					
 
 	public void agregarPeticion(PeticionDTO p) {
 		peticionColeccion.agregarDatos(p);
@@ -69,9 +95,12 @@ public class PeticionesController {
 	 * @param dni
 	 * @return boolean
 	 */
-	public boolean existePeticionActiva(int dni) {
-		return peticionColeccion.getPeticionesList().stream()
-				.anyMatch((pet -> (pet.getDniPaciente() == dni) && (pet.getEstado() != EstadoPeticion.Finalizada)));
+	public boolean existePeticionFin(int dni) {
+		for(int i=0;i<peticionColeccion.getPeticionesList().size();i++) {
+			if(peticionColeccion.getPeticion(i).getDniPaciente()==dni && peticionColeccion.getPeticion(i).getEstado()==EstadoPeticion.Finalizada)
+			return true;
+		}
+		return false;
 	}
 	
 	/**
