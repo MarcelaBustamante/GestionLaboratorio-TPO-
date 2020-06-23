@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -74,7 +75,6 @@ public class SucursalABM {
 		try {
 			//abre un alta de peticion
 			AltaSucursal dialog = new AltaSucursal(frmAbmDeSucursales);
-			//AltaSucursal dialog = new AltaSucursal();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 			JOptionPane.showMessageDialog(null, "Finalizado");
@@ -108,20 +108,25 @@ public class SucursalABM {
 		else {
 			if(sucursales.contienActivas(tableSucursales.getSelectedRow())) {
 				
-			}
-			else {
 				try {
 					DerviarPeticiones dialog = new DerviarPeticiones(derivPeticiones);
 					//ACA ESTOY INTENTANDO HACER LA DERIVACION
 					dialog.setSucursalOringenDestino(sucursales.getSucursal(tableSucursales.getSelectedRow()),sucursales.listarSucursales());
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-				//	if(dialog.getModalResult()==ModalResult.OK)
+					dialog.setLocationRelativeTo(frmAbmDeSucursales);
+					if(dialog.getModalResult() == ModalResult.OK)
 						tableModelSucursal.refresh();
 					}
 					catch(Exception e){
 						e.printStackTrace();
 					}
+			}
+			else
+			{
+				//No tiene peticiones asignadas
+				sucursales.eliminarSucursal(tableSucursales.getSelectedRow());
+				System.out.print("Se elimina");
 			}
 				//JOptionPane.showMessageDialog(frmAbmDeSucursales, "Sucursal eliminada");
 		}
@@ -167,6 +172,7 @@ public class SucursalABM {
 		catch (Exception e) {e.printStackTrace();}
 		
 		frmAbmDeSucursales = new JFrame();
+		frmAbmDeSucursales.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuView.class.getResource("/res/hospital4.png")));
 		frmAbmDeSucursales.setTitle("ABM de Sucursales");
 		frmAbmDeSucursales.setBounds(100, 100, 526, 398);
 		frmAbmDeSucursales.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

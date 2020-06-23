@@ -21,20 +21,7 @@ public class PeticionesController {
 	public PeticionesController(boolean selected) {
 		valoresCriticosFiltro = selected;
 	}
-	/*public List<PeticionDTO> listaPeticionesPaciente(int paciente){
-		
-		List<PeticionDTO> listaPetPacientes = new ArrayList<PeticionDTO>();
-		List<PeticionDTO> lista = peticionColeccion.getPeticionesList();
-		
-		for(PeticionDTO pet : lista ) {
-			if(paciente == pet.getDniPaciente()) {
-				listaPetPacientes.add(pet);
-			}
-		}
-		
 
-		return listaPetPacientes;
-	}*/
 	public List<PeticionDTO> listaPeticionesPaciente(int dni)
 	{
 		List<PeticionDTO> listaPetPacientes = new ArrayList<PeticionDTO>();
@@ -76,6 +63,7 @@ public class PeticionesController {
 		 for(int i=0;i<peticionColeccion.getPeticionesList().size();i++) {
 			 if(peticionColeccion.getPeticion(i).getIdSucursal()==sucOrigen) {
 				 peticionColeccion.getPeticion(i).setIdSucursal(sucDestino);
+				 peticionColeccion.grabar();
 			 }
 		 }
 	
@@ -158,13 +146,9 @@ public class PeticionesController {
 	public int obtenerUltimoId() {
 		
 		List<PeticionDTO> aux = listaPeticiones(); 
-		int tam = aux.size();
-		if(tam > 0) {
-			aux.sort((a, b) -> a.getIdPeticion() - b.getIdPeticion());
-			return aux.get(tam).getIdPeticion();	
-		}else {
-			return 0;
-		}
-		
+		aux.sort((a, b) -> a.getIdPeticion() - b.getIdPeticion());
+		return (aux.size()==0) ? 0 : (aux.get(aux.size() - 1).getIdPeticion());
 	}
+		
+	
 }

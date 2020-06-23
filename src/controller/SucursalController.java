@@ -20,8 +20,8 @@ public class SucursalController {
 
 	
 
-	public void eliminarSucursal(int indice) {
-		sucCollection.eliminar(indice);
+	public void eliminarSucursal(int idSuc) {
+		sucCollection.eliminar(idSuc);
 	}
 	
 	public boolean contienPetiFinalizada(int sucSeleccionada) {
@@ -33,7 +33,7 @@ public class SucursalController {
 		}
 	
 	public boolean contienActivas(int sucSeleccionada) {
-		if(controladorPeticion.existePeticionActEnSuc(sucSeleccionada))
+		if(controladorPeticion.existePeticionActEnSuc(sucCollection.getSucursalesList().get(sucSeleccionada).getIdSucursal()))
 			return true;
 		return false;
 	}
@@ -88,6 +88,26 @@ public class SucursalController {
 		return sucCollection.getSucursal(id);
 	}
 //	
+
+
+
+
+	public void derivarPeticiones(String origen, String destino) {
+		// TODO Auto-generated method stub
+		int sucOrigen = Integer.parseInt(origen);
+		int sucDestino = Integer.parseInt(destino);
+		controladorPeticion.DerivarPeticiones(sucOrigen,sucDestino);		
+	}
+
+
+
+
+	public int obtenerUltimoId() {
+		// TODO Auto-generated method stub
+		List<SucursalDTO> aux = listarSucursales(); 
+		aux.sort((a, b) -> a.getIdSucursal() - b.getIdSucursal());
+		return (aux.size()==0) ? 0 : (aux.get(aux.size() - 1).getIdSucursal());
+	}
 
 //	
 //	private void cambiarEstado(int idSucursal) {

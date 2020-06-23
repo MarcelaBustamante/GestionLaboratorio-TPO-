@@ -1,1 +1,1 @@
-[{"idSucursal":2323,"direccion":"sdfsdf","responsableTecnico":"sdfsdf","estado":"Activa"},{"idSucursal":23,"direccion":"as","responsableTecnico":"asdasd","estado":"Activa"},{"idSucursal":22,"direccion":"as","responsableTecnico":"asdasd","estado":"Activa"}]
+[{"idSucursal":1,"direccion":"lola","responsableTecnico":"lala","estado":"Activa"},{"idSucursal":2,"direccion":"boby","responsableTecnico":"goma","estado":"Activa"}]

@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,15 +14,19 @@ import javax.swing.border.EmptyBorder;
 
 import controller.SucursalController;
 import dto.SucursalDTO;
+import model.EstadoSucursal;
 
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DerviarPeticiones extends JDialog {
 
@@ -31,29 +36,39 @@ public class DerviarPeticiones extends JDialog {
 	private JComboBox dropdownsucDestino;
 	private JLabel lblSucOrigen;
 	private JTextField txtsucOrigen;
+	 ModalResult modalResult;
 	int idSucursal;
 	private SucursalController controladorDeSucursal;
-
+	JButton cancelButton,okButton;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			DerviarPeticiones dialog = new DerviarPeticiones();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	public void inicializarEventos(){
 		
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+	
+		
+
+	okButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			derivarPeticiones(txtsucOrigen.getText(),dropdownsucDestino.getSelectedItem().toString());
+			modalResult = ModalResult.OK;
+			dispose();
+		}
+	});		
+	
 	}
 	
 	public void inicializarPantalla() {
-		setBounds(100, 100, 443, 231);
+		
+		setBounds(100, 100, 443, 250);
 		FlowLayout fl_contentPanel = new FlowLayout();
 		fl_contentPanel.setAlignment(FlowLayout.LEFT);
 		contentPanel.setLayout(fl_contentPanel);
@@ -68,13 +83,13 @@ public class DerviarPeticiones extends JDialog {
 			buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			{
-				JButton okButton = new JButton("Derivar peticiones");
+				okButton = new JButton("Derivar peticiones");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -96,7 +111,8 @@ public class DerviarPeticiones extends JDialog {
 		
 		JLabel lblSucDestino = new JLabel("Sucursal Destino");
 		
-		JLabel lblNewLabel = new JLabel("<html><pre>Se transferiran las peticiones de la sucursal de <br> origen a la sucursal de origen seleccionada</pre></html>");
+		JLabel lblNewLabel = new JLabel("<html><pre>La sucursa que usted esta intentando eliminar cuenta con<br>peticiones activa. Para eliminarla seleccione una sucursal<br>para derivar dichas peticiones </pre></html>");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		GroupLayout gl_Izq = new GroupLayout(Izq);
 		gl_Izq.setHorizontalGroup(
@@ -139,7 +155,7 @@ public class DerviarPeticiones extends JDialog {
 		public DerviarPeticiones(JFrame frame) {
 	//public DerviarPeticiones(JFrame frame) {
 		//super(frame, "Usuario", true);
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(AltaUsuario.class.getResource("/res/hospital4.png")));
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(DerivarPeticiones.class.getResource("/res/hospital4.png")));
 		//setLocationRelativeTo(frame);
 		//controladorDeSucursal = new SucursalController();
 		inicializarPantalla();
@@ -149,12 +165,30 @@ public class DerviarPeticiones extends JDialog {
 		{
 			inicializarPantalla();
 			inicializarEventos();
+			controladorDeSucursal = new SucursalController();
 		}
 		
 		public void setSucursalOringenDestino(SucursalDTO sucursal,List<SucursalDTO> listaSucursales) {
 			txtsucOrigen.setText(String.valueOf(sucursal.getIdSucursal()));
-			//String[] array = listaSucursales.toArray(new String[listaSucursales.size()]);
-			//dropdownsucDestino.getModel().setSelectedItem(array);
-	
+			List<String> ls = new ArrayList<String>(); 
+			for(int i=0;i<listaSucursales.size();i++) {
+				if(listaSucursales.get(i).getIdSucursal()!=sucursal.getIdSucursal())//No listo la sucursal seleccionada a eliminar
+					ls.add((Integer.toString(listaSucursales.get(i).getIdSucursal())));
+			}
+			dropdownsucDestino.setModel(new DefaultComboBoxModel<String>(ls.toArray(new String[0])));
+		}
+		
+		public void derivarPeticiones(String sucOrigen, String sucDestino) {
+			controladorDeSucursal = new SucursalController();
+			controladorDeSucursal.derivarPeticiones(sucOrigen,sucDestino);
+			controladorDeSucursal.eliminarSucursal(Integer.parseInt(sucOrigen)-1);
+		}
+		
+		public void eliminar(int index){
+			controladorDeSucursal.eliminarSucursal(index);
+		}
+		
+		public ModalResult getModalResult() {
+			return modalResult;
 		}
 }

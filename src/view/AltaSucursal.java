@@ -94,6 +94,12 @@ public class AltaSucursal extends JDialog {
 			}
 		});
 		
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		
 		
 	}
 	
@@ -129,6 +135,8 @@ public class AltaSucursal extends JDialog {
 		{
 			txtidSucursal = new JTextField();
 			txtidSucursal.setColumns(10);
+			txtidSucursal.setText(String.valueOf(controladorDeSucursal.obtenerUltimoId() + 1));
+			txtidSucursal.setEditable(false);
 		}
 		
 		//Dir de sucursal
