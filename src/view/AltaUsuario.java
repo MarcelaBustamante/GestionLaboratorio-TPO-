@@ -20,7 +20,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.InternationalFormatter;
 import javax.swing.text.MaskFormatter;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
+//import org.omg.CORBA.PRIVATE_MEMBER;
 
 import collections.FileUtils;
 import controller.PacienteController;
@@ -31,7 +31,7 @@ import controller.UsuarioController;
 import dto.PacienteDTO;
 import dto.PeticionDTO;
 import dto.UsuarioDTO;
-import javafx.scene.control.ComboBox;
+//import javafx.scene.control.ComboBox;
 import model.EstadoPeticion;
 import view.ModalResult;
 
@@ -86,7 +86,7 @@ public class AltaUsuario extends JDialog {
 				if(controladorpaciente.existePaciente(Integer.parseInt(txtDni.getText()))){
 				}else {
 					getToolkit().beep();
-					JOptionPane.showMessageDialog(null,"El dni ingresado no corresponde a un paciente, vuelva a intentarlo");
+					
 				}
 			}
 		});
@@ -124,7 +124,7 @@ public class AltaUsuario extends JDialog {
 			}
 		});
 		
-		JLabel lblNewLabel_2 = new JLabel("Contrase�a");
+		JLabel lblNewLabel_2 = new JLabel("Contraseña");
 		
 		txtContraseña = new JTextField();
 		txtContraseña.setColumns(10);
@@ -304,16 +304,8 @@ public class AltaUsuario extends JDialog {
 		usuario.setMail(txtMail.getText());
 		usuario.setRolUsuario(rolbox.getItemAt(rolbox.getSelectedIndex()));
 		controladorusuario.agregarUsuario(usuario);
-		if(validarForm(usuario))controladorusuario.agregarUsuario(usuario);
 	}
-	public boolean validarForm(UsuarioDTO p) {
-		if(controladorpaciente.existepaciente(p.getDni(),p.getMail(),p.getNombre(),p.getDomicilio())){
-				return true;	
-			}else {
-				JOptionPane.showMessageDialog(null,"El paciente no existe");
-				return false;
-			}
-	}
+
 	private void asignarDatosForm(){
 		txtNombreUsuario.setText(usuario.getNombreUsuario());
 		txtFechaNacimiento.setText(usuario.getFechaNacimiento());

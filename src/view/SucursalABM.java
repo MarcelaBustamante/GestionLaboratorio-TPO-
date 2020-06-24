@@ -35,7 +35,8 @@ import javax.swing.SwingConstants;
 
 public class SucursalABM {
 
-	private JFrame frmAbmDeSucursales, derivPeticiones;
+	JFrame frmAbmDeSucursales;
+	private JFrame derivPeticiones;
 	//Declaro los botones aca ya que cambie la estructura original del archivo como hizo el profe
 	private SucursalController sucursales;
 	private JButton btnAgregar, btnModificar, btnEliminar;
@@ -114,7 +115,7 @@ public class SucursalABM {
 					dialog.setSucursalOringenDestino(sucursales.getSucursal(tableSucursales.getSelectedRow()),sucursales.listarSucursales());
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					dialog.setLocationRelativeTo(frmAbmDeSucursales);
+					//tableModelSucursal.refresh();
 					if(dialog.getModalResult() == ModalResult.OK)
 						tableModelSucursal.refresh();
 					}
@@ -126,6 +127,7 @@ public class SucursalABM {
 			{
 				//No tiene peticiones asignadas
 				sucursales.eliminarSucursal(tableSucursales.getSelectedRow());
+				tableModelSucursal.refresh();
 				System.out.print("Se elimina");
 			}
 				//JOptionPane.showMessageDialog(frmAbmDeSucursales, "Sucursal eliminada");

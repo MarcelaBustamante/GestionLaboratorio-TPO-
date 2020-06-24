@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
-public class PracticaABM extends JDialog {
+public class AltaPractica extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldCodigo;
@@ -35,9 +35,9 @@ public class PracticaABM extends JDialog {
 	private PracticaDTO practica = new PracticaDTO();
 	private PracticaController practicaController;
 	
-	public PracticaABM(JFrame frame) {
+	public AltaPractica(JFrame frame) {
 		super(frame, "Persona", true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PracticaABM.class.getResource("/res/hospital4.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaPractica.class.getResource("/res/hospital4.png")));
 		setLocationRelativeTo(frame);
 		practicaController = new PracticaController();
 		inicializarControles();

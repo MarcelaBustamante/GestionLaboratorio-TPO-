@@ -121,7 +121,7 @@ public class MenuView {
 		JMenuItem menuPracticas = new JMenuItem("Practicas");
 		menuPracticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PracticaView p = new PracticaView();
+				ABMPractica p = new ABMPractica();
 				p.main(null);
 			}
 		});
@@ -183,7 +183,7 @@ public class MenuView {
 		frame.getContentPane().add(btnNewButton_4);
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PracticaView p = new PracticaView();
+				ABMPractica p = new ABMPractica();
 				p.main(null);
 			}
 		});

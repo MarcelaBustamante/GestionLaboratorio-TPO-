@@ -20,7 +20,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.InternationalFormatter;
 import javax.swing.text.MaskFormatter;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
+//import org.omg.CORBA.PRIVATE_MEMBER;
 
 import controller.PacienteController;
 import controller.PeticionesController;
@@ -28,7 +28,7 @@ import controller.PracticaController;
 import controller.SucursalController;
 import dto.PacienteDTO;
 import dto.PeticionDTO;
-import javafx.scene.control.ComboBox;
+//import javafx.scene.control.ComboBox;
 import model.EstadoPeticion;
 import model.Paciente;
 import view.ModalResult;

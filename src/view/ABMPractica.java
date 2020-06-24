@@ -28,7 +28,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 
-public class PracticaView {
+public class ABMPractica {
 
 	private JFrame frame;
 	private JTable table;
@@ -36,14 +36,11 @@ public class PracticaView {
 	private PracticaTableModel practicaTableModel;
 	private PracticaController practicas;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PracticaView window = new PracticaView();
+					ABMPractica window = new ABMPractica();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,10 +49,7 @@ public class PracticaView {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public PracticaView() {
+	public ABMPractica() {
 		practicas = new PracticaController();
 		practicaTableModel = new PracticaTableModel(practicas.listaPracticasFull());
 		initialize();
@@ -68,7 +62,7 @@ public class PracticaView {
 	
 	private void agregarPractica() {
 		try {
-			PracticaABM dialog = new PracticaABM(frame);
+			AltaPractica dialog = new AltaPractica(frame);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 			if (dialog.getModalResult() == ModalResult.OK)
@@ -80,7 +74,7 @@ public class PracticaView {
 	
 	private void modificarPractica() {
 		try {
-			PracticaABM dialog = new PracticaABM(frame);		
+			AltaPractica dialog = new AltaPractica(frame);		
 			dialog.setPractica(practicas.obtenerPractica(table.getSelectedRow()));
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
@@ -94,11 +88,12 @@ public class PracticaView {
 	private void eliminar() {
 		practicas.eliminar(table.getSelectedRow());
 		practicaTableModel.refresh();
+		JOptionPane.showMessageDialog(null,"Se ha inahabilitado la practica");
 	}
 	
 	private void initialize() {
 		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(PracticaView.class.getResource("/res/hospital4.png")));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(ABMPractica.class.getResource("/res/hospital4.png")));
 		frame.setBounds(100, 100, 576, 343);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));

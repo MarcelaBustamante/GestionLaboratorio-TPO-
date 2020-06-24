@@ -14,8 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
 import dto.PacienteDTO;
 import dto.PeticionDTO;
 

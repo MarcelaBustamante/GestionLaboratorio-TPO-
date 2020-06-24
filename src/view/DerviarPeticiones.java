@@ -36,6 +36,7 @@ public class DerviarPeticiones extends JDialog {
 	private JComboBox dropdownsucDestino;
 	private JLabel lblSucOrigen;
 	private JTextField txtsucOrigen;
+	private JFrame DerviarPeticiones;
 	 ModalResult modalResult;
 	int idSucursal;
 	private SucursalController controladorDeSucursal;
@@ -153,21 +154,14 @@ public class DerviarPeticiones extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	}
 		public DerviarPeticiones(JFrame frame) {
-	//public DerviarPeticiones(JFrame frame) {
-		//super(frame, "Usuario", true);
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(DerivarPeticiones.class.getResource("/res/hospital4.png")));
-		//setLocationRelativeTo(frame);
-		//controladorDeSucursal = new SucursalController();
+		super(frame, "sucursal", true);
 		inicializarPantalla();
 		inicializarEventos();
+		setLocationRelativeTo(frame);
+		controladorDeSucursal = new SucursalController();
+
 	}
-		public DerviarPeticiones()
-		{
-			inicializarPantalla();
-			inicializarEventos();
-			controladorDeSucursal = new SucursalController();
-		}
-		
+
 		public void setSucursalOringenDestino(SucursalDTO sucursal,List<SucursalDTO> listaSucursales) {
 			txtsucOrigen.setText(String.valueOf(sucursal.getIdSucursal()));
 			List<String> ls = new ArrayList<String>(); 
@@ -182,6 +176,7 @@ public class DerviarPeticiones extends JDialog {
 			controladorDeSucursal = new SucursalController();
 			controladorDeSucursal.derivarPeticiones(sucOrigen,sucDestino);
 			controladorDeSucursal.eliminarSucursal(Integer.parseInt(sucOrigen)-1);
+			modalResult = ModalResult.OK;
 		}
 		
 		public void eliminar(int index){
