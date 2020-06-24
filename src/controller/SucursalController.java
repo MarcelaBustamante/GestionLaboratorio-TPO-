@@ -26,7 +26,7 @@ public class SucursalController {
 	
 	public boolean contienPetiFinalizada(int sucSeleccionada) {
 		//Me fijo si existen peticiones finalizadas
-		if(controladorPeticion.existePeticionFinalizadaSuc(sucCollection.getSucursalesList().get(sucSeleccionada).getIdSucursal()))	
+		if(controladorPeticion.existePeticionFinalizadaSuc(sucCollection.getSucursal(sucSeleccionada).getIdSucursal()))	
 			return true; //System.out.print("No se puede borrar");
 
 		return false;
