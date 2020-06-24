@@ -33,7 +33,7 @@ public class SucursalController {
 		}
 	
 	public boolean contienActivas(int sucSeleccionada) {
-		if(controladorPeticion.existePeticionActEnSuc(sucCollection.getSucursalesList().get(sucSeleccionada).getIdSucursal()))
+		if(controladorPeticion.existePeticionActEnSuc(sucCollection.getSucursal(sucSeleccionada).getIdSucursal()))
 			return true;
 		return false;
 	}
