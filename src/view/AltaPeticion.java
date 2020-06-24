@@ -112,13 +112,16 @@ public class AltaPeticion extends JDialog {
 	public boolean validarForm(PeticionDTO p) {
 		if(FileUtils.validarFecha(p.getFechaCarga()) && FileUtils.validarFecha(p.getFechaEntrega())) {
 			if(controladorPaciente.existePaciente(p.getDniPaciente())){
-				return true;	
+				modalResult = ModalResult.OK;
+				return true;
 			}else {
 				JOptionPane.showMessageDialog(null,"El paciente no existe");
+				modalResult = ModalResult.CANCELL;
 				return false;
 			}
 		}else {
 			JOptionPane.showMessageDialog(null,"Formato de fecha invalido");
+			modalResult = ModalResult.CANCELL;
 			return false;
 		}
 	}
@@ -243,7 +246,6 @@ public class AltaPeticion extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						asignarDatosEntidad();
-						modalResult = ModalResult.OK;
 						dispose();
 					}
 				});
